@@ -22,10 +22,10 @@ void main() async {
           messagingSenderId: "1015362527585",
           projectId: "crudapp-40e03")
     );
-  runApp(MyApp());
+  runApp(_MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class _MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -47,7 +47,12 @@ class MyApp extends StatelessWidget {
           direction: AxisDirection.left,
           settings: settings,
         );
-
+      case '/back':
+        return CustomPageRoute(
+          child: WelcomePage(),
+          direction: AxisDirection.right,
+          settings: settings,
+        );
       case '/welcome':
       default:
         return CustomPageRoute(

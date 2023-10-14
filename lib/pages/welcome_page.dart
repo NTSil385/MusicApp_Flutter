@@ -8,8 +8,14 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Color(0xff1d2846),
+      // backgroundColor:  Color(0xff1d2846),
       body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Color(0xff1d2846),
+            Color(0xff2c3d5b),
+          ])
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
