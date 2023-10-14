@@ -21,10 +21,102 @@ class _LoginPageState extends State<LoginPage> {
       User? user = await _auth.signInWithEmailAndPassword(email, password);
 
       if(user != null ){
-        print('User is successfully login!');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Stack(
+            children: [
+              Container(
+                width: 330,
+                height: 80,
+                decoration: const BoxDecoration(
+                    color:  Colors.greenAccent,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+
+                ),
+                child: const Row(
+
+                  children: [
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                           Text('Congratulation!',
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontSize: 24,
+                             fontWeight: FontWeight.bold
+                           ),
+                           ),
+                           Text('Login Successfully',
+                             style: TextStyle(
+                               color: Colors.white,
+                               fontSize: 18,
+                             ),
+                              maxLines: 2,
+                             overflow: TextOverflow.ellipsis,
+                           ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ));
         Navigator.pushNamed(context, "/home");
       }else {
-        print('ERORR');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Stack(
+            children: [
+              Container(
+                width: 330,
+                height: 80,
+                decoration: const BoxDecoration(
+                    color:  Colors.redAccent,
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+
+                ),
+                child: const Row(
+
+                  children: [
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('ERROR!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          Text('Login Failed!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ));
       }
 }
  @override
@@ -53,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).pushNamed(
                         '/back');
                   }),
-              const SizedBox(height: 100),
+              const SizedBox(height: 80),
               Container(
                 child: Center(
                   child: SingleChildScrollView(
