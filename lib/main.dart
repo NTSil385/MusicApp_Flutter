@@ -47,6 +47,12 @@ class _MyApp extends StatelessWidget {
           direction: AxisDirection.left,
           settings: settings,
         );
+      case '/home':
+        return CustomPageRoute(
+          child: HomePage(),
+          direction: AxisDirection.up,
+          settings: settings,
+        );
       case '/back':
         return CustomPageRoute(
           child: WelcomePage(),

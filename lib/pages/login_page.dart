@@ -62,13 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+
             ],
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.transparent,
           elevation: 0,
         ));
-        Navigator.pushNamed(context, "/home");
+        Navigator.of(context).pushNamed('/home');
       }else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Stack(
