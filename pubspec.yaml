@@ -42,6 +42,7 @@ dependencies:
   firebase_storage: ^11.2.8
   hexcolor: ^3.0.1
   fluttertoast: ^8.2.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +66,12 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-     - assets/image/LOGO_Final.png
+    - assets/
+    - assets/image/
+#     - assets/image/LOGO_Final.png
+#     - assets/image/menu.png
+#     - assets/image/pic-8.png
+#     - assets/image/pic-7.png
   # To add assets to your application, add an assets section, like this:
 
   #   - images/a_dot_ham.jpeg
