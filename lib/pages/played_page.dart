@@ -1,9 +1,22 @@
 
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
+
+
+
+class PositionData{
+
+  final Duration position;
+  final Duration bufferedPosition;
+  final Duration duration;
+
+  PositionData(this.position, this.bufferedPosition, this.duration);
+}
 
 class playedPage extends StatefulWidget {
   String? song_name, artist_name, imageUrl, audioUrl;
@@ -28,11 +41,25 @@ class _songPlayedState extends State<playedPage> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer()..setUrl(widget.audioUrl!);
-
+    _init();
     // _audioPlayer.positionStream;
     // _audioPlayer.bufferedPositionStream;
     // _audioPlayer.durationStream;
   }
+
+  Future<void> _init() async {
+    await _audioPlayer.setLoopMode(LoopMode.all);
+    await _audioPlayer.setAudioSource(_audioPlayer as AudioSource);
+  }
+
+
+
+  Stream<PositionData> get _positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          _audioPlayer.positionStream,
+          _audioPlayer.bufferedPositionStream,
+          _audioPlayer.durationStream,
+              (position, bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero));
 
 
 
@@ -107,9 +134,31 @@ class _songPlayedState extends State<playedPage> {
                   widget.imageUrl!, fit: BoxFit.cover, width: 300,height: 300,
               )),
           ),
-
+              const SizedBox(height: 10,),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                width: 300,
+                child: StreamBuilder<PositionData>(
+                    stream: _positionDataStream,
+                    builder: (context, snapshot){
+                      final positionData = snapshot.data;
+                      return ProgressBar(
+                        barHeight: 8,
+                        baseBarColor: Colors.white,
+                        bufferedBarColor: Colors.grey[300],
+                        progressBarColor: Color(0xff69AFF5),
+                        thumbColor:  Color(0xff69AFF5),
+                        timeLabelTextStyle: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600
+                        ),
+                        progress: positionData?.position ?? Duration.zero,
+                        buffered: positionData?.bufferedPosition ?? Duration.zero,
+                        total: positionData?.duration ?? Duration.zero,
+                        onSeek: _audioPlayer.seek,);
+                    }),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 width: 300,
                 height: 100,
                 decoration: BoxDecoration(
@@ -119,6 +168,7 @@ class _songPlayedState extends State<playedPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+
                     Controls(audioPlayer: _audioPlayer)
             ],
                 ),
@@ -184,6 +234,7 @@ class Controls extends StatelessWidget {
                 iconSize: 60,
                 color: Colors.black,
                 icon: Icon(Icons.skip_next_rounded)),
+
           ],
         ),]
       ),

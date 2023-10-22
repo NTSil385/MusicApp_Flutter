@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ));
-        Navigator.of(context).pushNamed('/upload');
+        Navigator.of(context).pushNamed('/storage');
       }else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Stack(
