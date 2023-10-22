@@ -43,6 +43,15 @@ dependencies:
   hexcolor: ^3.0.1
   fluttertoast: ^8.2.2
   carousel_slider: ^4.2.1
+  file_picker: ^6.0.0
+  flutter_music_player: ^0.0.1
+  get: ^4.6.6
+  audioplayers: ^1.2.0
+  audio_video_progress_bar: ^2.0.1
+  rxdart: ^0.27.7
+  just_audio: ^0.9.35
+  just_audio_background: ^0.0.1-beta.10
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +77,7 @@ flutter:
   assets:
     - assets/
     - assets/image/
+    - assets/audio/
 #     - assets/image/LOGO_Final.png
 #     - assets/image/menu.png
 #     - assets/image/pic-8.png

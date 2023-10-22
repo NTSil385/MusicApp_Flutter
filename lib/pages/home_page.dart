@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         home: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Container(
             height: double.infinity,
             decoration: const BoxDecoration(
