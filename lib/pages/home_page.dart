@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/pages/upload.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,7 +27,6 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         home: Scaffold(
-          resizeToAvoidBottomInset: false,
           body: Container(
             height: double.infinity,
             decoration: const BoxDecoration(
@@ -764,6 +765,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
         ),
       );
   }

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/pages/SplashScreen.dart';
 import 'package:login_register/pages/home_page.dart';
+import 'package:login_register/pages/index_page.dart';
 import 'package:login_register/pages/login_page.dart';
 import 'package:login_register/pages/main_page.dart';
 import 'package:login_register/pages/played_page.dart';
@@ -58,6 +59,12 @@ class _MyApp extends StatelessWidget {
       case '/home':
         return CustomPageRoute(
           child: HomePage(),
+          direction: AxisDirection.up,
+          settings: settings,
+        );
+      case '/index':
+        return CustomPageRoute(
+          child: indexPage(),
           direction: AxisDirection.up,
           settings: settings,
         );

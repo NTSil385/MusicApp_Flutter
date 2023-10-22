@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ));
-        Navigator.of(context).pushNamed('/storage');
+        Navigator.of(context).pushNamed('/index');
       }else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Stack(
