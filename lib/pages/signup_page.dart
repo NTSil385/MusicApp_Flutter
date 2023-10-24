@@ -129,6 +129,7 @@ class _signUpState extends State<signUp> {
             'email': userCredential.user!.email,
             'username': _userNameController.text,
             'phoneNumber' : _phoneNumberController.text,
+            "role": true,
       });
     }
     
