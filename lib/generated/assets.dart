@@ -2,16 +2,28 @@
 class Assets {
   Assets._();
 
+  static const String audioTest = 'assets/audio/test.mp3';
+  static const String audioTest2 = 'assets/audio/test2.mp3';
   static const String image3 = 'assets/image/3.jpg';
+  static const String imageAddAlbum = 'assets/image/add_album.png';
+  static const String imageAddPlaylist = 'assets/image/add_playlist.png';
   static const String imageAfter = 'assets/image/after.jpg';
   static const String imageBackword = 'assets/image/backword.png';
   static const String imageBillie = 'assets/image/billie.jpg';
   static const String imageBornpink = 'assets/image/bornpink.jpg';
   static const String imageBorpinkblack = 'assets/image/borpinkblack.jpg';
   static const String imageBp = 'assets/image/bp.jpg';
+  static const String imageBtnupload = 'assets/image/btnupload.png';
+  static const String imageFavAlbum = 'assets/image/fav_album.png';
+  static const String imageFavArtist = 'assets/image/fav_artist.png';
+  static const String imageFavPlaylist = 'assets/image/Fav_playlist.png';
   static const String imageForward = 'assets/image/forward.png';
+  static const String imageHome = 'assets/image/Home.png';
+  static const String imageIconPause = 'assets/image/Icon_pause.png';
+  static const String imageIconPlay = 'assets/image/icon_play.png';
   static const String imageLOGO = 'assets/image/LOGO.png';
   static const String imageLOGOFinal = 'assets/image/LOGO_Final.png';
+  static const String imageLogout = 'assets/image/logout.png';
   static const String imageLoop = 'assets/image/loop.png';
   static const String imageMenu = 'assets/image/menu.png';
   static const String imagePic1 = 'assets/image/pic-1.png';
@@ -26,6 +38,8 @@ class Assets {
   static const String imagePic9 = 'assets/image/pic-9.png';
   static const String imageProgressbar = 'assets/image/progressbar.jpg';
   static const String imageRepeat = 'assets/image/repeat.png';
+  static const String imageSearch = 'assets/image/search.png';
+  static const String imageSortIcon = 'assets/image/Sort_icon.png';
   static const String imageTaylor = 'assets/image/taylor.jpg';
   static const String jsonBanner = 'assets/json/banner.json';
 

@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/pages/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 
@@ -18,7 +19,7 @@ class _indexPageState extends State<indexPage> {
   List tabs = [
     HomePage(),
     stogragePage(),
-    UploadPage(),
+    ProfilePage(),
   ];
 
   @override

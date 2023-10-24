@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../Widget/back_button.dart';
-import 'firebase_auth_implement.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,7 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseAuthService _auth = FirebaseAuthService();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -18,9 +16,9 @@ class _LoginPageState extends State<LoginPage> {
       String email = _emailController.text;
       String password = _passwordController.text;
 
-      User? user = await _auth.signInWithEmailAndPassword(email, password);
+      UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
 
-      if(user != null ){
+      if(credential != null ){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Stack(
             children: [
@@ -212,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                               controller: _passwordController,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'Full Name',
+                                hintText: 'Password',
                                 hintStyle: TextStyle(color:Colors.white),
                               ),
                             ),

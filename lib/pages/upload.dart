@@ -123,7 +123,7 @@ class _UploadPageState extends State<UploadPage> {
                   backButton(
                       onClick: () {
                         Navigator.of(context).pushNamed(
-                            '/back');
+                            '/profile');
                       }),
                   Stack(
                     children: [

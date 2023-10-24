@@ -1,16 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:login_register/pages/SplashScreen.dart';
 import 'package:login_register/pages/home_page.dart';
 import 'package:login_register/pages/index_page.dart';
 import 'package:login_register/pages/login_page.dart';
 import 'package:login_register/pages/main_page.dart';
 import 'package:login_register/pages/played_page.dart';
+import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/pages/signup_page.dart';
 import 'package:login_register/pages/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
 import 'package:login_register/test/player.dart';
+import 'package:login_register/test/test_playlist.dart';
 import 'package:login_register/test/test_update.dart';
 import 'package:login_register/transition/transition_page.dart';
 
@@ -19,8 +20,6 @@ import 'firebase_options.dart';
 void main() async {
 
     WidgetsFlutterBinding.ensureInitialized();
-
-    // This is the last thing you need to add.
     await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyDUYGoZ0SiXxi_xzAswnlEwugklFAh5vgQ",
@@ -83,6 +82,12 @@ class _MyApp extends StatelessWidget {
       case '/storage':
         return CustomPageRoute(
           child: stogragePage(),
+
+          settings: settings,
+        );
+      case '/profile':
+        return CustomPageRoute(
+          child: indexPage(),
 
           settings: settings,
         );

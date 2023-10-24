@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/Widget/back_button.dart';
-import 'package:login_register/pages/firebase_auth_implement.dart';
 
 class signUp extends StatefulWidget {
   @override
@@ -10,7 +10,6 @@ class signUp extends StatefulWidget {
 
 class _signUpState extends State<signUp> {
 
-  final FirebaseAuthService _auth = FirebaseAuthService();
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -21,9 +20,10 @@ class _signUpState extends State<signUp> {
    String password = _passwordController.text;
    String phoneNumber = _phoneNumberController.text;
 
-   User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    UserCredential? userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
 
-   if(user != null ){
+   if(userCredential != null ){
+     createUserDocumnet(userCredential);
      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
        content: Stack(
          children: [
@@ -121,6 +121,17 @@ class _signUpState extends State<signUp> {
        elevation: 0,
      ));
    }
+  }
+  Future<void> createUserDocumnet(UserCredential userCredential) async {
+    if (userCredential != null && userCredential.user != null) {
+      await FirebaseFirestore.instance.collection("Users").doc(userCredential.user!.email).
+            set({
+            'email': userCredential.user!.email,
+            'username': _userNameController.text,
+            'phoneNumber' : _phoneNumberController.text,
+      });
+    }
+    
   }
   @override
   void dispose() {

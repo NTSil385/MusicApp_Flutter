@@ -2,7 +2,56 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/pages/profile_page.dart';
+import 'package:login_register/pages/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
+
+
+
+
+class indexPageHome extends StatefulWidget {
+  const indexPageHome({super.key});
+
+  @override
+  State<indexPageHome> createState() => _indexPageHometate();
+}
+
+class _indexPageHometate extends State<indexPageHome> {
+  int currenrIndex = 0;
+  List tabs = [
+    HomePage(),
+    stogragePage(),
+    ProfilePage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+
+        backgroundColor:  Color(0xff2c3d5b),
+        animationDuration: Duration(milliseconds: 300),
+        items:const [
+          ImageIcon(
+            AssetImage('assets/image/Home.png'),
+          ),
+          Icon(Icons.search),
+          Icon(Icons.person)
+        ],
+        onTap: (index){
+          setState(() {
+            currenrIndex = index;
+          });
+        },
+      ),
+      body: tabs[currenrIndex],
+    );
+  }
+}
+
+
+
+
 
 class HomePage extends StatefulWidget {
   @override
