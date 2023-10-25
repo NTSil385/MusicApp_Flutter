@@ -12,7 +12,6 @@ import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
 import 'package:login_register/test/player.dart';
 import 'package:login_register/test/test_playlist.dart';
-import 'package:login_register/test/test_update.dart';
 import 'package:login_register/transition/transition_page.dart';
 
 import 'firebase_options.dart';
