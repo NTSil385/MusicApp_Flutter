@@ -15,8 +15,6 @@ class Assets {
   static const String imageBp = 'assets/image/bp.jpg';
   static const String imageBtnupload = 'assets/image/btnupload.png';
   static const String imageFavAlbum = 'assets/image/fav_album.png';
-  static const String imageFavArtist = 'assets/image/fav_artist.png';
-  static const String imageFavPlaylist = 'assets/image/Fav_playlist.png';
   static const String imageForward = 'assets/image/forward.png';
   static const String imageHome = 'assets/image/Home.png';
   static const String imageIconPause = 'assets/image/Icon_pause.png';
@@ -36,10 +34,12 @@ class Assets {
   static const String imagePic7 = 'assets/image/pic-7.png';
   static const String imagePic8 = 'assets/image/pic-8.png';
   static const String imagePic9 = 'assets/image/pic-9.png';
+  static const String imagePlaylist = 'assets/image/playlist.png';
   static const String imageProgressbar = 'assets/image/progressbar.jpg';
   static const String imageRepeat = 'assets/image/repeat.png';
   static const String imageSearch = 'assets/image/search.png';
   static const String imageSortIcon = 'assets/image/Sort_icon.png';
+  static const String imageStogare = 'assets/image/stogare.png';
   static const String imageTaylor = 'assets/image/taylor.jpg';
   static const String jsonBanner = 'assets/json/banner.json';
 

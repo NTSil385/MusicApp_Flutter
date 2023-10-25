@@ -26,6 +26,17 @@ class StorageService {
     }
   }
 
+  Future<void> uploadFileAvt(String fileName, String filePath) async {
+    File file = File(filePath);
+    try {
+      await firebaseStorage.ref('Avatars/$fileName').putFile(file).then((p0) {
+        print('Upload Avatar');
+      });
+    }catch(e){
+      print('Error: $e');
+    }
+  }
+
   Future<ListResult> listFiles() async {
     ListResult listResult = await firebaseStorage.ref('Musics').listAll();
     return listResult;
