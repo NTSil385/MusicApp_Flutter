@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/pages/played_page.dart';
+import 'package:login_register/pages/played_playlist.dart';
+
+import '../Widget/back_button.dart';
 
 
 
@@ -35,66 +38,142 @@ class _stogragePageState extends State<stogragePage> {
                 child: CircularProgressIndicator(),
               );
             } else {
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  // Sử dụng .data() thay vì .data
-                  Map<String, dynamic> songData = snapshot.data[index].data();
-                  Map<String, dynamic> DataImage = snapshot.data[index].data();
-                  Map<String, dynamic> DataAudio = snapshot.data[index].data();
-                  Map<String, dynamic> artisData = snapshot.data[index].data();
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context)=>playedPage(
-                              song_name:songData["song_name"],
-                              imageUrl: DataImage["imageUrl"],
-                              audioUrl: DataAudio["audioUrl"],
-                              artist_name: artisData["artist_name"],
-                            )
-                        )
-                        );
-                      },
-                      child:
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 400,
-                            height: 70,
-                            margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[600],
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.all(10),
-                                  height: 50,
-                                  width: 50.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
-                                ),
-                                const SizedBox(width: 15,),
-                                 Text(songData["song_name"],
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500
-                                  ),),
-                              ],
-                            ),
-                          ),
-                        ],
+              return Column(
+                children: [
+                  const SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: backButton(
+                            onClick: () {
+                              Navigator.of(context).pushNamed(
+                                  '/index_profile');
+                            }),
                       ),
+                    ],
+                  ),
+              Expanded(
+                child: ListView.builder(
+                itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    // Sử dụng .data() thay vì .data
+                    Map<String, dynamic> songData = snapshot.data[index].data();
+                    Map<String, dynamic> DataImage = snapshot.data[index].data();
+                    Map<String, dynamic> DataAudio = snapshot.data[index].data();
+                    Map<String, dynamic> artisData = snapshot.data[index].data();
+                    // for (var key in songData.keys) {
+                    //   var value = songData[key];
+                    //   print('Key: $key, Value: $value');
+                    // }
+
+                    // List<String> playlist = [];
+                    //
+                    // for (var key in songData.keys) {
+                    //   var value = songData[key];
+                    //   if (key == "audioUrl") {
+                    //     playlist.add(value);
+                    //   }
+                    //   if (key == "song_name") {
+                    //     playlist.add(value);
+                    //   }
+                    //   if(key == "artist_name"){
+                    //     playlist.add(value);
+                    //   }
+                    //   if (key == "imageUrl") {
+                    //     playlist.add(value);
+                    //   }
+                    //   print(playlist.length);
+                    // }
+                    //
+                    //
+                    // print(playlist);
+
+                    // if (songData.isNotEmpty) {
+                    //   var firstKey = songData.keys.first;
+                    //   var firstValue = songData[firstKey];
+                    //   print('First Key: $firstKey, First Value: $firstValue');
+                    // } else {
+                    //   print('The map is empty.');
+                    // }
+                    // print(DataImage);
+                    // print(DataAudio);
+                    // print(artisData);
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>playedPage(
+                                song_name:songData["song_name"],
+                                imageUrl: DataImage["imageUrl"],
+                                audioUrl: DataAudio["audioUrl"],
+                                artist_name: artisData["artist_name"],
+                              )
+                          )
+                          );
+                        },
+                        child:
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 400,
+                              height: 70,
+                              margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[600],
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.all(10),
+                                    height: 50,
+                                    width: 50.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
+                                  ),
+                                  const SizedBox(width: 15,),
+                                  Text(songData["song_name"],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500
+                                    ),),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    );
+                  },
+                ),
+              ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                  );
-                },
+                    child: ElevatedButton(
+                        onPressed: (){Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => PlayedPlaylist(),
+                        ));
+                          },
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(), //<-- SEE HERE
+                          padding: EdgeInsets.all(20),
+                          backgroundColor: Color(0xff2c3d5b),
+                        ),
+
+                        child: Icon(Icons.play_arrow_rounded)),
+                  ),
+                ],
               );
             }
           },
