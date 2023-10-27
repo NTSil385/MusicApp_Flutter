@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ButtonOutlineWidget extends StatelessWidget {
   final String text;
@@ -11,16 +10,16 @@ class ButtonOutlineWidget extends StatelessWidget {
     return ElevatedButton(
         onPressed: onClick,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xff1d2846),
-          side: BorderSide(color: Colors.white, width: 3),
-          padding: EdgeInsets.symmetric(horizontal: 140, vertical: 22),
+          backgroundColor: const Color(0xff1d2846),
+          side: const BorderSide(color: Colors.white, width: 3),
+          padding: const EdgeInsets.symmetric(horizontal: 140, vertical: 22),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
         ),
         child: Text(
-          '$text',
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          text,
+          style: const TextStyle(fontSize: 20, color: Colors.white),
         ));
   }
 }

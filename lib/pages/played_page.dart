@@ -1,6 +1,5 @@
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
@@ -21,7 +20,7 @@ class PositionData{
 class playedPage extends StatefulWidget {
   String? song_name, artist_name, imageUrl, audioUrl;
 
-  playedPage({
+  playedPage({super.key, 
     this.song_name,
     this.artist_name,
     this.imageUrl,
@@ -87,7 +86,7 @@ class _songPlayedState extends State<playedPage> {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 50.0,),
+              const SizedBox(height: 50.0,),
               Row(
               crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -106,7 +105,7 @@ class _songPlayedState extends State<playedPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.0,),
+              const SizedBox(height: 20.0,),
               Text(widget.song_name!,
                 style: const TextStyle(
                     fontSize: 30,
@@ -126,16 +125,16 @@ class _songPlayedState extends State<playedPage> {
           Container(
             decoration: BoxDecoration(
               border:Border.all(color: Colors.grey, width: 2),
-              borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))
+              borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+              borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
               child: Image.network(
                   widget.imageUrl!, fit: BoxFit.cover, width: 300,height: 300,
               )),
           ),
               const SizedBox(height: 10,),
-              Container(
+              SizedBox(
                 width: 300,
                 child: StreamBuilder<PositionData>(
                     stream: _positionDataStream,
@@ -145,8 +144,8 @@ class _songPlayedState extends State<playedPage> {
                         barHeight: 8,
                         baseBarColor: Colors.white,
                         bufferedBarColor: Colors.grey[300],
-                        progressBarColor: Color(0xff69AFF5),
-                        thumbColor:  Color(0xff69AFF5),
+                        progressBarColor: const Color(0xff69AFF5),
+                        thumbColor:  const Color(0xff69AFF5),
                         timeLabelTextStyle: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600
@@ -158,10 +157,10 @@ class _songPlayedState extends State<playedPage> {
                     }),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 width: 300,
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20))
                 ),
@@ -202,7 +201,7 @@ class Controls extends StatelessWidget {
             IconButton(onPressed: audioPlayer.seekToPrevious,
                 iconSize: 60,
                 color: Colors.black,
-                icon: Icon(Icons.skip_previous_rounded)),
+                icon: const Icon(Icons.skip_previous_rounded)),
             StreamBuilder(
                 stream: audioPlayer.playerStateStream,
                 builder: (context, snapshot){
@@ -214,13 +213,13 @@ class Controls extends StatelessWidget {
                         onPressed: audioPlayer.play,
                         iconSize: 80,
                         color: Colors.black,
-                        icon: Icon(Icons.play_arrow_rounded));
+                        icon: const Icon(Icons.play_arrow_rounded));
                   }else if(processingState != ProcessingState.completed){
                     return IconButton(
                         onPressed: audioPlayer.pause,
                         iconSize: 80,
                         color: Colors.black,
-                        icon: Icon(Icons.pause_rounded)
+                        icon: const Icon(Icons.pause_rounded)
                     );
                   }
                   return const Icon(
@@ -233,7 +232,7 @@ class Controls extends StatelessWidget {
                 onPressed: audioPlayer.seekToNext,
                 iconSize: 60,
                 color: Colors.black,
-                icon: Icon(Icons.skip_next_rounded)),
+                icon: const Icon(Icons.skip_next_rounded)),
 
           ],
         ),]

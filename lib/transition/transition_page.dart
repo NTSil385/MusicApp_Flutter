@@ -8,8 +8,8 @@ class CustomPageRoute extends PageRouteBuilder {
     this.direction = AxisDirection.right,
     RouteSettings? settings,
   }) : super(
-      transitionDuration: Duration(seconds: 1),
-      reverseTransitionDuration: Duration(seconds: 1),
+      transitionDuration: const Duration(seconds: 1),
+      reverseTransitionDuration: const Duration(seconds: 1),
       pageBuilder: (context, animation, secondaryAnimation) => child);
 
   @override
@@ -26,13 +26,13 @@ class CustomPageRoute extends PageRouteBuilder {
   Offset getBeginOffset() {
     switch (direction) {
       case AxisDirection.up:
-        return Offset(0, 1);
+        return const Offset(0, 1);
       case AxisDirection.down:
-        return Offset(0, -1);
+        return const Offset(0, -1);
       case AxisDirection.right:
-        return Offset(-1, 0);
+        return const Offset(-1, 0);
       case AxisDirection.left:
-        return Offset(1, 0);
+        return const Offset(1, 0);
     }
   }
 }

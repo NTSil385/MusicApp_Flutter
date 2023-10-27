@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/storage/storage_service.dart';
 
@@ -17,8 +16,8 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
-  TextEditingController _songName = TextEditingController();
-  TextEditingController _artistName = TextEditingController();
+  final TextEditingController _songName = TextEditingController();
+  final TextEditingController _artistName = TextEditingController();
 
   StorageService service = StorageService();
   final firestoreInstance = FirebaseFirestore.instance;
@@ -87,8 +86,8 @@ class _UploadPageState extends State<UploadPage> {
 
     // Lấy URL sau khi tải lên hoàn thành
     await uploadFileAudio.whenComplete(() async {
-      final url_audio = await audioRef.getDownloadURL();
-      audio_url = url_audio;
+      final urlAudio = await audioRef.getDownloadURL();
+      audio_url = urlAudio;
       print('URL của tệp: $audio_url');
     });
     var data= {
@@ -115,7 +114,7 @@ class _UploadPageState extends State<UploadPage> {
         ),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: Column(
                 children: [
@@ -128,7 +127,7 @@ class _UploadPageState extends State<UploadPage> {
                   Stack(
                     children: [
 
-                      Container(margin: EdgeInsets.fromLTRB(30, 150, 20, 50),
+                      Container(margin: const EdgeInsets.fromLTRB(30, 150, 20, 50),
                         width: 350,
                         height: 550,
                         decoration: BoxDecoration(
@@ -150,7 +149,7 @@ class _UploadPageState extends State<UploadPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   child: Text('Image: ',
                                   style: TextStyle(
                                     fontSize: 20,
@@ -163,8 +162,8 @@ class _UploadPageState extends State<UploadPage> {
                                   onPressed: (){_btnUploadImages();},
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,
-                                    side: BorderSide(color: Colors.white, width: 3),
-                                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                    side: const BorderSide(color: Colors.white, width: 3),
+                                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16),
                                     ),
@@ -181,7 +180,7 @@ class _UploadPageState extends State<UploadPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   child: Text('Audio:',
                                     style: TextStyle(
                                       fontSize: 20,
@@ -194,8 +193,8 @@ class _UploadPageState extends State<UploadPage> {
                                       onPressed: (){_btnUploadAudio();},
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white,
-                                        side: BorderSide(color: Colors.white, width: 3),
-                                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                        side: const BorderSide(color: Colors.white, width: 3),
+                                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(16),
                                         ),
@@ -212,7 +211,7 @@ class _UploadPageState extends State<UploadPage> {
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Color(0xff1d2846),
+                                    color: const Color(0xff1d2846),
                                     border: Border.all(color: Colors.white),
                                     borderRadius: BorderRadius.circular(12)),
                                 child:  Padding(
@@ -236,7 +235,7 @@ class _UploadPageState extends State<UploadPage> {
                               padding: const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Color(0xff1d2846),
+                                    color: const Color(0xff1d2846),
                                     border: Border.all(color: Colors.white),
                                     borderRadius: BorderRadius.circular(12)),
                                 child:  Padding(
@@ -264,8 +263,8 @@ class _UploadPageState extends State<UploadPage> {
                                     },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,
-                                    side: BorderSide(color: Colors.white, width: 3),
-                                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                    side: const BorderSide(color: Colors.white, width: 3),
+                                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16),
                                     ),

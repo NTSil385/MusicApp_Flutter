@@ -3,18 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:login_register/pages/home_page.dart';
 import 'package:login_register/pages/index_page.dart';
 import 'package:login_register/pages/login_page.dart';
-import 'package:login_register/pages/main_page.dart';
-import 'package:login_register/pages/played_page.dart';
-import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/pages/signup_page.dart';
 import 'package:login_register/pages/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
-import 'package:login_register/test/player.dart';
-import 'package:login_register/test/test_playlist.dart';
 import 'package:login_register/transition/transition_page.dart';
 
-import 'firebase_options.dart';
 
 void main() async {
 
@@ -45,55 +39,55 @@ class _MyApp extends StatelessWidget {
     switch (settings.name) {
       case '/login':
         return CustomPageRoute(
-          child: LoginPage(),
+          child: const LoginPage(),
           settings: settings,
         );
       case '/register':
         return CustomPageRoute(
-          child: signUp(),
+          child: const signUp(),
           direction: AxisDirection.left,
           settings: settings,
         );
       case '/home':
         return CustomPageRoute(
-          child: HomePage(),
+          child: const HomePage(),
           direction: AxisDirection.up,
           settings: settings,
         );
       case '/index':
         return CustomPageRoute(
-          child: indexPage(),
+          child: const indexPage(),
           direction: AxisDirection.up,
           settings: settings,
         );
       case '/back':
         return CustomPageRoute(
-          child: WelcomePage(),
+          child: const WelcomePage(),
           direction: AxisDirection.right,
           settings: settings,
         );
       case '/upload':
         return CustomPageRoute(
-          child: UploadPage(),
+          child: const UploadPage(),
 
           settings: settings,
         );
       case '/storage':
         return CustomPageRoute(
-          child: stogragePage(),
+          child: const stogragePage(),
 
           settings: settings,
         );
       case '/profile':
         return CustomPageRoute(
-          child: indexPage(),
+          child: const indexPage(),
 
           settings: settings,
         );
       case '/welcome':
       default:
         return CustomPageRoute(
-          child: WelcomePage(),
+          child: const WelcomePage(),
           settings: settings,
         );
     }

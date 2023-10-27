@@ -1,6 +1,5 @@
   import 'package:cloud_firestore/cloud_firestore.dart';
   import 'package:firebase_auth/firebase_auth.dart';
-  import 'package:firebase_core/firebase_core.dart';
   import 'package:flutter/material.dart';
 
   class ProfilePage extends StatefulWidget {
@@ -76,14 +75,14 @@
       if(currentUser != null && currentUser!.email != null){
 
         return Scaffold(
-          backgroundColor:  Color(0xff2c3d5b),
+          backgroundColor:  const Color(0xff2c3d5b),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
                 const SizedBox(height: 50,),
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -94,7 +93,7 @@
                             future: getUserAvatar(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               } else if (snapshot.hasData) {
@@ -107,7 +106,7 @@
                                   ),
                                 );
                               } else {
-                                return Text('ERROR');
+                                return const Text('ERROR');
                               }
                             },
                           ),
@@ -119,11 +118,11 @@
                               future: getUserName(),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (snapshot.hasData) {
-                                  return Container(
+                                  return SizedBox(
                                     width: 100,
                                     child: Text(
                                       overflow: TextOverflow.ellipsis,
@@ -136,13 +135,13 @@
                                     ),
                                   );
                                 } else {
-                                  return Text('Không thể lấy tên người dùng');
+                                  return const Text('Không thể lấy tên người dùng');
                                 }
                               },
                             ),
 
                             const SizedBox(height: 10,),
-                            Container(
+                            SizedBox(
                               width: 120,
                               child: Text(
                                 maxLines: 1,
@@ -179,7 +178,7 @@
                   future: getRole(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasData) {
@@ -187,7 +186,7 @@
                       if (check == true) {
                         // Nếu role là true, hiển thị trang Artist
                         return   Container(
-                          margin: EdgeInsets.fromLTRB(50, 20, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(50, 20, 0, 0),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Column(
@@ -219,7 +218,7 @@
                                         Navigator.of(context).pushNamed('/storage');
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                         width: 150,
                                         height: 150,
                                         decoration: const BoxDecoration(
@@ -265,7 +264,7 @@
                                         Navigator.of(context).pushNamed('/');
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                         width: 150,
                                         height: 150,
                                         decoration: const BoxDecoration(
@@ -310,7 +309,7 @@
                                         Navigator.of(context).pushNamed('/upload');
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                         width: 150,
                                         height: 150,
                                         decoration: const BoxDecoration(
@@ -335,7 +334,7 @@
                       } else {
                         // Nếu role không phải true, hiển thị trang User
                         return   Container(
-                          margin: EdgeInsets.fromLTRB(50, 20, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(50, 20, 0, 0),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Column(
@@ -367,7 +366,7 @@
                                         Navigator.of(context).pushNamed('/storage');
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                         width: 150,
                                         height: 150,
                                         decoration: const BoxDecoration(
@@ -414,7 +413,7 @@
                                         Navigator.of(context).pushNamed('/upload');
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                         width: 150,
                                         height: 150,
                                         decoration: const BoxDecoration(
@@ -438,7 +437,7 @@
                         );
                       }
                     } else {
-                      return Text('Không thể lấy role');
+                      return const Text('Không thể lấy role');
                     }
                   },
                 )
@@ -449,7 +448,7 @@
         );
       }else {
         return Scaffold(
-          backgroundColor: Color(0xff2c3d5b),
+          backgroundColor: const Color(0xff2c3d5b),
           body: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -466,7 +465,7 @@
                     onPressed: () {
                       Navigator.of(context).pushNamed('/login');
                     },
-                    child: Text('Đăng nhập'),
+                    child: const Text('Đăng nhập'),
                   ),
                 ],
               )

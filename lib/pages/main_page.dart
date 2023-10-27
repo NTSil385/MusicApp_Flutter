@@ -1,12 +1,13 @@
 
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/pages/home_page.dart';
 import 'package:login_register/pages/login_page.dart';
 
 class mainPage extends StatelessWidget {
+  const mainPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,9 +15,9 @@ class mainPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot){
           if(snapshot.hasData){
-            return HomePage();
+            return const HomePage();
           }else {
-            return LoginPage();
+            return const LoginPage();
           }
         },
       ),

@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import '../Widget/back_button.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
     Future sigIn() async {
       String email = _emailController.text;
@@ -128,146 +130,149 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xff1d2846),
-              Color(0xff2c3d5b),
-            ])
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 30,),
-              backButton(
-                  onClick: () {
-                    Navigator.of(context).pushNamed(
-                        '/back');
-                  }),
-              const SizedBox(height: 80),
-              Container(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column( children: [
-                      //Hello again!
-                      const SizedBox(
-                        height: 55,
-                      ),
-                      const Text('Login', style:TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                      ),),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      //Email text
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Color(0xff1d2846),
-                              border: Border.all(color: Colors.white),
-                              borderRadius: BorderRadius.circular(12)),
-                          child:  Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: TextField(
-                              style: const TextStyle(
-                                  color: Colors.white
-                              ),
-                              controller: _emailController,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Email',
-                                hintStyle: TextStyle(color:Colors.white),
-                              ),
-                            ),
-                          ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Color(0xff1d2846),
+                Color(0xff2c3d5b),
+              ])
+          ),
+          child: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 30,),
+                backButton(
+                    onClick: () {
+                      Navigator.of(context).pushNamed(
+                          '/back');
+                    }),
+                const SizedBox(height: 80),
+                Container(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column( children: [
+                        //Hello again!
+                        const SizedBox(
+                          height: 55,
                         ),
-                      ),
-
-                      const SizedBox(
-                        height: 10,
-                      ), //Password text
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Color(0xff1d2846),
-                              border: Border.all(color: Colors.white),
-                              borderRadius: BorderRadius.circular(12)),
-                          child:  Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: TextField(
-                              obscureText: true,
-                              style: const TextStyle(
-                                  color: Colors.white
-                              ),
-                              controller: _passwordController,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Password',
-                                hintStyle: TextStyle(color:Colors.white),
-                              ),
-                            ),
-                          ),
+                        const Text('Login', style:TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      //sign in button
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                        child: GestureDetector(
-                          onTap: (){
-                            sigIn();
-                          },
+
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        //Email text
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
                           child: Container(
-                            padding: const EdgeInsets.all(18),
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: const Color(0xff1d2846),
+                                border: Border.all(color: Colors.white),
                                 borderRadius: BorderRadius.circular(12)),
-                            child: const Center(
-                                child: Text(
-                                  'Sign In',
-                                  style: TextStyle(
-                                      color: Colors.deepPurpleAccent,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500),
-                                )),
+                            child:  Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: TextField(
+                                style: const TextStyle(
+                                    color: Colors.white
+                                ),
+                                controller: _emailController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(color:Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      //link register
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Forgot Password? ',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300, color: Colors.white),
+
+                        const SizedBox(
+                          height: 10,
+                        ), //Password text
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: const Color(0xff1d2846),
+                                border: Border.all(color: Colors.white),
+                                borderRadius: BorderRadius.circular(12)),
+                            child:  Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: TextField(
+                                obscureText: true,
+                                style: const TextStyle(
+                                    color: Colors.white
+                                ),
+                                controller: _passwordController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(color:Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
-                          Text(
-                            'Click here!',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        //sign in button
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              sigIn();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(18),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: const Center(
+                                  child: Text(
+                                    'Sign In',
+                                    style: TextStyle(
+                                        color: Colors.deepPurpleAccent,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
+                                  )),
+                            ),
                           ),
-                        ],
-                      ),
-                    ]),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        //link register
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Forgot Password? ',
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300, color: Colors.white),
+                            ),
+                            Text(
+                              'Click here!',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ]),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,10 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/pages/storage_page.dart';
-import 'package:login_register/pages/upload.dart';
 
 
 
@@ -19,9 +16,9 @@ class indexPageHome extends StatefulWidget {
 class _indexPageHometate extends State<indexPageHome> {
   int currenrIndex = 0;
   List tabs = [
-    HomePage(),
-    stogragePage(),
-    ProfilePage(),
+    const HomePage(),
+    const stogragePage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -29,8 +26,8 @@ class _indexPageHometate extends State<indexPageHome> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
 
-        backgroundColor:  Color(0xff2c3d5b),
-        animationDuration: Duration(milliseconds: 300),
+        backgroundColor:  const Color(0xff2c3d5b),
+        animationDuration: const Duration(milliseconds: 300),
         items:const [
           ImageIcon(
             AssetImage('assets/image/Home.png'),
@@ -54,6 +51,8 @@ class _indexPageHometate extends State<indexPageHome> {
 
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -126,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 70,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                               color: Colors.grey[600],
                               borderRadius: BorderRadius.circular(10),
@@ -134,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 height: 60.0,
                                 width: 60.0,
                                 decoration: BoxDecoration(
@@ -159,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 70,
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -167,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 height: 60.0,
                                 width: 60.0,
                                 decoration: BoxDecoration(
@@ -192,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 70,
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -200,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 height: 60.0,
                                 width: 60.0,
                                 decoration: BoxDecoration(
@@ -225,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 70,
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -233,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 height: 60.0,
                                 width: 60.0,
                                 decoration: BoxDecoration(
@@ -292,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         Container(
-                                margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                 height: 140.0,
                                 width: 140.0,
                                 decoration: BoxDecoration(
@@ -305,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           height: 140.0,
                           width: 140.0,
                           decoration: BoxDecoration(
@@ -318,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           height: 140.0,
                           width: 140.0,
                           decoration: BoxDecoration(
@@ -331,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           height: 140.0,
                           width: 140.0,
                           decoration: BoxDecoration(
@@ -344,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           height: 140.0,
                           width: 140.0,
                           decoration: BoxDecoration(
@@ -381,7 +380,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -413,7 +412,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -445,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -477,7 +476,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -531,7 +530,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -563,7 +562,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -595,7 +594,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -627,7 +626,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -681,7 +680,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -713,7 +712,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -745,7 +744,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),
@@ -777,7 +776,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 180,
                           height: 205,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                           decoration: BoxDecoration(
                             color: Colors.grey[600],
                             borderRadius: BorderRadius.circular(10),

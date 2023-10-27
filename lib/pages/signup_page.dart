@@ -9,6 +9,8 @@ import 'package:login_register/Widget/back_button.dart';
 import 'package:login_register/storage/storage_service.dart';
 
 class signUp extends StatefulWidget {
+  const signUp({super.key});
+
   @override
   State<signUp> createState() => _signUpState();
 }
@@ -19,10 +21,10 @@ class _signUpState extends State<signUp> {
   String avtName='';
   late String avt_url;
 
-  TextEditingController _userNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   Future signUp() async {
    String username = _userNameController.text;
    String email = _emailController.text;
@@ -167,7 +169,7 @@ class _signUpState extends State<signUp> {
       "role": true,
       "avt": avt_url,
     };
-    if (userCredential != null && userCredential.user != null) {
+    if (userCredential.user != null) {
       await FirebaseFirestore.instance.collection("Users").doc(userCredential.user!.email).
             set(data);
     }
@@ -225,7 +227,7 @@ class _signUpState extends State<signUp> {
                             padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color(0xff1d2846),
+                                  color: const Color(0xff1d2846),
                                   border: Border.all(color: Colors.white),
                                   borderRadius: BorderRadius.circular(12)),
                               child:  Padding(
@@ -253,7 +255,7 @@ class _signUpState extends State<signUp> {
                             padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color(0xff1d2846),
+                                  color: const Color(0xff1d2846),
                                   border: Border.all(color: Colors.white),
                                   borderRadius: BorderRadius.circular(12)),
                               child:  Padding(
@@ -281,7 +283,7 @@ class _signUpState extends State<signUp> {
                             padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color(0xff1d2846),
+                                  color: const Color(0xff1d2846),
                                   border: Border.all(color: Colors.white),
                                   borderRadius: BorderRadius.circular(12)),
                               child:  Padding(
@@ -309,7 +311,7 @@ class _signUpState extends State<signUp> {
                             padding: const EdgeInsets.symmetric(horizontal: 25.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Color(0xff1d2846),
+                                  color: const Color(0xff1d2846),
                                   border: Border.all(color: Colors.white),
                                   borderRadius: BorderRadius.circular(12)),
                               child:  Padding(
@@ -329,7 +331,7 @@ class _signUpState extends State<signUp> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                             width: 300,
                             height: 100,
                             decoration: BoxDecoration(
@@ -339,7 +341,7 @@ class _signUpState extends State<signUp> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text('Image: ',
                                     style: TextStyle(
                                       fontSize: 20,
@@ -352,8 +354,8 @@ class _signUpState extends State<signUp> {
                                       onPressed: (){_btnUploadAvt();},
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.white,
-                                        side: BorderSide(color: Colors.white, width: 3),
-                                        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                        side: const BorderSide(color: Colors.white, width: 3),
+                                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(16),
                                         ),
