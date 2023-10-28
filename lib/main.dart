@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:login_register/pages/artist_signup.dart';
 import 'package:login_register/pages/home_page.dart';
 import 'package:login_register/pages/index_page.dart';
 import 'package:login_register/pages/index_profile.dart';
@@ -10,7 +11,9 @@ import 'package:login_register/pages/signup_page.dart';
 import 'package:login_register/pages/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
+import 'package:login_register/test/test_addplaylist.dart';
 import 'package:login_register/test/test_playlist_storage.dart';
+import 'package:login_register/test/testtorage.dart';
 import 'package:login_register/transition/transition_page.dart';
 
 
@@ -51,6 +54,11 @@ class _MyApp extends StatelessWidget {
         return CustomPageRoute(
           child: const signUp(),
           direction: AxisDirection.left,
+          settings: settings,
+        );
+      case '/artist':
+        return CustomPageRoute(
+          child: const ArtistSignUp(),
           settings: settings,
         );
       case '/home':

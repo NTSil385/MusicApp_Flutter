@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/Widget/back_button.dart';
+import 'package:login_register/pages/artist_signup.dart';
 import 'package:login_register/storage/storage_service.dart';
 
 class signUp extends StatefulWidget {
@@ -166,7 +167,7 @@ class _signUpState extends State<signUp> {
       'email': userCredential.user!.email,
       'username': _userNameController.text,
       'phoneNumber' : _phoneNumberController.text,
-      "role": true,
+      "role": false,
       "avt": avt_url,
     };
     if (userCredential.user != null) {
@@ -402,11 +403,16 @@ class _signUpState extends State<signUp> {
                             fontWeight: FontWeight.w300
                           ),),
                           const SizedBox(height: 10,),
-                          const Text('Click here!', style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                          ),),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, "/artist");
+                            },
+                            child: const Text('Click here!', style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),),
+                          ),
                         ]),
                       ),
                     ),

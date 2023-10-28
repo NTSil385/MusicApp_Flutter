@@ -62,43 +62,31 @@ class _stogragePageState extends State<stogragePage> {
                     Map<String, dynamic> DataImage = snapshot.data[index].data();
                     Map<String, dynamic> DataAudio = snapshot.data[index].data();
                     Map<String, dynamic> artisData = snapshot.data[index].data();
-                    // for (var key in songData.keys) {
-                    //   var value = songData[key];
-                    //   print('Key: $key, Value: $value');
-                    // }
+                    for (var key in songData.keys) {
+                      var value = songData[key];
+                      print('Key: $key, Value: $value');
+                    }
 
-                    // List<String> playlist = [];
-                    //
-                    // for (var key in songData.keys) {
-                    //   var value = songData[key];
-                    //   if (key == "audioUrl") {
-                    //     playlist.add(value);
-                    //   }
-                    //   if (key == "song_name") {
-                    //     playlist.add(value);
-                    //   }
-                    //   if(key == "artist_name"){
-                    //     playlist.add(value);
-                    //   }
-                    //   if (key == "imageUrl") {
-                    //     playlist.add(value);
-                    //   }
-                    //   print(playlist.length);
-                    // }
-                    //
-                    //
-                    // print(playlist);
+                    List<String> playlist = [];
 
-                    // if (songData.isNotEmpty) {
-                    //   var firstKey = songData.keys.first;
-                    //   var firstValue = songData[firstKey];
-                    //   print('First Key: $firstKey, First Value: $firstValue');
-                    // } else {
-                    //   print('The map is empty.');
-                    // }
-                    // print(DataImage);
-                    // print(DataAudio);
-                    // print(artisData);
+                    for (var key in songData.keys) {
+                      var value = songData[key];
+                      if (key == "audioUrl") {
+                        playlist.add(value);
+                      }
+                      if (key == "song_name") {
+                        playlist.add(value);
+                      }
+                      if(key == "artist_name"){
+                        playlist.add(value);
+                      }
+                      if (key == "imageUrl") {
+                        playlist.add(value);
+                      }
+                    }
+
+
+
                     return SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: InkWell(

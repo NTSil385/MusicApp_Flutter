@@ -26,7 +26,7 @@ class _UploadPageState extends State<UploadPage> {
   String imageName = '';
 
   String? audioPath = '';
-  String audioName = '';
+   String audioName  = '';
   late String audio_url ;
   late String image_url;
 
@@ -41,9 +41,9 @@ class _UploadPageState extends State<UploadPage> {
       final path = result.files.single.path;
       imagePath = path;
       final fileName = result.files.single.name;
-      imageName = fileName;
-
-
+      setState(() {
+        imageName = fileName; // Cập nhật imageName và giao diện người dùng
+      });
     }
   }
 
@@ -58,11 +58,12 @@ class _UploadPageState extends State<UploadPage> {
       final path = result.files.single.path;
       audioPath = path;
       final fileName = result.files.single.name;
-      audioName = fileName;
 
+      setState(() {
+        audioName = fileName;
+      });
 
     }
-
   }
 
   finalUpload() async {
@@ -148,13 +149,18 @@ class _UploadPageState extends State<UploadPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Text('Image: ',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),),
+                                 Padding(
+                                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: Container(
+                                    width: 200,
+                                    child: Text( 'Image: $imageName' ,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const  TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),),
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -179,13 +185,18 @@ class _UploadPageState extends State<UploadPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Text('Audio:',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),),
+                                 Padding(
+                                  padding: const  EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: Container(
+                                    width: 200,
+                                    child: Text('Audio: $audioName',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),),
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
