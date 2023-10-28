@@ -78,7 +78,6 @@ flutter:
   assets:
     - assets/
     - assets/image/
-    - assets/audio/
 #     - assets/image/LOGO_Final.png
 #     - assets/image/menu.png
 #     - assets/image/pic-8.png

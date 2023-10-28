@@ -2,8 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String audioTest = 'assets/audio/test.mp3';
-  static const String audioTest2 = 'assets/audio/test2.mp3';
   static const String image3 = 'assets/image/3.jpg';
   static const String imageAddAlbum = 'assets/image/add_album.png';
   static const String imageAddPlaylist = 'assets/image/add_playlist.png';
@@ -15,6 +13,8 @@ class Assets {
   static const String imageBp = 'assets/image/bp.jpg';
   static const String imageBtnupload = 'assets/image/btnupload.png';
   static const String imageFavAlbum = 'assets/image/fav_album.png';
+  static const String imageFavArtist = 'assets/image/fav_artist.png';
+  static const String imageFavPlaylist = 'assets/image/fav_playlist.png';
   static const String imageForward = 'assets/image/forward.png';
   static const String imageHome = 'assets/image/Home.png';
   static const String imageIconPause = 'assets/image/Icon_pause.png';
