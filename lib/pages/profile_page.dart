@@ -242,7 +242,7 @@
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/');
+                                        Navigator.of(context).pushNamed('/addAlbum');
                                       },
                                       child: Container(
                                         width: 150,

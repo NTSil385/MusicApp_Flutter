@@ -37,6 +37,18 @@ class StorageService {
     }
   }
 
+  Future<void> uploadFileImgAlbum(String fileName, String filePath) async {
+    File file = File(filePath);
+    try {
+      await firebaseStorage.ref('ImgAlbum/$fileName').putFile(file).then((p0) {
+        print('Upload Img Album');
+      });
+    }catch(e){
+      print('Error: $e');
+    }
+  }
+
+
   Future<ListResult> listFiles() async {
     ListResult listResult = await firebaseStorage.ref('Musics').listAll();
     return listResult;

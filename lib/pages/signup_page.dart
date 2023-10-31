@@ -170,6 +170,7 @@ class _signUpState extends State<signUp> {
       "role": false,
       "avt": avt_url,
     };
+
     if (userCredential.user != null) {
       await FirebaseFirestore.instance.collection("Users").doc(userCredential.user!.email).
             set(data);
