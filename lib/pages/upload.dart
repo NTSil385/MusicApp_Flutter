@@ -188,7 +188,7 @@ class _UploadPageState extends State<UploadPage> {
                               children: [
                                  Padding(
                                   padding: const  EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 200,
                                     child: Text('Audio: $audioName',
                                       overflow: TextOverflow.ellipsis,

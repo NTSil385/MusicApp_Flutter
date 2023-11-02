@@ -61,12 +61,12 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
   }
   Future<String?> openDialog()=>showDialog<String>(context: context,
     builder: (context)=>AlertDialog(
-      title: Text('Add Album'),
+      title: const Text('Add Album'),
       content: Column(
         children: [
           TextField(
             controller: _playlistname,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 hintText: 'Enter your Album name'
             ),
           ),
@@ -76,7 +76,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: Container(
+                child: SizedBox(
                   width: 100,
                   child: Text( 'Image: $imageName' ,
                     overflow: TextOverflow.ellipsis,
@@ -111,7 +111,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
       actions: [
         TextButton(onPressed: (){
           submit();
-        }, child: Text('Submit'))
+        }, child: const Text('Submit'))
       ],
     ),);
 
@@ -131,10 +131,10 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0B1223),
+      backgroundColor: const Color(0xff0B1223),
       body: Column(
         children: [
-          SizedBox(height: 40,),
+          const SizedBox(height: 40,),
           Row(
             children: [
               Container(
@@ -148,7 +148,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
             ],
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -180,10 +180,10 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
               stream: getdata(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return Text('May be something wrong');
+                  return const Text('May be something wrong');
                 }
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,

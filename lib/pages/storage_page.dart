@@ -143,23 +143,23 @@ class _stogragePageState extends State<stogragePage> {
                 ),
               ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 2),
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: ElevatedButton(
                         onPressed: (){Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => PlayedPlaylist(),
+                          builder: (context) => const PlayedPlaylist(),
                         ));
                           },
                         style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(), //<-- SEE HERE
-                          padding: EdgeInsets.all(20),
-                          backgroundColor: Color(0xff2c3d5b),
+                          shape: const CircleBorder(), //<-- SEE HERE
+                          padding: const EdgeInsets.all(20),
+                          backgroundColor: const Color(0xff2c3d5b),
                         ),
 
-                        child: Icon(Icons.play_arrow_rounded)),
+                        child: const Icon(Icons.play_arrow_rounded)),
                   ),
                 ],
               );

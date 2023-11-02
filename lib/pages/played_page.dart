@@ -2,6 +2,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
@@ -39,12 +40,22 @@ class _songPlayedState extends State<playedPage> {
   @override
   void initState() {
     super.initState();
+    initNotification();
     _audioPlayer = AudioPlayer()..setUrl(widget.audioUrl!);
     _init();
     // _audioPlayer.positionStream;
     // _audioPlayer.bufferedPositionStream;
     // _audioPlayer.durationStream;
   }
+
+  Future<void> initNotification() async {
+    await JustAudioBackground.init(
+      androidNotificationChannelId: 'com.example.myapp.channel.audio', // Thay đổi channel ID
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+    );
+  }
+
 
   Future<void> _init() async {
     await _audioPlayer.setLoopMode(LoopMode.all);

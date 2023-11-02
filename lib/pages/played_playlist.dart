@@ -22,7 +22,7 @@ class PositionData {
 }
 
 class PlayedPlaylist extends StatefulWidget {
-  const PlayedPlaylist({Key? key});
+  const PlayedPlaylist({super.key});
 
   @override
   State<PlayedPlaylist> createState() => _PlayedPlaylistState();
@@ -48,7 +48,7 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
   @override
   void initState() {
     super.initState();
-
+    initNotification();
     // Tạo danh sách phát từ dữ liệu Firestore
     getdata().then((playlistData) {
       List<AudioSource> playlist = playlistData.map((songData) {
@@ -59,19 +59,19 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
                 title: songData['song_name'],
                 artist: songData['artist_name'],
                 artUri: Uri.parse(songData['imageUrl'])
-            )
+            ),
         );
       }).toList();
 
       // Cài đặt danh sách phát cho player
-      final  _playlist = player.setAudioSource(
+      final  playlist0 = player.setAudioSource(
         ConcatenatingAudioSource(
           children: playlist,
         ),
       );
 
       player.setLoopMode(LoopMode.all);
-      player.setAudioSource(_playlist as AudioSource);
+      player.setAudioSource(playlist0 as AudioSource);
 
       // // Phát danh sách nhạc
       // player.play();
@@ -85,6 +85,15 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
     player.dispose();
     super.dispose();
   }
+  Future<void> initNotification() async {
+    await JustAudioBackground.init(
+      androidNotificationChannelId: 'com.example.myapp.channel.audio', // Thay đổi channel ID
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +115,7 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     child: backButton(
                         onClick: () {
                           Navigator.of(context).pushNamed(
@@ -136,7 +145,7 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
                   builder: (context, snapshot){
                     final positionData = snapshot.data;
                     return Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: ProgressBar(
                           barHeight: 8,
                           baseBarColor: Colors.white,
@@ -244,12 +253,12 @@ class Controls extends StatelessWidget {
                 return IconButton(onPressed: audioPlayer.play,
                     iconSize: 80,
                     color: Colors.white,
-                    icon: Icon(Icons.play_arrow_rounded));
+                    icon: const Icon(Icons.play_arrow_rounded));
               }else if(processingState != ProcessingState.completed){
                 return IconButton(onPressed: audioPlayer.pause,
                     iconSize: 80,
                     color: Colors.white,
-                    icon: Icon(Icons.pause_rounded  ));
+                    icon: const Icon(Icons.pause_rounded  ));
               }
               return const Icon(Icons.play_arrow_rounded, size: 80,color: Colors.white,);
             }),
