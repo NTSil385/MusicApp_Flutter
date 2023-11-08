@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/Widget/back_button.dart';
-import 'package:login_register/test/player.dart';
 import 'package:rxdart/rxdart.dart';
-
+import 'package:audio_service/audio_service.dart';
 
 
 class PositionData {
@@ -30,6 +29,7 @@ class PlayedPlaylist extends StatefulWidget {
 
 class _PlayedPlaylistState extends State<PlayedPlaylist> {
   final AudioPlayer player = AudioPlayer();
+  MyAudioHandler? _audioHandler;
 
   Future<List<Map<String, dynamic>>> getdata() async {
     QuerySnapshot qn = await FirebaseFirestore.instance.collection('songs').get();
@@ -49,6 +49,7 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
   void initState() {
     super.initState();
     initNotification();
+    initAudioHandler();
     // Tạo danh sách phát từ dữ liệu Firestore
     getdata().then((playlistData) {
       List<AudioSource> playlist = playlistData.map((songData) {
@@ -92,6 +93,12 @@ class _PlayedPlaylistState extends State<PlayedPlaylist> {
       androidNotificationOngoing: true,
     );
   }
+
+  Future<void> initAudioHandler() async {
+    _audioHandler = MyAudioHandler();
+    await _audioHandler!.configureAudioService(); // Cấu hình AudioService
+  }
+
 
 
 
@@ -271,4 +278,93 @@ class Controls extends StatelessWidget {
   }
 
 
+}
+
+class MyAudioHandler extends BaseAudioHandler {
+  final AudioPlayer _player = AudioPlayer();
+  final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject.seeded([]);
+  final _mediaItem = MediaItem(id: '1', title: '', artUri: null);
+
+  @override
+  Future<void> configureAudioService() async {
+    AudioServiceBackground.run(() => AudioPlayerTask(_player));
+  }
+
+  @override
+  Future<void> onCustomAction(String name, dynamic arguments) async {
+    if (name == 'setQueue') {
+      final List<MediaItem> queue = (arguments as List).cast<MediaItem>();
+      _queue.add(queue);
+      await AudioServiceBackground.setQueue(queue);
+    }
+  }
+
+  @override
+  Future<void> onAddQueueItem(MediaItem mediaItem) async {
+    final queue = _queue.value;
+    queue.add(mediaItem);
+    _queue.add(queue);
+    await AudioServiceBackground.setQueue(queue);
+  }
+
+  @override
+  Future<void> onPlay() async {
+    await _player.play();
+    await AudioServiceBackground.setState(
+      controls: [MediaControl.pause, MediaControl.stop],
+      systemActions: [MediaAction.pause],
+      processingState: AudioProcessingState.ready,
+      playing: true,
+    );
+  }
+
+  @override
+  Future<void> onPause() async {
+    await _player.pause();
+    await AudioServiceBackground.setState(
+      controls: [MediaControl.play, MediaControl.stop],
+      systemActions: [MediaAction.play],
+      processingState: AudioProcessingState.ready,
+      playing: false,
+    );
+  }
+
+  @override
+  Future<void> onStop() async {
+    await _player.stop();
+    await AudioServiceBackground.setState(
+      controls: [],
+      systemActions: [],
+      processingState: AudioProcessingState.idle, // Use 'idle' to represent 'stopped'
+      playing: false,
+    );
+  }
+}
+
+class AudioPlayerTask extends BackgroundAudioTask {
+  final AudioPlayer _player;
+
+  AudioPlayerTask(this._player);
+
+  @override
+  Future<void> onStart(Map<String, dynamic>? params) async {
+    AudioServiceBackground.setState(
+      controls: [MediaControl.play, MediaControl.stop],
+      systemActions: [MediaAction.play],
+      processingState: AudioProcessingState.buffering,
+    );
+    _player.play();
+  }
+
+  @override
+  Future<void> onStop() async {
+    _player.stop();
+    AudioServiceBackground.setState(
+      controls: [],
+      systemActions: [],
+      processingState: AudioProcessingState.idle, // Use 'idle' to represent 'stopped'
+      playing: false,
+    );
+    await super.onStop();
+  }
 }

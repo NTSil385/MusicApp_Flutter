@@ -231,8 +231,8 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                 FirebaseFirestore.instance
                                     .collection("Users")
                                     .doc(currentUser!.email)
-                                    .collection(_playlistname.text)
-                                    .doc('album_image')
+                                    .collection("Albums")
+                                    .doc(_playlistname.text)
                                     .set({
                                   'album_name': _playlistname.text,
                                   'url_imgAlbum': image_url,
@@ -242,7 +242,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                     .collection("Albums")
                                     .doc(_playlistname.text)
                                     .collection(_playlistname.text)
-                                    .doc('album_image')
+                                    .doc('album_info')
                                     .set({
                                   'album_name': _playlistname.text,
                                   'url_imgAlbum': image_url,
@@ -253,11 +253,13 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                   FirebaseFirestore.instance
                                       .collection("Users")
                                       .doc(currentUser!.email)
+                                      .collection('Albums')
+                                      .doc(_playlistname.text)
                                       .collection(_playlistname.text).add({
                                     'song_name': data['song_name'],
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],
-                                    'imageUrl': data['imageUrl'],
+                                    'imageUrl': image_url,
                                     'value': false,
                                   });
 
@@ -269,7 +271,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                     'song_name': data['song_name'],
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],
-                                    'imageUrl': data['imageUrl'],
+                                    'imageUrl': image_url,
                                     'value': false,
                                   });
                                 }

@@ -1,4 +1,5 @@
 
+import 'package:audio_service/audio_service.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -18,43 +19,46 @@ class PositionData{
   PositionData(this.position, this.bufferedPosition, this.duration);
 }
 
+
+
+
+
 class playedPage extends StatefulWidget {
   String? song_name, artist_name, imageUrl, audioUrl;
 
-  playedPage({super.key, 
+  playedPage({
+    super.key,
     this.song_name,
     this.artist_name,
     this.imageUrl,
     this.audioUrl,
   });
 
-
-
   @override
   State<playedPage> createState() => _songPlayedState();
 }
 
 class _songPlayedState extends State<playedPage> {
-  late AudioPlayer _audioPlayer;
+  AudioPlayer _audioPlayer = AudioPlayer();
+
 
   @override
   void initState() {
     super.initState();
-    initNotification();
+    // initNotification();
     _audioPlayer = AudioPlayer()..setUrl(widget.audioUrl!);
     _init();
-    // _audioPlayer.positionStream;
-    // _audioPlayer.bufferedPositionStream;
-    // _audioPlayer.durationStream;
+
+
   }
 
-  Future<void> initNotification() async {
-    await JustAudioBackground.init(
-      androidNotificationChannelId: 'com.example.myapp.channel.audio', // Thay đổi channel ID
-      androidNotificationChannelName: 'Audio playback',
-      androidNotificationOngoing: true,
-    );
-  }
+  // Future<void> initNotification() async {
+  //   await JustAudioBackground.init(
+  //     androidNotificationChannelId: 'com.example.myapp.channel.audio',
+  //     androidNotificationChannelName: 'Audio playback',
+  //     androidNotificationOngoing: true,
+  //   );
+  // }
 
 
   Future<void> _init() async {
@@ -62,16 +66,13 @@ class _songPlayedState extends State<playedPage> {
     await _audioPlayer.setAudioSource(_audioPlayer as AudioSource);
   }
 
-
-
   Stream<PositionData> get _positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
           _audioPlayer.positionStream,
           _audioPlayer.bufferedPositionStream,
           _audioPlayer.durationStream,
-              (position, bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero));
-
-
+              (position, bufferedPosition, duration) =>
+              PositionData(position, bufferedPosition, duration ?? Duration.zero));
 
   @override
   void dispose() {

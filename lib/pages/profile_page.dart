@@ -261,7 +261,7 @@
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/');
+                                        Navigator.of(context).pushNamed('/Albums');
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -286,7 +286,7 @@
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/');
+                                        Navigator.of(context).pushNamed('/Albums');
                                       },
                                       child: Container(
                                         width: 150,
