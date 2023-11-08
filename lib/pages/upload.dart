@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/storage/storage_service.dart';
@@ -16,6 +17,7 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  final User? currentUser = FirebaseAuth.instance.currentUser;
   final TextEditingController _songName = TextEditingController();
   final TextEditingController _artistName = TextEditingController();
 
@@ -102,6 +104,15 @@ class _UploadPageState extends State<UploadPage> {
       Navigator.of(context).pushNamed(
           '/storage');
     });
+    if(currentUser != null && currentUser!.email !=null ){
+      firestoreInstance
+          .collection("Users")
+          .doc(currentUser!.email)
+          .collection('songs').doc().set(data).whenComplete(() {
+        Navigator.of(context).pushNamed(
+            '/storage');
+      });
+    }
     print('Created success');
   }
 

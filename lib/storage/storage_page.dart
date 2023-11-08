@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/storage/played_page.dart';
 import 'package:login_register/storage/played_playlist.dart';
@@ -15,10 +16,17 @@ class stogragePage extends StatefulWidget {
 }
 
 class _stogragePageState extends State<stogragePage> {
+  final User? currentUser = FirebaseAuth.instance.currentUser;
 
   Future getdata() async {
-    QuerySnapshot qn = await FirebaseFirestore.instance.collection('songs').get();
-    return qn.docs;
+    if (currentUser != null && currentUser!.email != null) {
+      QuerySnapshot qn = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(currentUser!.email)
+          .collection('songs')
+          .get();
+      return qn.docs;
+    }
   }
 
   @override

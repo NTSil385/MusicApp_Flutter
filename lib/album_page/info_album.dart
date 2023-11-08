@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:login_register/album_page/edit_album.dart';
 import 'package:login_register/album_page/played_album.dart';
 import 'package:login_register/test/playled_album.dart';
 import 'package:rxdart/rxdart.dart';
@@ -66,8 +67,15 @@ class _infoAlbumState extends State<infoAlbum> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-            color: Color(0xff0B1223
+        decoration:  BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xff053B50),
+                Color(0xff176B87B1),
+                Color(0xff64CCC564),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             )
         ),
         child: FutureBuilder(
@@ -82,14 +90,40 @@ class _infoAlbumState extends State<infoAlbum> {
                 children: [
                   const SizedBox(height: 30,),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: backButton(
                             onClick: () {
                               Navigator.of(context).pushNamed(
                                   '/Albums');
                             }),
+                      ),
+
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Text('${widget.album_name}', style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                        ),),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(0, 10, 20, 0),
+                        child: IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>edit_AlbumPage(
+                                  album_name: widget.album_name
+                              )
+                          )
+                          );
+                        },
+                            icon: const Icon(Icons.edit
+                                      ,size: 40,
+                                      color: Colors.white,
+                            )),
                       ),
                     ],
                   ),
@@ -149,9 +183,13 @@ class _infoAlbumState extends State<infoAlbum> {
                                   width: 400,
                                   height: 70,
                                   margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[600],
-                                    borderRadius: BorderRadius.circular(4),
+                                  decoration:  BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xff9BE8D8),
+                                          Color(0xff78C1F3),
+                                        ],
+                                      )
                                   ),
                                   child: Row(
                                     children: [

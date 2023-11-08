@@ -126,7 +126,10 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
     }
   }
   Stream<QuerySnapshot> getdata() {
-    return FirebaseFirestore.instance.collection('songs').snapshots();
+    return FirebaseFirestore.instance
+        .collection('Users')
+        .doc(currentUser!.email)
+        .collection('songs').snapshots();
   }
   @override
   Widget build(BuildContext context) {
@@ -224,7 +227,10 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                 return null;
                               }),
                               onChanged: (bool? value) {
-                                FirebaseFirestore.instance.collection('songs').doc(document.id).update(
+                                FirebaseFirestore.instance
+                                    .collection('Users')
+                                    .doc(currentUser!.email)
+                                    .collection('songs').doc(document.id).update(
                                     {'value': value}
                                 );
 
@@ -261,6 +267,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                     'audioUrl': data['audioUrl'],
                                     'imageUrl': image_url,
                                     'value': false,
+                                    'status':true,
                                   });
 
 

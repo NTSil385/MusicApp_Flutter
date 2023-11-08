@@ -1,6 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
@@ -28,12 +29,22 @@ class PlayedPlaylist extends StatefulWidget {
 }
 
 class _PlayedPlaylistState extends State<PlayedPlaylist> {
+  final User? currentUser = FirebaseAuth.instance.currentUser;
   final AudioPlayer player = AudioPlayer();
   MyAudioHandler? _audioHandler;
 
   Future<List<Map<String, dynamic>>> getdata() async {
-    QuerySnapshot qn = await FirebaseFirestore.instance.collection('songs').get();
-    return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    if (currentUser != null && currentUser!.email != null) {
+      QuerySnapshot qn = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(currentUser!.email)
+          .collection('songs')
+          .get();
+      return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    }else{
+      return [];
+    }
+
   }
 
   Stream<PositionData> get _positionDataStream =>

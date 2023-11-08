@@ -32,8 +32,15 @@ class _AlbumPageState extends State<Album> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-            color: Color(0xff0B1223
+        decoration:  BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+              Color(0xff053B50),
+              Color(0xff176B87B1),
+              Color(0xff64CCC564),
+            ],
+            begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             )
         ),
         child: FutureBuilder(
@@ -93,9 +100,15 @@ class _AlbumPageState extends State<Album> {
                                   width: 400,
                                   height: 70,
                                   margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[600],
+                                  decoration:  BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xff69AFF5),
+                                          Color(0xffFFC7E0),
+                                        ],
+
+                                      )
                                   ),
                                   child: Row(
                                     children: [
@@ -125,25 +138,6 @@ class _AlbumPageState extends State<Album> {
                         );
                       },
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: ElevatedButton(
-                        onPressed: (){Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => const PlayedPlaylist(),
-                        ));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), //<-- SEE HERE
-                          padding: const EdgeInsets.all(20),
-                          backgroundColor: const Color(0xff2c3d5b),
-                        ),
-
-                        child: const Icon(Icons.play_arrow_rounded)),
                   ),
                 ],
               );
