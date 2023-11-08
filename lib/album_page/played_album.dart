@@ -65,7 +65,7 @@ class _playedAlbumsState extends State<playedAlbums> {
   @override
   void initState() {
     super.initState();
-    initNotification();
+    // initNotification();
     initAudioHandler();
     // Tạo danh sách phát từ dữ liệu Firestore
     getdata().then((playlistData) {
@@ -103,13 +103,14 @@ class _playedAlbumsState extends State<playedAlbums> {
     _playlist!.clear();
     super.dispose();
   }
-  Future<void> initNotification() async {
-    await JustAudioBackground.init(
-      androidNotificationChannelId: 'com.example.myapp.channel.audio', // Thay đổi channel ID
-      androidNotificationChannelName: 'Audio playback',
-      androidNotificationOngoing: true,
-    );
-  }
+  // Future<void> initNotification() async {
+  //   await JustAudioBackground.init(
+  //     androidNotificationChannelId: 'com.example.myapp.channel.audio', // Thay đổi channel ID
+  //     androidNotificationChannelName: 'Audio playback',
+  //     androidNotificationOngoing: true,
+  //   );
+  // }
+
 
   Future<void> initAudioHandler() async {
     _audioHandler = MyAudioHandler();
