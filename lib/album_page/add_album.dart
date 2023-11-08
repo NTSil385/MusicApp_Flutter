@@ -247,12 +247,11 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                 FirebaseFirestore.instance
                                     .collection("Albums")
                                     .doc(_playlistname.text)
-                                    .collection(_playlistname.text)
-                                    .doc('album_info')
                                     .set({
                                   'album_name': _playlistname.text,
                                   'url_imgAlbum': image_url,
                                 });
+
                                 print(data);
                                 if(currentUser != null && currentUser!.email != null){
                                 if (value == true) {

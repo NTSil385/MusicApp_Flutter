@@ -1,7 +1,12 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/storage/storage_page.dart';
+
+import '../storage/played_page.dart';
 
 
 
@@ -58,15 +63,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final images = [
-    Image.asset('assets/image/pic-6.png'),
-    Image.asset('assets/image/pic-7.png'),
-    Image.asset('assets/image/pic-8.png'),
-    Image.asset('assets/image/pic-9.png'),
-    Image.asset('assets/image/pic-10.png'),
-];
 
   int myCurrentIndex = 0;
+
+
+
+  Future getdata() async {
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection('songs')
+        .get();
+    return qn.docs;
+  }
+
+  Future getArtist() async {
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection('Users')
+        .get();
+    return qn.docs;
+  }
+
+  Future getAlbum() async {
+
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection('Albums')
+        .get();
+    return qn.docs;
+
+  }
 
 
 
@@ -74,748 +97,291 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: Container(
-            height: double.infinity,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Color(0xff1d2846),
-                  Color(0xff2c3d5b),
-                ])
-            ),
-            child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ImageIcon(AssetImage('assets/image/LOGO.png'), size: 100, color: Colors.white,),
-                        Row(
-                          children: [
-                            Icon(Icons.notifications, size: 30,color: Colors.white,),
-                            SizedBox(width: 10),
-                            Icon(Icons.settings, size: 30,color: Colors.white),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                   const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+      home: Scaffold(
+        body: Container(
+          height: double.infinity,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Color(0xff1d2846),
+                Color(0xff2c3d5b),
+              ])
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                const SizedBox(height: 30,),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                  child:const  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(width: 20,),
-                       Text('Recenty played',
-                       style: TextStyle(
-                         color: Colors.white,
-                         fontSize: 30,
-                         fontWeight: FontWeight.w500,
-                       ),
-                       ),
+                      ImageIcon(AssetImage('assets/image/LOGO.png'), size: 100, color: Colors.white,),
+                      Row(
+                        children: [
+                          Icon(Icons.notifications, size: 30,color: Colors.white,),
+                          SizedBox(width: 10),
+                          Icon(Icons.settings, size: 30,color: Colors.white),
+                        ],
+                      )
                     ],
                   ),
-                  const SizedBox(height: 10,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 180,
-                          height: 70,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                              color: Colors.grey[600],
-                              borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
+                ),
+                FutureBuilder(
+                  future: getdata(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                height: 60.0,
-                                width: 60.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 15,),
-                              const Text('Born Pink',
+                              SizedBox(width: 20,),
+                              Text('Recenty played',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 70,
-                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                height: 60.0,
-                                width: 60.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              const SizedBox(width: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
                             ],
                           ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 70,
-                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                height: 60.0,
-                                width: 60.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 70,
-                          margin: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                height: 60.0,
-                                width: 60.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20,),
-                      Text('Popular Artist',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20,),
-                  // Container(
-                  //   margin: EdgeInsets.only(right: 10),
-                  //   child: CarouselSlider(
-                  //       items: images,
-                  //       options: CarouselOptions(
-                  //         autoPlay: true,
-                  //         height: 200,
-                  //         onPageChanged: (index, reason){
-                  //           setState(() {
-                  //             myCurrentIndex = index;
-                  //           });
-                  //         }
-                  //       )
-                  //   ),
-                  // )
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                                margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                height: 140.0,
-                                width: 140.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/billie.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          height: 140.0,
-                          width: 140.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),
-                            //set border radius to 50% of square height and width
-                            image:  const DecorationImage(
-                              image: AssetImage("assets/image/bp.jpg"),
-                              fit: BoxFit.cover, //change image fill type
+                          Container(
+                            height: 100,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.hasData ? min(10, snapshot.data.length) : 0,
+                              itemBuilder: (context, index) {
+                                // Sử dụng .data() thay vì .data
+                                Map<String, dynamic> songData = snapshot.data[index].data();
+                                Map<String, dynamic> DataImage = snapshot.data[index].data();
+                                Map<String, dynamic> DataAudio = snapshot.data[index].data();
+                                Map<String, dynamic> artisData = snapshot.data[index].data();
+                                return
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => playedPage(
+                                              song_name: songData["song_name"],
+                                              imageUrl: DataImage["imageUrl"],
+                                              audioUrl: DataAudio["audioUrl"],
+                                              artist_name: artisData["artist_name"],
+                                            ),
+                                          ));
+                                        },
+                                        child: Container(
+                                          width: 300,
+                                          height: 70,
+                                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[600],
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                child: ClipOval(
+                                                  child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover, height: 60,
+                                                    width: 60.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 15),
+                                              Container(
+                                                width: 200,
+                                                child: Text(
+                                                  songData["song_name"],
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                              },
                             ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          height: 140.0,
-                          width: 140.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),
-                            //set border radius to 50% of square height and width
-                            image:  const DecorationImage(
-                              image: AssetImage("assets/image/taylor.jpg"),
-                              fit: BoxFit.cover, //change image fill type
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          height: 140.0,
-                          width: 140.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),
-                            //set border radius to 50% of square height and width
-                            image:  const DecorationImage(
-                              image: AssetImage("assets/image/after.jpg"),
-                              fit: BoxFit.cover, //change image fill type
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          height: 140.0,
-                          width: 140.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(80),
-                            //set border radius to 50% of square height and width
-                            image:  const DecorationImage(
-                              image: AssetImage("assets/image/3.jpg"),
-                              fit: BoxFit.cover, //change image fill type
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20,),
-                      Text('Trending Now',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20,),
-                      Text('Popular new releases',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 20,),
-                      Text('Your top mixes',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 180,
-                          height: 205,
-                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[600],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160.0,
-                                width: 180.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  //set border radius to 50% of square height and width
-                                  image:  const DecorationImage(
-                                    image: AssetImage("assets/image/bornpink.jpg"),
-                                    fit: BoxFit.cover, //change image fill type
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 15,),
-                              const Text('Born Pink',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),)
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
 
-                ],
-              ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: getArtist(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(width: 20,),
+                              Text('Popular Artists',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 200,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.hasData ? min(10, snapshot.data.length) : 0,
+                              itemBuilder: (context, index) {
+                                // Sử dụng .data() thay vì .data
+                                Map<String, dynamic> avtData = snapshot.data[index].data();
+                                Map<String, dynamic> username = snapshot.data[index].data();
+                                Map<String, dynamic> role = snapshot.data[index].data();
+                                return
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                        },
+                                        child: Container(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(15),
+                                                child: ClipOval(
+                                                  child: Image.network(avtData["avt"], fit: BoxFit.cover, height: 150,
+                                                    width: 150.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                              },
+                            ),
+                          ),
+
+                        ],
+                      );
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: getAlbum(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(width: 20,),
+                              Text('Trending Now',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 300,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.hasData ? min(10, snapshot.data.length) : 0,
+                              itemBuilder: (context, index) {
+                                // Sử dụng .data() thay vì .data
+                                Map<String, dynamic> album_name = snapshot.data[index].data();
+                                Map<String, dynamic> url_imgAlbum = snapshot.data[index].data();
+                                return
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                        },
+                                        child: Container(
+                                          width: 200,
+                                          height: 250,
+                                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                                          decoration: BoxDecoration(
+                                            border:Border.all(color: Colors.grey, width: 2),
+                                            color: Colors.grey[600],
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                child: ClipRRect(
+                                                  borderRadius:BorderRadius.circular(10),
+                                                  child: Image.network(url_imgAlbum["url_imgAlbum"], fit: BoxFit.cover, height: 200,
+                                                    width: 200.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 15),
+                                              Container(
+                                                padding: EdgeInsets.all(10),
+                                                width: 200,
+                                                child: Center(
+                                                  child: Text(
+                                                    album_name["album_name"],
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                              },
+                            ),
+                          ),
+
+                        ],
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ),
-
         ),
-      );
+
+      ),
+    );
   }
 
 }

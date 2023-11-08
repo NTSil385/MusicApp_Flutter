@@ -103,7 +103,7 @@ class _infoAlbumState extends State<infoAlbum> {
                       ),
 
                       Container(
-                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                         child: Text('${widget.album_name}', style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
