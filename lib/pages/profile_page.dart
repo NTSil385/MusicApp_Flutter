@@ -1,6 +1,11 @@
   import 'package:cloud_firestore/cloud_firestore.dart';
   import 'package:firebase_auth/firebase_auth.dart';
   import 'package:flutter/material.dart';
+import 'package:login_register/album_page/add_album.dart';
+import 'package:login_register/album_page/album.dart';
+import 'package:login_register/pages/upload.dart';
+
+import '../storage/storage_page.dart';
 
   class ProfilePage extends StatefulWidget {
     const ProfilePage({super.key});
@@ -195,7 +200,9 @@
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/upload');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => UploadPage()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -215,7 +222,9 @@
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/storage');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => stogragePage()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -242,7 +251,9 @@
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/addAlbum');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => add_AlbumPage()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -261,7 +272,9 @@
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/Albums');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => Album()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -276,7 +289,7 @@
                                                 Color(0xff78FFB3)
                                               ]),
                                         ),
-                                        child: Image.asset('assets/image/add_playlist.png'),
+                                        child: Image.asset('assets/image/Vector.png'),
                                       ),
                                     ),
                                   ],

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/pages/profile_page.dart';
+import 'package:login_register/pages/show_album.dart';
 import 'package:login_register/storage/storage_page.dart';
 
 import '../storage/played_page.dart';
@@ -67,7 +68,6 @@ class _HomePageState extends State<HomePage> {
   int myCurrentIndex = 0;
 
 
-
   Future getdata() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('songs')
@@ -95,6 +95,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    int index = 1;
+    final items = <Widget>[
+      ImageIcon(
+        AssetImage('assets/image/Home.png'),
+      ),
+      Icon(Icons.search),
+      Icon(Icons.person)
+    ];
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -255,29 +264,35 @@ class _HomePageState extends State<HomePage> {
                                 Map<String, dynamic> avtData = snapshot.data[index].data();
                                 Map<String, dynamic> username = snapshot.data[index].data();
                                 Map<String, dynamic> role = snapshot.data[index].data();
-                                return
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                        },
-                                        child: Container(
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                padding: EdgeInsets.all(15),
-                                                child: ClipOval(
-                                                  child: Image.network(avtData["avt"], fit: BoxFit.cover, height: 150,
-                                                    width: 150.0,
+                                bool checkrole = role['role'];
+                                if(checkrole == true){
+                                  return
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                          },
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  child: ClipOval(
+                                                    child: Image.network(avtData["avt"], fit: BoxFit.cover, height: 150,
+                                                      width: 150.0,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  );
+                                      ],
+                                    );
+                                }else {
+                                  return Container();
+                                }
+
                               },
                             ),
                           ),
@@ -324,6 +339,14 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                              builder: (context)=>showAlbum(
+                                                album_name:album_name["album_name"],
+                                                imageUrl: url_imgAlbum["url_imgAlbum"],
+
+                                              )
+                                          )
+                                          );
                                         },
                                         child: Container(
                                           width: 200,
@@ -331,7 +354,7 @@ class _HomePageState extends State<HomePage> {
                                           margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
                                           decoration: BoxDecoration(
                                             border:Border.all(color: Colors.grey, width: 2),
-                                            color: Colors.grey[600],
+                                            color: Colors.grey[300],
                                             borderRadius: BorderRadius.circular(10),
                                           ),
                                           child: Column(

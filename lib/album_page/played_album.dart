@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/Widget/back_button.dart';
+import 'package:login_register/album_page/album.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audio_service/audio_service.dart';
 
@@ -143,8 +144,9 @@ class _playedAlbumsState extends State<playedAlbums> {
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     child: backButton(
                         onClick: () {
-                          Navigator.of(context).pushNamed(
-                              '/Albums');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Album()));
                         }),
                   ),
                   const SizedBox(width: 100,),

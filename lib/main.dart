@@ -12,7 +12,6 @@ import 'package:login_register/pages/signup_page.dart';
 import 'package:login_register/storage/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
-import 'package:login_register/test/album.dart';
 import 'package:login_register/transition/transition_page.dart';
 
 
@@ -62,7 +61,7 @@ class _MyApp extends StatelessWidget {
         );
       case '/home':
         return CustomPageRoute(
-          child: const HomePage(),
+          child: const indexPageHome(),
           direction: AxisDirection.up,
           settings: settings,
         );

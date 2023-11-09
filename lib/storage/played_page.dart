@@ -4,9 +4,11 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:login_register/pages/index_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
+import '../pages/home_page.dart';
 
 
 
@@ -104,8 +106,9 @@ class _songPlayedState extends State<playedPage> {
                 children: [
                   backButton(
                       onClick: () {
-                        Navigator.of(context).pushNamed(
-                            '/storage');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()));
                       }),
                   const SizedBox(width: 100,),
                   const Text('Now Playing',

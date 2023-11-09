@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:login_register/album_page/album.dart';
+import 'package:login_register/album_page/info_album.dart';
 
 import '../Widget/back_button.dart';
 import '../storage/storage_service.dart';
@@ -56,8 +58,9 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
               Container(
                 child: backButton(
                     onClick: () {
-                      Navigator.of(context).pushNamed(
-                          '/index_profile');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Album()));
                     }),
               ),
 

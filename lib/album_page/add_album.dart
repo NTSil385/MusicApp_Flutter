@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:login_register/pages/home_page.dart';
 
 import '../Widget/back_button.dart';
 import '../storage/storage_service.dart';
@@ -143,9 +144,11 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
               Container(
                 child: backButton(
                     onClick: () {
-                      Navigator.of(context).pushNamed(
-                          '/index_profile');
-                    }),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => indexPageHome()));
+                    }
+                    ),
               ),
 
             ],

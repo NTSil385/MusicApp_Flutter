@@ -20,21 +20,20 @@ import '../storage/played_playlist.dart';
 
 
 
-class infoAlbum extends StatefulWidget {
+class showAlbum extends StatefulWidget {
   String? album_name,imageUrl;
 
-  infoAlbum({
+  showAlbum({
     super.key,
     this.album_name,
     this.imageUrl,
   });
 
   @override
-  State<infoAlbum> createState() => _infoAlbumState();
+  State<showAlbum> createState() => _showAlbumState();
 }
 
-class _infoAlbumState extends State<infoAlbum> {
-  final User? currentUser = FirebaseAuth.instance.currentUser;
+class _showAlbumState extends State<showAlbum> {
 
   @override
   void initState() {
@@ -43,16 +42,12 @@ class _infoAlbumState extends State<infoAlbum> {
 
 
   Future getdata() async {
-    if (currentUser != null && currentUser!.email != null) {
       QuerySnapshot qn = await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(currentUser!.email)
           .collection('Albums')
           .doc('${widget.album_name}')
           .collection('${widget.album_name}')
           .get();
       return qn.docs;
-    }
   }
 
 
@@ -106,9 +101,9 @@ class _infoAlbumState extends State<infoAlbum> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                         child: Text('${widget.album_name}', style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
                         ),),
                       ),
                       Container(
@@ -122,8 +117,8 @@ class _infoAlbumState extends State<infoAlbum> {
                           );
                         },
                             icon: const Icon(Icons.edit
-                                      ,size: 40,
-                                      color: Colors.white,
+                              ,size: 40,
+                              color: Colors.white,
                             )),
                       ),
                     ],
