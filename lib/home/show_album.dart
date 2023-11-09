@@ -1,21 +1,11 @@
-
-import 'package:audio_service/audio_service.dart';
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
-import 'package:login_register/album_page/album.dart';
 import 'package:login_register/album_page/edit_album.dart';
-import 'package:login_register/album_page/played_album.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
 import '../storage/played_page.dart';
-import '../storage/played_playlist.dart';
 
 
 
@@ -64,7 +54,7 @@ class _showAlbumState extends State<showAlbum> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration:  BoxDecoration(
+        decoration: const BoxDecoration(
             color: Color(0xff0B1223)
         ),
         child:Column(
@@ -75,7 +65,7 @@ class _showAlbumState extends State<showAlbum> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: backButton(
                       onClick: () {
                         Navigator.push(
@@ -114,10 +104,10 @@ class _showAlbumState extends State<showAlbum> {
                     children: [
 
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 200, 0, 0),
-                        padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                         height: 494,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(colors: [
                             Color(0xffD9D9D9),
                             Color(0xffD9D9D9),
@@ -212,9 +202,9 @@ class _showAlbumState extends State<showAlbum> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      margin:EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                      margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                                       child: Text(widget.album_name!,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 30,
                                         color: Colors.black ,
                                         fontWeight: FontWeight.w500

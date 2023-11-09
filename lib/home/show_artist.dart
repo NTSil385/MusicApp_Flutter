@@ -11,11 +11,17 @@ import 'package:login_register/album_page/played_album.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
 import 'package:login_register/home/show_album.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
+import '../pages/welcome_page.dart';
+import '../provider/fav_provider.dart';
 import '../storage/played_page.dart';
 import '../storage/played_playlist.dart';
+
+
+
 
 class showArtist extends StatefulWidget {
   final String artist_name;
@@ -34,9 +40,15 @@ class showArtist extends StatefulWidget {
 }
 
 class _showArtistState extends State<showArtist> {
+
+  final User? currentUser = FirebaseAuth.instance.currentUser;
+  FavoriteProvider _favoriteProvider = FavoriteProvider();
+
+
   @override
   void initState() {
     super.initState();
+    _favoriteProvider = Provider.of<FavoriteProvider>(context, listen: false);
   }
 
   Future getSongs() async {
@@ -147,21 +159,8 @@ class _showArtistState extends State<showArtist> {
                                   snapshot.data[index].data() as Map<String, dynamic>;
                                   Map<String, dynamic> artistData =
                                   snapshot.data[index].data() as Map<String, dynamic>;
-
+                                  String songId = songData["song_name"];
                                   return InkWell(
-                                    // onTap: () {
-                                    //   Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //       builder: (context) => playedPage(
-                                    //         song_name: songData["song_name"],
-                                    //         imageUrl: DataImage["imageUrl"],
-                                    //         audioUrl: DataAudio["audioUrl"],
-                                    //         artist_name: artistData["artist_name"],
-                                    //       ),
-                                    //     ),
-                                    //   );
-                                    // },
                                     child: Container(
                                       width: 407,
                                       height: 70,
@@ -206,14 +205,60 @@ class _showArtistState extends State<showArtist> {
                                           Row(
                                             children: [
                                               Container(
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    var favoriteProvider =
+                                                    Provider.of<FavoriteProvider>(context,
+                                                        listen: false);
+                                                    bool isFavorite =
+                                                    !(_favoriteProvider.favoriteStatus[songId] ?? false);
+                                                    //
+                                                    // if(isFavorite == false){
+                                                    //   setState(() {
+                                                    //     isFavorite = true;
+                                                    //   });
+                                                    // }else if(isFavorite == true) {
+                                                    //   print('hi');
+                                                    //   setState(() {
+                                                    //     isFavorite = false;
+                                                    //   });
+                                                    // }
 
-                                                child: IconButton(onPressed: (){
-                                                },
-                                                    icon: const Icon(Icons.favorite_outline
-                                                      ,size: 30,
-                                                      color: Colors.white,
-                                                    )),
+
+                                                    setState(() {
+                                                      favoriteProvider.setFavoriteStatus(songId, isFavorite);
+                                                    });
+                                                    print(isFavorite);
+                                                    print(favoriteProvider);
+                                                    // Thực hiện các hành động khác khi click vào nút yêu thích
+                                                    if (isFavorite) {
+                                                      FirebaseFirestore.instance
+                                                          .collection('Users')
+                                                          .doc(currentUser!.email)
+                                                          .collection('Favorite')
+                                                          .doc(songData["song_name"])
+                                                          .set({
+                                                        'song_name': songData["song_name"],
+                                                        'imageUrl': DataImage["imageUrl"],
+                                                        'audioUrl': DataAudio["audioUrl"],
+                                                        'artist_name': artistData["artist_name"],
+                                                        'value': false,
+                                                      });
+                                                    } else {
+                                                      FirebaseFirestore.instance
+                                                          .collection('Users')
+                                                          .doc(currentUser!.email)
+                                                          .collection('Favorite')
+                                                          .doc(songData["song_name"])
+                                                          .delete();
+                                                    }
+                                                  },
+                                                  icon: _favoriteProvider.favoriteStatus[songId] ?? false
+                                                      ? Icon(Icons.favorite, color: Colors.red,)
+                                                      : Icon(Icons.favorite_border),
+                                                ),
                                               ),
+
                                               Container(
                                                 decoration: BoxDecoration(
                                                 ),
