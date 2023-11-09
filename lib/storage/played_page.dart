@@ -4,11 +4,11 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:login_register/pages/index_page.dart';
+import 'package:login_register/home/index_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
-import '../pages/home_page.dart';
+import '../home/home_page.dart';
 
 
 

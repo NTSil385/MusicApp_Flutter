@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_register/pages/home_page.dart';
-import 'package:login_register/pages/index_page.dart';
+import 'package:login_register/home/home_page.dart';
+import 'package:login_register/home/index_page.dart';
 import 'package:login_register/pages/index_profile.dart';
 import 'package:login_register/storage/played_page.dart';
 import 'package:login_register/storage/played_playlist.dart';

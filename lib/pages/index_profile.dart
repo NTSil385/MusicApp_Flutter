@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/storage/storage_page.dart';
 
-import 'home_page.dart';
+import '../home/home_page.dart';
 
 class indexProfilePage extends StatefulWidget {
   const indexProfilePage({super.key});

@@ -9,7 +9,7 @@ import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/storage/storage_service.dart';
 
 import '../Widget/back_button.dart';
-import 'home_page.dart';
+import '../home/home_page.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
