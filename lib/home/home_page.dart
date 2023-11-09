@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/home/show_artist.dart';
 import 'package:login_register/pages/profile_page.dart';
 import 'package:login_register/home/show_album.dart';
 import 'package:login_register/storage/storage_page.dart';
@@ -263,6 +264,7 @@ class _HomePageState extends State<HomePage> {
                                 // Sử dụng .data() thay vì .data
                                 Map<String, dynamic> avtData = snapshot.data[index].data();
                                 Map<String, dynamic> username = snapshot.data[index].data();
+                                Map<String, dynamic> email = snapshot.data[index].data();
                                 Map<String, dynamic> role = snapshot.data[index].data();
                                 bool checkrole = role['role'];
                                 if(checkrole == true){
@@ -271,6 +273,14 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context)=>showArtist(
+                                                  artist_name:username["username"],
+                                                  imageUrl: avtData["avt"],
+                                                  email: email['email']
+                                                )
+                                            )
+                                            );
                                           },
                                           child: Container(
                                             child: Column(
