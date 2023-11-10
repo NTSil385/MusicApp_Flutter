@@ -269,7 +269,6 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                     'audioUrl': data['audioUrl'],
                                     'imageUrl': image_url,
                                     'value': false,
-                                    'status':true,
                                   });
 
 

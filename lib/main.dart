@@ -12,6 +12,7 @@ import 'package:login_register/provider/fav_provider.dart';
 import 'package:login_register/storage/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
+import 'package:login_register/test/addplaylist.dart';
 import 'package:login_register/transition/transition_page.dart';
 import 'package:provider/provider.dart';
 
@@ -32,8 +33,9 @@ Future<void> main() async {
     );
   runApp(ChangeNotifierProvider(
       create: (context) => FavoriteProvider(),
-      child: _MyApp()));
+      child:_MyApp()));
 }
+
 
 class _MyApp extends StatelessWidget {
   @override

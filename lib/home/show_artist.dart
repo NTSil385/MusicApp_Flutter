@@ -1,27 +1,20 @@
-import 'package:audio_service/audio_service.dart';
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
-import 'package:login_register/album_page/album.dart';
-import 'package:login_register/album_page/edit_album.dart';
-import 'package:login_register/album_page/played_album.dart';
 import 'package:login_register/home/home_page.dart';
-import 'package:login_register/home/played_ablumHome.dart';
 import 'package:login_register/home/show_album.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
-import '../pages/welcome_page.dart';
 import '../provider/fav_provider.dart';
 import '../storage/played_page.dart';
-import '../storage/played_playlist.dart';
-
-
-
+//
+// song_name': songData["song_name"],
+// 'imageUrl': DataImage["imageUrl"],
+// 'audioUrl': DataAudio["audioUrl"],
+// 'artist_name': artistData["artist_name"],
+// 'value': false,
+String? song_name, image, audio, artist, value;
 
 class showArtist extends StatefulWidget {
   final String artist_name;
@@ -42,12 +35,52 @@ class showArtist extends StatefulWidget {
 class _showArtistState extends State<showArtist> {
 
   final User? currentUser = FirebaseAuth.instance.currentUser;
+
   FavoriteProvider _favoriteProvider = FavoriteProvider();
 
+  List<String> _selectedItems = [];
+  List<String> albumNames = [];
+  Future<List<String>> getPlaylist() async {
+
+    
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(currentUser!.email)
+        .collection('Playlist')
+        .get();
+
+    for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data = documentSnapshot.data();
+      if (data.containsKey("playlist_name")) {
+        albumNames.add(data["playlist_name"] as String);
+      }
+
+    }
+    print(albumNames);
+    print(currentUser!.email);
+    return albumNames;
+  }
+
+
+  void _showPlaylist() async {
+    final List<String> items = albumNames;
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return MutltSelect(items: items);
+        });
+    if(results != null){
+      setState(() {
+        _selectedItems = results;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    getPlaylist();
     _favoriteProvider = Provider.of<FavoriteProvider>(context, listen: false);
   }
 
@@ -212,18 +245,6 @@ class _showArtistState extends State<showArtist> {
                                                         listen: false);
                                                     bool isFavorite =
                                                     !(_favoriteProvider.favoriteStatus[songId] ?? false);
-                                                    //
-                                                    // if(isFavorite == false){
-                                                    //   setState(() {
-                                                    //     isFavorite = true;
-                                                    //   });
-                                                    // }else if(isFavorite == true) {
-                                                    //   print('hi');
-                                                    //   setState(() {
-                                                    //     isFavorite = false;
-                                                    //   });
-                                                    // }
-
 
                                                     setState(() {
                                                       favoriteProvider.setFavoriteStatus(songId, isFavorite);
@@ -285,6 +306,11 @@ class _showArtistState extends State<showArtist> {
                                               ),
                                               Container(
                                                 child: IconButton(onPressed: (){
+                                                  song_name = songData["song_name"];
+                                                  image =DataImage["imageUrl"];
+                                                  audio = DataAudio["audioUrl"];
+                                                  artist = artistData["artist_name"];
+                                                  _showPlaylist();
                                                 },
                                                     icon: const Icon(Icons.add_box_outlined
                                                       ,size: 25,
@@ -420,6 +446,113 @@ class _showArtistState extends State<showArtist> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MutltSelect extends StatefulWidget {
+  final List<String> items;
+  const MutltSelect({required this.items,super.key});
+
+  @override
+  State<MutltSelect> createState() => _MutltSelectState();
+}
+
+class _MutltSelectState extends State<MutltSelect> {
+  final User? currentUser = FirebaseAuth.instance.currentUser;
+  final List<String> _selectedItems = [];
+
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if(isSelected){
+        _selectedItems.add(itemValue);
+      }else {
+        _selectedItems.remove(itemValue);
+      }
+    });
+  }
+
+  void _cancel() {
+    Navigator.pop(context);
+  }
+
+  void _submit() {
+    Navigator.pop(context, _selectedItems);
+    print(_selectedItems);
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(currentUser!.email)
+        .collection('Playlist')
+        .doc(_selectedItems.toString())
+        .collection(_selectedItems.toString())
+        .add(
+        {
+          'song_name': song_name,
+          'imageUrl': image,
+          'audioUrl': audio,
+          'artist_name': artist,
+        });
+
+  }
+
+  void create() {
+    Navigator.pop(context, _selectedItems);
+    print(_selectedItems);
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(currentUser!.email)
+        .collection('Playlist')
+        .doc(song_name)
+        .set({
+        'playlist_name' : song_name,
+    });
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(currentUser!.email)
+        .collection('Playlist')
+        .doc(song_name)
+        .collection(song_name.toString())
+        .doc(song_name)
+        .set(
+        {
+          'song_name': song_name,
+          'imageUrl': image,
+          'audioUrl': audio,
+          'artist_name': artist,
+        });
+
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+        title: const Text('Please Choose One'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: widget.items.map((item) => CheckboxListTile(
+                value: _selectedItems.contains(item),
+                title: Text(item),
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (isChecked) => _itemChange(item, isChecked!)
+            )).toList(),
+          ),
+
+
+        ),
+        actions: [
+          TextButton(onPressed: _cancel, child: Text('Cancel',
+              style: TextStyle(
+                color: Colors.red,
+              ),)),
+          ElevatedButton(onPressed: _submit, child: Text('Submit')),
+          TextButton(onPressed: create, child: Text('Create',
+          style: TextStyle(
+            color: Colors.green
+          ),
+          )),
+        ]
+
     );
   }
 }
