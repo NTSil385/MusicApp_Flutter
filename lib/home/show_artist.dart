@@ -485,7 +485,8 @@ class _MutltSelectState extends State<MutltSelect> {
         .collection('Playlist')
         .doc(_selectedItems.toString())
         .collection(_selectedItems.toString())
-        .add(
+        .doc(song_name)
+        .set(
         {
           'song_name': song_name,
           'imageUrl': image,
