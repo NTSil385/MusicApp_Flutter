@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/artist_channel/artist_showAlbums.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/show_album.dart';
 import 'package:provider/provider.dart';
@@ -357,10 +358,10 @@ class _showArtistState extends State<showArtist> {
                                     return InkWell(
                                       onTap: () {
                                         Navigator.push(context, MaterialPageRoute(
-                                            builder: (context)=>showAlbum(
+                                            builder: (context)=>artistshowAlbum(
                                               album_name:AlbumName["album_name"],
                                               imageUrl: AlbumImage["url_imgAlbum"],
-
+                                              email: widget.email,
                                             )
                                         )
                                         );

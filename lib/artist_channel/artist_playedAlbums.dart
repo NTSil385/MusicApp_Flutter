@@ -7,10 +7,11 @@ import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/Widget/back_button.dart';
 import 'package:login_register/album_page/album.dart';
+import 'package:login_register/home/home_page.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audio_service/audio_service.dart';
 
-import 'home_page.dart';
+
 
 
 class PositionData {
@@ -24,27 +25,28 @@ class PositionData {
       );
 }
 
-class playedAlbumsHome extends StatefulWidget {
-  String? album_name;
-  playedAlbumsHome({super.key, this.album_name});
+class artistplayedAlbumsHome extends StatefulWidget {
+  String? album_name, email;
+  artistplayedAlbumsHome({super.key, this.album_name,this.email});
 
   @override
-  State<playedAlbumsHome> createState() => _playedAlbumsHomeState();
+  State<artistplayedAlbumsHome> createState() => _artistplayedAlbumsHomeState();
 }
 
-class _playedAlbumsHomeState extends State<playedAlbumsHome> {
-  final User? currentUser = FirebaseAuth.instance.currentUser;
+class _artistplayedAlbumsHomeState extends State<artistplayedAlbumsHome> {
   final AudioPlayer player = AudioPlayer();
   List<AudioSource>? _playlist;
 
   Future<List<Map<String, dynamic>>> getdata() async {
-      print(widget.album_name);
-      QuerySnapshot qn = await FirebaseFirestore.instance
-          .collection('Albums')
-          .doc('${widget.album_name}')
-          .collection('${widget.album_name}')
-          .get();
-      return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    print(widget.album_name);
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(widget.email)
+        .collection('Albums')
+        .doc('${widget.album_name}')
+        .collection('${widget.album_name}')
+        .get();
+    return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
 
 
 
