@@ -8,7 +8,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/album_page/album.dart';
 import 'package:login_register/album_page/edit_album.dart';
-import 'package:login_register/album_page/played_album.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
@@ -198,28 +197,6 @@ class _infoAlbumState extends State<infoAlbum> {
                         );
                       },
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: ElevatedButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>  playedAlbums(
-                              album_name: widget.album_name,
-                            ),
-                          ));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), //<-- SEE HERE
-                          padding: const EdgeInsets.all(20),
-                          backgroundColor: const Color(0xff2c3d5b),
-                        ),
-
-                        child: const Icon(Icons.play_arrow_rounded)),
                   ),
                 ],
               );

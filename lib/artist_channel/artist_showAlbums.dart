@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/album_page/edit_album.dart';
-import 'package:login_register/artist_channel/artist_playedAlbums.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
 
@@ -238,9 +237,8 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                             child: ElevatedButton(
                                 onPressed: (){
                                   Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) =>  artistplayedAlbumsHome(
+                                    builder: (context) =>  playedAlbumsHome(
                                       album_name: widget.album_name,
-                                      email: widget.email,
                                     ),
                                   ));
                                 },

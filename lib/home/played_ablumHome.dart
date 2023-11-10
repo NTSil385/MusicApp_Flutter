@@ -92,34 +92,6 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
     });
   }
 
-  // Future<void> fetchData() async {
-  //   // Tạo danh sách phát từ dữ liệu Firestore
-  //   final playlistData = await getdata();
-  //   print(playlistData);
-  //   _playlist = playlistData.map((songData) {
-  //     return AudioSource.uri(
-  //       Uri.parse(songData['audioUrl']),
-  //       tag: MediaItem(
-  //         id: playlistData.length.toString(),
-  //         title: songData['song_name'],
-  //         artist: songData['artist_name'],
-  //         artUri: Uri.parse(songData['imageUrl']),
-  //       ),
-  //     );
-  //   }).toList();
-  //
-  //   // Cài đặt danh sách phát cho player
-  //   final playlist0 = await player.setAudioSource(
-  //     ConcatenatingAudioSource(
-  //       children: _playlist ?? [],
-  //     ),
-  //   );
-  //
-  //   if (playlist0 != null) {
-  //     player.setLoopMode(LoopMode.all);
-  //     player.setAudioSource(playlist0 as AudioSource);
-  //   }
-  // }
   @override
   void dispose() {
     player.dispose();
@@ -133,11 +105,6 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   //     androidNotificationOngoing: true,
   //   );
   // }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
