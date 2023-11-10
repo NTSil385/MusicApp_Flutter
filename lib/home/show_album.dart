@@ -233,6 +233,8 @@ class _showAlbumState extends State<showAlbum> {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) =>  playedAlbumsHome(
                                     album_name: widget.album_name,
+                                    collection: 'Albums',
+                                    collection2: '',
                                   ),
                                 ));
                               },

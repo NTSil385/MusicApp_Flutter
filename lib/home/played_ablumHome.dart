@@ -25,8 +25,10 @@ class PositionData {
 }
 
 class playedAlbumsHome extends StatefulWidget {
-  String? album_name;
-  playedAlbumsHome({super.key, this.album_name});
+  String? album_name,collection, collection2;
+  playedAlbumsHome({super.key, this.album_name, this.collection, this.collection2});
+
+
 
   @override
   State<playedAlbumsHome> createState() => _playedAlbumsHomeState();
@@ -40,7 +42,7 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   Future<List<Map<String, dynamic>>> getdata() async {
       print(widget.album_name);
       QuerySnapshot qn = await FirebaseFirestore.instance
-          .collection('Albums')
+          .collection('${widget.collection}')
           .doc('${widget.album_name}')
           .collection('${widget.album_name}')
           .get();
@@ -64,6 +66,7 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   @override
   void initState() {
     super.initState();
+
     getdata().then((playlistData) {
       _playlist = playlistData.map((songData) {
         return AudioSource.uri(
@@ -91,6 +94,10 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
       // player.play();
     });
   }
+
+
+
+
 
   @override
   void dispose() {
