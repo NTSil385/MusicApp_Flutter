@@ -1,16 +1,64 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/Widget/back_button.dart';
-import 'package:login_register/album_page/album.dart';
+import 'package:login_register/home/show_album.dart';
+import 'package:login_register/profile/profile_page.dart';
+import 'package:login_register/storage/storage_page.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audio_service/audio_service.dart';
 
 import 'home_page.dart';
+
+
+class index extends StatefulWidget {
+  const index({super.key});
+
+  @override
+  State<index> createState() => _indexPageHometate();
+}
+
+class _indexPageHometate extends State<index> {
+  int currenrIndex = 2;
+  List tabs = [
+    const HomePage(),
+    const stogragePage(),
+    playedAlbumsHome(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+
+        backgroundColor:  const Color(0xff2c3d5b),
+        animationDuration: const Duration(milliseconds: 300),
+        items:const [
+          ImageIcon(
+            AssetImage('assets/image/Home.png'),
+          ),
+          Icon(Icons.search),
+          Icon(Icons.person)
+        ],
+        onTap: (index){
+          setState(() {
+            currenrIndex = index;
+          });
+        },
+      ),
+      body: tabs[currenrIndex],
+    );
+  }
+}
+
+
+
+
 
 
 class PositionData {
@@ -38,6 +86,7 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final AudioPlayer player = AudioPlayer();
   List<AudioSource>? _playlist;
+
 
   Future<List<Map<String, dynamic>>> getdata() async {
       QuerySnapshot qn = await FirebaseFirestore.instance
@@ -135,9 +184,7 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                     child: backButton(
                         onClick: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()));
+                          Navigator.pop(context);
                         }),
                   ),
                   const SizedBox(width: 100,),

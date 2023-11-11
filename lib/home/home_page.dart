@@ -8,7 +8,7 @@ import 'package:login_register/profile/profile_page.dart';
 import 'package:login_register/home/show_album.dart';
 import 'package:login_register/storage/storage_page.dart';
 
-import '../storage/played_page.dart';
+import 'played_page.dart';
 
 
 

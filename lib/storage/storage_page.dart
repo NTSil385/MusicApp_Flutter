@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/index_page.dart';
 import 'package:login_register/pages/index_profile.dart';
-import 'package:login_register/storage/played_page.dart';
+import 'package:login_register/home/played_page.dart';
 import 'package:login_register/storage/played_playlist.dart';
 
 import '../Widget/back_button.dart';

@@ -8,7 +8,7 @@ import 'package:login_register/home/index_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
-import '../home/home_page.dart';
+import 'home_page.dart';
 
 
 
@@ -106,9 +106,7 @@ class _songPlayedState extends State<playedPage> {
                 children: [
                   backButton(
                       onClick: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()));
+                        Navigator.pop(context);
                       }),
                   const SizedBox(width: 100,),
                   const Text('Now Playing',

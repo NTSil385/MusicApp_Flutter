@@ -136,9 +136,7 @@ class _UploadPageState extends State<UploadPage> {
                   const SizedBox(height: 35,),
                   backButton(
                       onClick: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => indexPageHome()));
+                        Navigator.pop(context);
                       }),
                   Stack(
                     children: [

@@ -13,7 +13,7 @@ import 'package:login_register/profile/showplaylist.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
-import '../storage/played_page.dart';
+import '../home/played_page.dart';
 import '../storage/played_playlist.dart';
 
 
@@ -48,9 +48,11 @@ class _playlistnameState extends State<infoPlaylist> {
           .collection('Users')
           .doc(currentUser!.email)
           .collection('Playlist')
-          .doc('${widget.playlist_name}')
-          .collection('${widget.playlist_name}')
+          .doc('[${widget.playlist_name}]')
+          .collection('[${widget.playlist_name}]')
           .get();
+      print(qn.docs);
+      print(widget.playlist_name);
       return qn.docs;
     }
   }
@@ -243,7 +245,7 @@ class _playlistnameState extends State<infoPlaylist> {
                                 builder: (context) =>  playedAlbumsHome(
                                   album_name: currentUser!.email,
                                   collection: 'Playlist',
-                                  collection2: widget.playlist_name,
+                                  collection2: '[${widget.playlist_name}]',
                                 ),
                               ));
                             },

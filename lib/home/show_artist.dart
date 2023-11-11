@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../Widget/back_button.dart';
 
-import '../storage/played_page.dart';
+import 'played_page.dart';
 
 String? song_name, image, audio, artist, value;
 
@@ -512,7 +512,7 @@ class _MutltSelectState extends State<MutltSelect> {
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
-        .doc(song_name)
+        .doc('[${song_name}]')
         .set({
         'playlist_name' : song_name,
     });
@@ -520,9 +520,9 @@ class _MutltSelectState extends State<MutltSelect> {
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
-        .doc(song_name)
-        .collection(song_name.toString())
-        .doc(song_name)
+        .doc('[${song_name}]')
+        .collection('[${song_name}]')
+        .doc('[${song_name}]')
         .set(
         {
           'song_name': song_name,
@@ -534,7 +534,7 @@ class _MutltSelectState extends State<MutltSelect> {
     await FirebaseFirestore.instance
         .collection("Playlist")
         .doc(currentUser!.email)
-        .collection(song_name.toString())
+        .collection('[${song_name}]')
         .doc(song_name)
         .set({
       'playlist_name' : song_name,
@@ -543,7 +543,7 @@ class _MutltSelectState extends State<MutltSelect> {
     await FirebaseFirestore.instance
         .collection("Playlist")
         .doc(currentUser!.email)
-        .collection(song_name.toString())
+        .collection('[${song_name}]')
         .doc(song_name)
         .set(
         {

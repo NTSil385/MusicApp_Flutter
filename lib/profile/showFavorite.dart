@@ -5,7 +5,7 @@ import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/index_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
 import 'package:login_register/pages/index_profile.dart';
-import 'package:login_register/storage/played_page.dart';
+import 'package:login_register/home/played_page.dart';
 import 'package:login_register/storage/played_playlist.dart';
 
 import '../Widget/back_button.dart';
@@ -63,9 +63,7 @@ class _showlistFavPageState extends State<showlistFav> {
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: backButton(
                             onClick: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => indexPageHome()));
+                              Navigator.pop(context);
                             }),
                       ),
                       Container(

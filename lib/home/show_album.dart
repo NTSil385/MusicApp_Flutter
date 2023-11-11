@@ -5,7 +5,7 @@ import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
 
 import '../Widget/back_button.dart';
-import '../storage/played_page.dart';
+import 'played_page.dart';
 
 
 
@@ -68,9 +68,7 @@ class _showAlbumState extends State<showAlbum> {
                   margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: backButton(
                       onClick: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()));
+                        Navigator.pop(context);
                       }),
                 ),
 
