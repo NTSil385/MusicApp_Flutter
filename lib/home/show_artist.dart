@@ -10,12 +10,7 @@ import 'package:provider/provider.dart';
 import '../Widget/back_button.dart';
 
 import '../storage/played_page.dart';
-//
-// song_name': songData["song_name"],
-// 'imageUrl': DataImage["imageUrl"],
-// 'audioUrl': DataAudio["audioUrl"],
-// 'artist_name': artistData["artist_name"],
-// 'value': false,
+
 String? song_name, image, audio, artist, value;
 
 class showArtist extends StatefulWidget {

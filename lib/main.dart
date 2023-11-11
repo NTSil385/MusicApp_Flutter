@@ -9,8 +9,9 @@ import 'package:login_register/home/index_page.dart';
 import 'package:login_register/pages/index_profile.dart';
 import 'package:login_register/pages/login_page.dart';
 import 'package:login_register/pages/signup_page.dart';
+import 'package:login_register/profile/showFavorite.dart';
 import 'package:login_register/storage/storage_page.dart';
-import 'package:login_register/pages/upload.dart';
+import 'package:login_register/profile/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
 import 'package:login_register/test/hive.dart';
 import 'package:login_register/transition/transition_page.dart';
@@ -34,6 +35,7 @@ Future<void> main() async {
 
     await Hive.initFlutter();
     await Hive.openBox('favorites');
+  // runApp(MaterialApp(home:showlistFav() ,));
   runApp(_MyApp());
 }
 

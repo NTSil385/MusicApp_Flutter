@@ -74,28 +74,7 @@ class _stogragePageState extends State<stogragePage> {
                     Map<String, dynamic> DataImage = snapshot.data[index].data();
                     Map<String, dynamic> DataAudio = snapshot.data[index].data();
                     Map<String, dynamic> artisData = snapshot.data[index].data();
-                    // for (var key in songData.keys) {
-                    //   var value = songData[key];
-                    //   print('Key: $key, Value: $value');
-                    // }
-                    //
-                    // List<String> playlist = [];
-                    //
-                    // for (var key in songData.keys) {
-                    //   var value = songData[key];
-                    //   if (key == "audioUrl") {
-                    //     playlist.add(value);
-                    //   }
-                    //   if (key == "song_name") {
-                    //     playlist.add(value);
-                    //   }
-                    //   if(key == "artist_name"){
-                    //     playlist.add(value);
-                    //   }
-                    //   if (key == "imageUrl") {
-                    //     playlist.add(value);
-                    //   }
-                    // }value
+
 
 
 

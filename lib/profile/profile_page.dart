@@ -3,7 +3,8 @@
   import 'package:flutter/material.dart';
 import 'package:login_register/album_page/add_album.dart';
 import 'package:login_register/album_page/album.dart';
-import 'package:login_register/pages/upload.dart';
+import 'package:login_register/profile/showFavorite.dart';
+import 'package:login_register/profile/upload.dart';
 
 import '../storage/storage_page.dart';
 
@@ -356,7 +357,9 @@ import '../storage/storage_page.dart';
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/upload');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => showlistFav()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -371,7 +374,7 @@ import '../storage/storage_page.dart';
                                                 Color(0xff78FFB3)
                                               ]),
                                         ),
-                                        child: Image.asset('assets/image/fav_playlist.png'),
+                                        child: Image.asset('assets/image/favsong.png'),
                                       ),
                                     ),
                                     InkWell(
