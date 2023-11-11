@@ -66,16 +66,11 @@ class _infoAlbumState extends State<infoAlbum> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration:  BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xff053B50),
-                Color(0xff176B87B1),
-                Color(0xff64CCC564),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color(0xff1d2846),
+              Color(0xff2c3d5b),
+            ])
         ),
         child: FutureBuilder(
           future: getdata(),
@@ -142,51 +137,83 @@ class _infoAlbumState extends State<infoAlbum> {
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=>playedPage(
-                                    song_name:songData["song_name"],
-                                    imageUrl: DataImage["imageUrl"],
-                                    audioUrl: DataAudio["audioUrl"],
-                                    artist_name: artisData["artist_name"],
-                                  )
-                              )
-                              );
-                            },
                             child:
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
                                   width: 400,
-                                  height: 70,
-                                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                  height: 90,
+                                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                                   decoration:  BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xff9BE8D8),
-                                          Color(0xff78C1F3),
-                                        ],
-                                      )
+                                    gradient: const LinearGradient(colors: [
+                                      Color(0xffF9CEEE),
+                                      Color(0xffF9F3EE),
+                                    ],
+                                        begin: AlignmentDirectional.topCenter,
+                                        end: Alignment.bottomCenter
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-                                        margin: const EdgeInsets.all(10),
-                                        height: 50,
-                                        width: 50.0,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.all(10),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: Image.network(
+                                                DataImage["imageUrl"],
+                                                fit: BoxFit.cover,
+                                                width: 80,
+                                                height: 80,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 15,),
+                                          Text(songData["song_name"],
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500
+                                            ),),
+                                        ],
                                       ),
-                                      const SizedBox(width: 15,),
-                                      Text(songData["song_name"],
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500
-                                        ),),
+                                      Row(
+                                        children: [
+
+
+                                          Container(
+                                            decoration: BoxDecoration(
+                                            ),
+                                            child: ElevatedButton(
+                                                onPressed: (){
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => playedPage(
+                                                        song_name: songData["song_name"],
+                                                        imageUrl: DataImage["imageUrl"],
+                                                        audioUrl: DataAudio["audioUrl"],
+                                                        artist_name: artisData["artist_name"],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                    shape: const CircleBorder(), //<-- SEE HERE
+                                                    backgroundColor: Colors.white,
+                                                    shadowColor: Color(0xff00000040)
+                                                ),
+
+                                                child: const Icon(Icons.play_arrow_rounded, color: Color(0xff78C1F3),)),
+                                          ),
+
+
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),

@@ -33,16 +33,11 @@ class _AlbumPageState extends State<Album> {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        decoration:  BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Color(0xff053B50),
-              Color(0xff176B87B1),
-              Color(0xff64CCC564),
-            ],
-            begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color(0xff1d2846),
+              Color(0xff2c3d5b),
+            ])
         ),
         child: FutureBuilder(
           future: getdata(),
@@ -56,6 +51,8 @@ class _AlbumPageState extends State<Album> {
                 children: [
                   const SizedBox(height: 30,),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -65,6 +62,20 @@ class _AlbumPageState extends State<Album> {
                                   context,
                                   MaterialPageRoute(builder: (context) => indexPageHome()));
                             }),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Text('Album',style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                        ),),
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                          },
+                          iconSize: 40,
+                          icon: Image.asset('assets/image/Sort_icon.png')
                       ),
                     ],
                   ),
@@ -100,38 +111,44 @@ class _AlbumPageState extends State<Album> {
                               children: [
                                 Container(
                                   width: 400,
-                                  height: 70,
-                                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                  height: 90,
+                                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                                   decoration:  BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xff69AFF5),
-                                          Color(0xffFFC7E0),
-                                        ],
-
-                                      )
+                                    gradient: const LinearGradient(colors: [
+                                      Color(0xffF9CEEE),
+                                      Color(0xffF9F3EE),
+                                    ],
+                                        begin: AlignmentDirectional.topCenter,
+                                        end: Alignment.bottomCenter
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
+
                                   child: Row(
                                     children: [
                                       Container(
                                         margin: const EdgeInsets.all(10),
-                                        height: 50,
-                                        width: 50.0,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(
+                                            AlbumImage["url_imgAlbum"],
+                                            fit: BoxFit.cover,
+                                            width: 80,
+                                            height: 80,
+                                          ),
                                         ),
-                                        child: Image.network(AlbumImage["url_imgAlbum"], fit: BoxFit.cover),
                                       ),
                                       const SizedBox(width: 15,),
                                       Text(AlbumName["album_name"],
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500
                                         ),),
+
                                     ],
                                   ),
+
                                 ),
                               ],
                             ),
