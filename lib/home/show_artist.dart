@@ -490,7 +490,7 @@ class _MutltSelectState extends State<MutltSelect> {
         });
 
     await FirebaseFirestore.instance
-        .collection("Playlists")
+        .collection("Playlist")
         .doc(currentUser!.email)
         .collection(_selectedItems.toString())
         .doc(song_name)
@@ -532,7 +532,7 @@ class _MutltSelectState extends State<MutltSelect> {
         });
 
     await FirebaseFirestore.instance
-        .collection("Playlists")
+        .collection("Playlist")
         .doc(currentUser!.email)
         .collection(song_name.toString())
         .doc(song_name)
@@ -541,7 +541,7 @@ class _MutltSelectState extends State<MutltSelect> {
     });
 
     await FirebaseFirestore.instance
-        .collection("Playlists")
+        .collection("Playlist")
         .doc(currentUser!.email)
         .collection(song_name.toString())
         .doc(song_name)

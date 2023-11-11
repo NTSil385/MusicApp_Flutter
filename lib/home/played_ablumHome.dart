@@ -40,9 +40,6 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   List<AudioSource>? _playlist;
 
   Future<List<Map<String, dynamic>>> getdata() async {
-      print(widget.album_name);
-      print(widget.collection);
-      print(widget.collection2);
       QuerySnapshot qn = await FirebaseFirestore.instance
           .collection(widget.collection.toString())
           .doc('${widget.album_name}')

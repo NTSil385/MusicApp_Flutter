@@ -4,6 +4,7 @@
 import 'package:login_register/album_page/add_album.dart';
 import 'package:login_register/album_page/album.dart';
 import 'package:login_register/profile/showFavorite.dart';
+import 'package:login_register/profile/showplaylist.dart';
 import 'package:login_register/profile/upload.dart';
 
 import '../storage/storage_page.dart';
@@ -320,7 +321,9 @@ import '../storage/storage_page.dart';
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/upload');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => showPlaylist()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -426,7 +429,9 @@ import '../storage/storage_page.dart';
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/upload');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => showPlaylist()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
