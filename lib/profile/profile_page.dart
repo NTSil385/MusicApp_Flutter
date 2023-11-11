@@ -374,7 +374,7 @@ import '../storage/storage_page.dart';
                                                 Color(0xff78FFB3)
                                               ]),
                                         ),
-                                        child: Image.asset('assets/image/favsong.png'),
+                                        child: Image.asset('assets/image/favsong.png', width: 40, height: 40,),
                                       ),
                                     ),
                                     InkWell(

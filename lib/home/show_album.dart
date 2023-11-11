@@ -234,7 +234,7 @@ class _showAlbumState extends State<showAlbum> {
                                   builder: (context) =>  playedAlbumsHome(
                                     album_name: widget.album_name,
                                     collection: 'Albums',
-                                    collection2: '',
+                                    collection2: widget.album_name,
                                   ),
                                 ));
                               },

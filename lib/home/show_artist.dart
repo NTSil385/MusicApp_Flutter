@@ -471,10 +471,10 @@ class _MutltSelectState extends State<MutltSelect> {
     Navigator.pop(context);
   }
 
-  void _submit() {
+  void _submit() async {
     Navigator.pop(context, _selectedItems);
     print(_selectedItems);
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
@@ -489,12 +489,26 @@ class _MutltSelectState extends State<MutltSelect> {
           'artist_name': artist,
         });
 
+    await FirebaseFirestore.instance
+        .collection("Playlists")
+        .doc(currentUser!.email)
+        .collection(_selectedItems.toString())
+        .doc(song_name)
+        .set(
+        {
+          'song_name': song_name,
+          'imageUrl': image,
+          'audioUrl': audio,
+          'artist_name': artist,
+        });
+
+
   }
 
-  void create() {
+  void create() async {
     Navigator.pop(context, _selectedItems);
     print(_selectedItems);
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
@@ -502,7 +516,7 @@ class _MutltSelectState extends State<MutltSelect> {
         .set({
         'playlist_name' : song_name,
     });
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
@@ -516,6 +530,29 @@ class _MutltSelectState extends State<MutltSelect> {
           'audioUrl': audio,
           'artist_name': artist,
         });
+
+    await FirebaseFirestore.instance
+        .collection("Playlists")
+        .doc(currentUser!.email)
+        .collection(song_name.toString())
+        .doc(song_name)
+        .set({
+      'playlist_name' : song_name,
+    });
+
+    await FirebaseFirestore.instance
+        .collection("Playlists")
+        .doc(currentUser!.email)
+        .collection(song_name.toString())
+        .doc(song_name)
+        .set(
+        {
+          'song_name': song_name,
+          'imageUrl': image,
+          'audioUrl': audio,
+          'artist_name': artist,
+        });
+
 
   }
 

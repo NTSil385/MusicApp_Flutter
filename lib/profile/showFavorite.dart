@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/index_page.dart';
+import 'package:login_register/home/played_ablumHome.dart';
 import 'package:login_register/pages/index_profile.dart';
 import 'package:login_register/storage/played_page.dart';
 import 'package:login_register/storage/played_playlist.dart';
@@ -76,13 +77,27 @@ class _showlistFavPageState extends State<showlistFav> {
                        ),),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 20, 20),
-                        child: IconButton(
-                            onPressed: () async {
-                            },
-                            iconSize: 40,
-                            icon: Image.asset('assets/image/Sort_icon.png')
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
                         ),
+                        child: ElevatedButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) =>  playedAlbumsHome(
+                                  album_name: currentUser!.email,
+                                  collection: 'Users',
+                                  collection2: 'Favorite',
+                                ),
+                              ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(), //<-- SEE HERE
+                              padding: const EdgeInsets.all(10),
+                              backgroundColor: Colors.black,
+                            ),
+
+                            child: const Icon(Icons.play_arrow_rounded)),
                       ),
                     ],
                   ),
