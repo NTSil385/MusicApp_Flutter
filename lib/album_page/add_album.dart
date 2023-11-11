@@ -63,51 +63,54 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
   Future<String?> openDialog()=>showDialog<String>(context: context,
     builder: (context)=>AlertDialog(
       title: const Text('Add Album'),
-      content: Column(
-        children: [
-          TextField(
-            controller: _playlistname,
-            decoration: const InputDecoration(
-                hintText: 'Enter your Album name'
+      content: Container(
+        height: 150,
+        child: Column(
+          children: [
+            TextField(
+              controller: _playlistname,
+              decoration: const InputDecoration(
+                  hintText: 'Enter your Album name'
+              ),
             ),
-          ),
-          const SizedBox(height: 20,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: SizedBox(
-                  width: 100,
-                  child: Text( 'Image: $imageName' ,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const  TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),),
+            const SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: SizedBox(
+                    width: 100,
+                    child: Text( 'Image: $imageName' ,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const  TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: ElevatedButton(
-                    onPressed: (){_btnUploadImages();},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.white, width: 3),
-                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  child: ElevatedButton(
+                      onPressed: (){_btnUploadImages();},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.white, width: 3),
+                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
-                    ),
-                    child: const Text(
-                      'Upload',
-                      style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
-                    )),
-              ),
-            ],
-          ),
-        ],
+                      child: const Text(
+                        'Upload',
+                        style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
+                      )),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       actions: [
         TextButton(onPressed: (){
