@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:login_register/album_page/add_album.dart';
 import 'package:login_register/album_page/album.dart';
 import 'package:login_register/pages/artist_signup.dart';
@@ -8,11 +9,10 @@ import 'package:login_register/home/index_page.dart';
 import 'package:login_register/pages/index_profile.dart';
 import 'package:login_register/pages/login_page.dart';
 import 'package:login_register/pages/signup_page.dart';
-import 'package:login_register/provider/fav_provider.dart';
 import 'package:login_register/storage/storage_page.dart';
 import 'package:login_register/pages/upload.dart';
 import 'package:login_register/pages/welcome_page.dart';
-import 'package:login_register/test/addplaylist.dart';
+import 'package:login_register/test/hive.dart';
 import 'package:login_register/transition/transition_page.dart';
 import 'package:provider/provider.dart';
 
@@ -31,9 +31,10 @@ Future<void> main() async {
         storageBucket: "crudapp-40e03.appspot.com",
       ),
     );
-  runApp(ChangeNotifierProvider(
-      create: (context) => FavoriteProvider(),
-      child:_MyApp()));
+
+    await Hive.initFlutter();
+    await Hive.openBox('favorites');
+  runApp(_MyApp());
 }
 
 

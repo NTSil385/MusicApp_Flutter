@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:login_register/artist_channel/artist_showAlbums.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/show_album.dart';
 import 'package:provider/provider.dart';
 
 import '../Widget/back_button.dart';
-import '../provider/fav_provider.dart';
+
 import '../storage/played_page.dart';
 //
 // song_name': songData["song_name"],
@@ -37,7 +38,6 @@ class _showArtistState extends State<showArtist> {
 
   final User? currentUser = FirebaseAuth.instance.currentUser;
 
-  FavoriteProvider _favoriteProvider = FavoriteProvider();
 
   List<String> _selectedItems = [];
   List<String> albumNames = [];
@@ -82,7 +82,7 @@ class _showArtistState extends State<showArtist> {
   void initState() {
     super.initState();
     getPlaylist();
-    _favoriteProvider = Provider.of<FavoriteProvider>(context, listen: false);
+
   }
 
   Future getSongs() async {
@@ -166,6 +166,7 @@ class _showArtistState extends State<showArtist> {
                     child: TabBarView(
                       children: [
                         FutureBuilder(
+
                           future: getSongs(),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -181,149 +182,148 @@ class _showArtistState extends State<showArtist> {
                                 child: Text("No songs available."),
                               );
                             } else {
-                              return ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (context, index) {
-                                  Map<String, dynamic> songData =
-                                  snapshot.data[index].data() as Map<String, dynamic>;
-                                  Map<String, dynamic> DataImage =
-                                  snapshot.data[index].data() as Map<String, dynamic>;
-                                  Map<String, dynamic> DataAudio =
-                                  snapshot.data[index].data() as Map<String, dynamic>;
-                                  Map<String, dynamic> artistData =
-                                  snapshot.data[index].data() as Map<String, dynamic>;
-                                  String songId = songData["song_name"];
-                                  return InkWell(
-                                    child: Container(
-                                      width: 407,
-                                      height: 70,
-                                      margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[600],
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                              return ValueListenableBuilder(
+                                valueListenable: Hive.box('favorites').listenable(),
+                                builder: (context, box, child){
+                                  return ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (context, index) {
+                                      final isFavorite = box.get(index) != null;
+                                      Map<String, dynamic> songData =
+                                      snapshot.data[index].data() as Map<String, dynamic>;
+                                      Map<String, dynamic> DataImage =
+                                      snapshot.data[index].data() as Map<String, dynamic>;
+                                      Map<String, dynamic> DataAudio =
+                                      snapshot.data[index].data() as Map<String, dynamic>;
+                                      Map<String, dynamic> artistData =
+                                      snapshot.data[index].data() as Map<String, dynamic>;
+                                      String songId = songData["song_name"];
+                                      bool status = songData['status'];
+                                      return InkWell(
+                                        child: Container(
+                                          width: 407,
+                                          height: 70,
+                                          margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[600],
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.all(10),
-                                                height: 50,
-                                                width: 50.0,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                ),
-                                                child: Image.network(
-                                                  DataImage["imageUrl"],
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 15),
-                                              Container(
-                                                width: 100,
-                                                child: Text(
-                                                  songData["song_name"],
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w500,
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    margin: const EdgeInsets.all(10),
+                                                    height: 50,
+                                                    width: 50.0,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: Image.network(
+                                                      DataImage["imageUrl"],
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
+                                                  const SizedBox(width: 15),
+                                                  Container(
+                                                    width: 100,
+                                                    child: Text(
+                                                      songData["song_name"],
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    child: IconButton(
+                                                      onPressed: () async {
+                                                        if (isFavorite) {
+                                                          await box.delete(index);
+                                                          await FirebaseFirestore.instance
+                                                              .collection('Users')
+                                                              .doc(currentUser!.email)
+                                                              .collection('Favorite')
+                                                              .doc(songData["song_name"])
+                                                              .delete();
+
+                                                        } else {
+                                                          await box.put(index, status);
+                                                          await FirebaseFirestore.instance
+                                                              .collection('Users')
+                                                              .doc(currentUser!.email)
+                                                              .collection('Favorite')
+                                                              .doc(songData["song_name"])
+                                                              .set({
+                                                            'song_name': songData["song_name"],
+                                                            'imageUrl': DataImage["imageUrl"],
+                                                            'audioUrl': DataAudio["audioUrl"],
+                                                            'artist_name': artistData["artist_name"],
+                                                            'value': false,
+                                                            'status': isFavorite,
+                                                          });
+                                                        }
+                                                      },
+                                                      icon:  isFavorite ?? false
+                                                          ? Icon(Icons.favorite, color:Colors.red)
+                                                          : Icon(Icons.favorite_border),
+                                                    ),
+                                                  ),
+
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                    ),
+                                                    child: ElevatedButton(
+                                                        onPressed: (){
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) => playedPage(
+                                                                song_name: songData["song_name"],
+                                                                imageUrl: DataImage["imageUrl"],
+                                                                audioUrl: DataAudio["audioUrl"],
+                                                                artist_name: artistData["artist_name"],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        style: ElevatedButton.styleFrom(
+                                                          shape: const CircleBorder(), //<-- SEE HERE
+                                                          backgroundColor: Colors.black,
+                                                        ),
+
+                                                        child: const Icon(Icons.play_arrow_rounded)),
+                                                  ),
+                                                  Container(
+                                                    child: IconButton(onPressed: (){
+                                                      song_name = songData["song_name"];
+                                                      image =DataImage["imageUrl"];
+                                                      audio = DataAudio["audioUrl"];
+                                                      artist = artistData["artist_name"];
+                                                      _showPlaylist();
+                                                    },
+                                                        icon: const Icon(Icons.add_box_outlined
+                                                          ,size: 25,
+                                                          color: Colors.white,
+                                                        )),
+                                                  ),
+
+                                                ],
+                                              )
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    var favoriteProvider =
-                                                    Provider.of<FavoriteProvider>(context,
-                                                        listen: false);
-                                                    bool isFavorite =
-                                                    !(_favoriteProvider.favoriteStatus[songId] ?? false);
-
-                                                    setState(() {
-                                                      favoriteProvider.setFavoriteStatus(songId, isFavorite);
-                                                    });
-                                                    print(isFavorite);
-                                                    print(favoriteProvider);
-                                                    // Thực hiện các hành động khác khi click vào nút yêu thích
-                                                    if (isFavorite) {
-                                                      FirebaseFirestore.instance
-                                                          .collection('Users')
-                                                          .doc(currentUser!.email)
-                                                          .collection('Favorite')
-                                                          .doc(songData["song_name"])
-                                                          .set({
-                                                        'song_name': songData["song_name"],
-                                                        'imageUrl': DataImage["imageUrl"],
-                                                        'audioUrl': DataAudio["audioUrl"],
-                                                        'artist_name': artistData["artist_name"],
-                                                        'value': false,
-                                                      });
-                                                    } else {
-                                                      FirebaseFirestore.instance
-                                                          .collection('Users')
-                                                          .doc(currentUser!.email)
-                                                          .collection('Favorite')
-                                                          .doc(songData["song_name"])
-                                                          .delete();
-                                                    }
-                                                  },
-                                                  icon: _favoriteProvider.favoriteStatus[songId] ?? false
-                                                      ? Icon(Icons.favorite, color: Colors.red,)
-                                                      : Icon(Icons.favorite_border),
-                                                ),
-                                              ),
-
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                ),
-                                                child: ElevatedButton(
-                                                    onPressed: (){
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) => playedPage(
-                                                            song_name: songData["song_name"],
-                                                            imageUrl: DataImage["imageUrl"],
-                                                            audioUrl: DataAudio["audioUrl"],
-                                                            artist_name: artistData["artist_name"],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    style: ElevatedButton.styleFrom(
-                                                      shape: const CircleBorder(), //<-- SEE HERE
-                                                      backgroundColor: Colors.black,
-                                                    ),
-
-                                                    child: const Icon(Icons.play_arrow_rounded)),
-                                              ),
-                                              Container(
-                                                child: IconButton(onPressed: (){
-                                                  song_name = songData["song_name"];
-                                                  image =DataImage["imageUrl"];
-                                                  audio = DataAudio["audioUrl"];
-                                                  artist = artistData["artist_name"];
-                                                  _showPlaylist();
-                                                },
-                                                    icon: const Icon(Icons.add_box_outlined
-                                                      ,size: 25,
-                                                      color: Colors.white,
-                                                    )),
-                                              ),
-
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
                               );
