@@ -269,7 +269,6 @@ class _showArtistState extends State<showArtist> {
                                                             'audioUrl': DataAudio["audioUrl"],
                                                             'artist_name': artistData["artist_name"],
                                                             'value': false,
-                                                            'status': isFavorite,
                                                           });
                                                         }
                                                       },
