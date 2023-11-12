@@ -100,7 +100,8 @@ class _UploadPageState extends State<UploadPage> {
       "artist_name" : _artistName.text,
       "imageUrl": image_url,
       "audioUrl": audio_url,
-      "value": false
+      "value": false,
+      "status": false,
     };
     firestoreInstance.collection("songs").doc().set(data).whenComplete(() {
       Navigator.of(context).pushNamed(

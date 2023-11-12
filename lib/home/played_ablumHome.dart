@@ -91,9 +91,11 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   Future<List<Map<String, dynamic>>> getdata() async {
       QuerySnapshot qn = await FirebaseFirestore.instance
           .collection(widget.collection.toString())
-          .doc('${widget.album_name}')
-          .collection('${widget.collection2}')
+          .doc(widget.album_name)
+          .collection(widget.collection2.toString())
           .get();
+
+      print(widget.collection2);
       return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
 
 
@@ -135,6 +137,8 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
         ),
       );
 
+      print(playlistData);
+      print(playlist0);
       player.setLoopMode(LoopMode.all);
       player.setAudioSource(playlist0 as AudioSource);
 

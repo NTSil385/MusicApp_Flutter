@@ -84,7 +84,7 @@ class _showArtistState extends State<showArtist> {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('Users')
         .doc('${widget.email}')
-        .collection('songs')
+        .collection('songs').orderBy('song_name', descending: true)
         .get();
     return qn.docs;
   }
@@ -184,7 +184,7 @@ class _showArtistState extends State<showArtist> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (context, index) {
-                                      final isFavorite = box.get(index) != null;
+
                                       Map<String, dynamic> songData =
                                       snapshot.data[index].data() as Map<String, dynamic>;
                                       Map<String, dynamic> DataImage =
@@ -195,6 +195,7 @@ class _showArtistState extends State<showArtist> {
                                       snapshot.data[index].data() as Map<String, dynamic>;
                                       String songId = songData["song_name"];
                                       bool status = songData['status'];
+                                      final isFavorite = box.get(songData["song_name"]) != null;
                                       return InkWell(
                                         child: Container(
                                           width: 407,
@@ -243,7 +244,7 @@ class _showArtistState extends State<showArtist> {
                                                     child: IconButton(
                                                       onPressed: () async {
                                                         if (isFavorite) {
-                                                          await box.delete(index);
+                                                          await box.delete(songData["song_name"]);
                                                           await FirebaseFirestore.instance
                                                               .collection('Users')
                                                               .doc(currentUser!.email)
@@ -252,7 +253,7 @@ class _showArtistState extends State<showArtist> {
                                                               .delete();
 
                                                         } else {
-                                                          await box.put(index, status);
+                                                          await box.put(songData["song_name"], status);
                                                           await FirebaseFirestore.instance
                                                               .collection('Users')
                                                               .doc(currentUser!.email)
