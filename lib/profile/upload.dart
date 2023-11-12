@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/profile/profile_page.dart';
 import 'package:login_register/storage/storage_service.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../Widget/back_button.dart';
 import '../home/home_page.dart';
@@ -33,6 +34,7 @@ class _UploadPageState extends State<UploadPage> {
    String audioName  = '';
   late String audio_url ;
   late String image_url;
+  bool _loading = false;
 
   Future _btnUploadImages() async {
     final result = await FilePicker.platform.pickFiles(
@@ -71,7 +73,9 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   finalUpload() async {
-    // Upload tệp lên Firebase Storage
+    setState(() {
+      _loading = true; // Bắt đầu sự kiện loading
+    });    // Upload tệp lên Firebase Storage
     var uploadFileImage = service.uploadFileImage(imageName, imagePath!);
     Reference storageRef = FirebaseStorage.instance.ref('Images').child(imageName);
     final UploadTask uploadTask = storageRef.putFile(File(imagePath!));
@@ -116,229 +120,235 @@ class _UploadPageState extends State<UploadPage> {
             '/storage');
       });
     }
+    setState(() {
+      _loading = false; // Kết thúc sự kiện loading
+    });
     print('Created success');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-        height: double.infinity,
-        decoration: const BoxDecoration(
-        color: Color(0xff1F4367)
+        body:  ModalProgressHUD(
+          inAsyncCall: _loading,
+          child: Container(
+          height: double.infinity,
+          decoration: const BoxDecoration(
+          color: Color(0xff1F4367)
 
-        ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SizedBox(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  const SizedBox(height: 35,),
-                  backButton(
-                      onClick: () {
-                        Navigator.pop(context);
-                      }),
-                  Stack(
-                    children: [
+          ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 35,),
+                    backButton(
+                        onClick: () {
+                          Navigator.pop(context);
+                        }),
+                    Stack(
+                      children: [
 
-                      Container(margin: const EdgeInsets.fromLTRB(30, 150, 20, 50),
-                        width: 350,
-                        height: 550,
-                        decoration: BoxDecoration(
-                          border:Border.all(color: Colors.grey, width: 3),
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0xff0B1223),
-                                Color(0xff1F4367),
+                        Container(margin: const EdgeInsets.fromLTRB(30, 150, 20, 50),
+                          width: 350,
+                          height: 550,
+                          decoration: BoxDecoration(
+                            border:Border.all(color: Colors.grey, width: 3),
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color(0xff0B1223),
+                                  Color(0xff1F4367),
 
-                              ]),
-                        ),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 60,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Container(
-                                    width: 200,
-                                    child: Text( 'Image: $imageName' ,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const  TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ),),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                  child: ElevatedButton(
-                                  onPressed: (){_btnUploadImages();},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    side: const BorderSide(color: Colors.white, width: 3),
-                                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                  ),
-                                  child: const Text(
-                                    'Upload',
-                                    style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
-                                  )),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                 Padding(
-                                  padding: const  EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: SizedBox(
-                                    width: 200,
-                                    child: Text('Audio: $audioName',
+                                ]),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 60,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                   Padding(
+                                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: Container(
+                                      width: 200,
+                                      child: Text( 'Image: $imageName' ,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
-                                      style: const TextStyle(
+                                      style: const  TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
                                       ),),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                  child: ElevatedButton(
-                                      onPressed: (){_btnUploadAudio();},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        side: const BorderSide(color: Colors.white, width: 3),
-                                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(16),
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: ElevatedButton(
+                                    onPressed: (){_btnUploadImages();},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      side: const BorderSide(color: Colors.white, width: 3),
+                                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: const Text(
-                                        'Upload',
-                                        style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
-                                      )),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 30,),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff1d2846),
-                                    border: Border.all(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child:  Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: TextField(
-                                    style: const TextStyle(
-                                        color: Colors.white
                                     ),
-                                    controller: _songName,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Enter Song Name',
-                                      hintStyle: TextStyle(color:Colors.white),
+                                    child: const Text(
+                                      'Upload',
+                                      style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
+                                    )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                   Padding(
+                                    padding: const  EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: SizedBox(
+                                      width: 200,
+                                      child: Text('Audio: $audioName',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                    child: ElevatedButton(
+                                        onPressed: (){_btnUploadAudio();},
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          side: const BorderSide(color: Colors.white, width: 3),
+                                          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(16),
+                                          ),
+                                        ),
+                                        child: const Text(
+                                          'Upload',
+                                          style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 30,),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff1d2846),
+                                      border: Border.all(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: TextField(
+                                      style: const TextStyle(
+                                          color: Colors.white
+                                      ),
+                                      controller: _songName,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Enter Song Name',
+                                        hintStyle: TextStyle(color:Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 10,),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff1d2846),
-                                    border: Border.all(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child:  Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: TextField(
-                                    style: const TextStyle(
-                                        color: Colors.white
-                                    ),
-                                    controller: _artistName,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Enter Artist Name',
-                                      hintStyle: TextStyle(color:Colors.white),
+                              const SizedBox(height: 10,),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff1d2846),
+                                      border: Border.all(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: TextField(
+                                      style: const TextStyle(
+                                          color: Colors.white
+                                      ),
+                                      controller: _artistName,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Enter Artist Name',
+                                        hintStyle: TextStyle(color:Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 50,),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                              child: ElevatedButton(
-                                  onPressed: (){
-                                    finalUpload();
-                                    },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    side: const BorderSide(color: Colors.white, width: 3),
-                                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                              const SizedBox(height: 50,),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                child: ElevatedButton(
+                                    onPressed: (){
+                                      finalUpload();
+                                      },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      side: const BorderSide(color: Colors.white, width: 3),
+                                      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 22),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
                                     ),
-                                  ),
-                                  child: const Text(
-                                    'Submit',
-                                    style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
-                                  )),
-                            ),
+                                    child: const Text(
+                                      'Submit',
+                                      style: TextStyle(fontSize: 15, color: Colors.deepPurpleAccent),
+                                    )),
+                              ),
 
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        left: 105,
-                        top: 80,
-                        child: Container(
-                          width: 200,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              border:Border.all(color: Colors.grey, width: 3),
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xff0B1223),
-                                    Color(0xff1F4367),
-
-                                  ]),
+                            ],
                           ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                              Text('Upload Song',
-                               style: TextStyle(
-                                   color: Colors.white,
-                                   fontSize: 30,
-                                   fontWeight: FontWeight.w500
+                        ),
+                        Positioned(
+                          left: 105,
+                          top: 80,
+                          child: Container(
+                            width: 200,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                border:Border.all(color: Colors.grey, width: 3),
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: const LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xff0B1223),
+                                      Color(0xff1F4367),
+
+                                    ]),
+                            ),
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                                Text('Upload Song',
+                                 style: TextStyle(
+                                     color: Colors.white,
+                                     fontSize: 30,
+                                     fontWeight: FontWeight.w500
+                                 ),
                                ),
-                             ),
-                           ],
+                             ],
 
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
