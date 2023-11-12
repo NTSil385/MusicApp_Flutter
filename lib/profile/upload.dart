@@ -75,7 +75,8 @@ class _UploadPageState extends State<UploadPage> {
   finalUpload() async {
     setState(() {
       _loading = true; // Bắt đầu sự kiện loading
-    });    // Upload tệp lên Firebase Storage
+    });
+    // Upload tệp lên Firebase Storage
     var uploadFileImage = service.uploadFileImage(imageName, imagePath!);
     Reference storageRef = FirebaseStorage.instance.ref('Images').child(imageName);
     final UploadTask uploadTask = storageRef.putFile(File(imagePath!));

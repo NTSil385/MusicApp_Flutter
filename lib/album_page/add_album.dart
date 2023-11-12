@@ -232,15 +232,15 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                 }
                                 return null;
                               }),
-                              onChanged: (bool? value) {
-                                FirebaseFirestore.instance
+                              onChanged: (bool? value) async {
+                                await FirebaseFirestore.instance
                                     .collection('Users')
                                     .doc(currentUser!.email)
                                     .collection('songs').doc(document.id).update(
                                     {'value': value}
                                 );
 
-                                FirebaseFirestore.instance
+                                await FirebaseFirestore.instance
                                     .collection("Users")
                                     .doc(currentUser!.email)
                                     .collection("Albums")
@@ -250,7 +250,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                   'url_imgAlbum': image_url,
                                 });
 
-                                FirebaseFirestore.instance
+                                await FirebaseFirestore.instance
                                     .collection("Albums")
                                     .doc(_playlistname.text)
                                     .set({
@@ -261,7 +261,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                 print(data);
                                 if(currentUser != null && currentUser!.email != null){
                                 if (value == true) {
-                                  FirebaseFirestore.instance
+                                  await FirebaseFirestore.instance
                                       .collection("Users")
                                       .doc(currentUser!.email)
                                       .collection('Albums')
@@ -277,7 +277,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                   });
 
 
-                                  FirebaseFirestore.instance
+                                  await FirebaseFirestore.instance
                                       .collection("Albums")
                                       .doc(_playlistname.text)
                                       .collection(_playlistname.text)

@@ -114,8 +114,8 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                               }
                               return null;
                             }),
-                            onChanged: (bool? value) {
-                              FirebaseFirestore.instance.
+                            onChanged: (bool? value) async {
+                             await FirebaseFirestore.instance.
                               collection('Users')
                                   .doc(currentUser!.email)
                                   .collection('songs')
@@ -127,7 +127,7 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                               if(currentUser != null && currentUser!.email != null){
                                 if (value == true) {
 
-                                  FirebaseFirestore.instance
+                                  await FirebaseFirestore.instance
                                       .collection("Users")
                                       .doc(currentUser!.email)
                                       .collection('Albums')
@@ -144,10 +144,10 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                                   });
 
 
-                                  FirebaseFirestore.instance
+                                  await FirebaseFirestore.instance
                                       .collection("Albums")
-                                      .doc(_playlistname.text)
-                                      .collection(_playlistname.text)
+                                      .doc(widget.album_name)
+                                      .collection(widget.album_name.toString())
                                       .doc(data['song_name'])
                                       .set({
                                     'song_name': data['song_name'],
@@ -155,6 +155,7 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                                     'audioUrl': data['audioUrl'],
                                     'imageUrl': data["imageUrl"],
                                     'value': false,
+                                    'status':true,
                                   });
                                 }
                               }

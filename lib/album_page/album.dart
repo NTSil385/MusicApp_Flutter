@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:login_register/album_page/info_album.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/storage/played_playlist.dart';
@@ -58,8 +59,7 @@ class _AlbumPageState extends State<Album> {
                         margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: backButton(
                             onClick: () {
-                              Navigator.push(
-                                  context,
+                              Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => indexPageHome()));
                             }),
                       ),
@@ -94,63 +94,93 @@ class _AlbumPageState extends State<Album> {
 
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
-                          child: InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=>infoAlbum(
-                                    album_name:AlbumName["album_name"],
-                                    imageUrl: AlbumImage["url_imgAlbum"],
+                          child: Slidable(
+                            endActionPane: ActionPane(
+                                motion: StretchMotion(),
+                                children: [
+                                  SlidableAction(
 
-                                  )
-                              )
-                              );
-                            },
-                            child:
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 400,
-                                  height: 90,
-                                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                  decoration:  BoxDecoration(
-                                    gradient: const LinearGradient(colors: [
-                                      Color(0xffF9CEEE),
-                                      Color(0xffF9F3EE),
-                                    ],
-                                        begin: AlignmentDirectional.topCenter,
-                                        end: Alignment.bottomCenter
+                                    onPressed: ((context) async {
+                                      if(currentUser != null && currentUser!.email != null){
+
+
+                                        await FirebaseFirestore.instance
+                                            .collection("Users")
+                                            .doc(currentUser!.email)
+                                            .collection('Albums')
+                                            .doc(AlbumName['album_name'])
+                                            .delete();
+
+
+                                        await FirebaseFirestore.instance
+                                            .collection("Albums")
+                                            .doc(AlbumName['album_name'])
+                                            .delete();
+                                        setState(() {});
+                                      }
+                                    }),
+                                    backgroundColor: Colors.redAccent,
+                                    icon: Icons.delete_outline,
+                                  ),]
+                            ),
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context)=>infoAlbum(
+                                      album_name:AlbumName["album_name"],
+                                      imageUrl: AlbumImage["url_imgAlbum"],
+
+                                    )
+                                )
+                                );
+                              },
+                              child:
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 400,
+                                    height: 90,
+                                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                    decoration:  BoxDecoration(
+                                      gradient: const LinearGradient(colors: [
+                                        Color(0xffF9CEEE),
+                                        Color(0xffF9F3EE),
+                                      ],
+                                          begin: AlignmentDirectional.topCenter,
+                                          end: Alignment.bottomCenter
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
 
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.all(10),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.network(
-                                            AlbumImage["url_imgAlbum"],
-                                            fit: BoxFit.cover,
-                                            width: 80,
-                                            height: 80,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.all(10),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Image.network(
+                                              AlbumImage["url_imgAlbum"],
+                                              fit: BoxFit.cover,
+                                              width: 80,
+                                              height: 80,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 15,),
-                                      Text(AlbumName["album_name"],
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500
-                                        ),),
+                                        const SizedBox(width: 15,),
+                                        Text(AlbumName["album_name"],
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500
+                                          ),),
 
-                                    ],
+                                      ],
+                                    ),
+
                                   ),
-
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
 

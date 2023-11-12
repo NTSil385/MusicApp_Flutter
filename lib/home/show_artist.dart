@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:login_register/artist_channel/artist_showAlbums.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/show_album.dart';
+import 'package:login_register/profile/showplaylist.dart';
 import 'package:provider/provider.dart';
 
 import '../Widget/back_button.dart';
@@ -507,7 +508,7 @@ class _MutltSelectState extends State<MutltSelect> {
   }
 
   void create() async {
-    Navigator.pop(context, _selectedItems);
+    // Navigator.pop(context, _selectedItems);
     print(_selectedItems);
     await FirebaseFirestore.instance
         .collection("Users")
@@ -552,8 +553,8 @@ class _MutltSelectState extends State<MutltSelect> {
           'imageUrl': image,
           'audioUrl': audio,
           'artist_name': artist,
-        });
-
+        }).whenComplete(() =>Navigator.push(context,
+        MaterialPageRoute(builder: (context) => showPlaylist())));
 
   }
 
@@ -580,9 +581,13 @@ class _MutltSelectState extends State<MutltSelect> {
                 color: Colors.red,
               ),)),
           ElevatedButton(onPressed: _submit, child: Text('Submit')),
-          TextButton(onPressed: create, child: Text('Create',
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.greenAccent
+              ),
+              onPressed: create, child: Text('Create',
           style: TextStyle(
-            color: Colors.green
+            color: Colors.white
           ),
           )),
         ]
