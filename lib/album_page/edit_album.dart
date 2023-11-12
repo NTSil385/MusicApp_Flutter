@@ -132,7 +132,9 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                                       .doc(currentUser!.email)
                                       .collection('Albums')
                                       .doc(widget.album_name)
-                                      .collection('${widget.album_name}').add({
+                                      .collection('${widget.album_name}')
+                                      .doc(data['song_name'])
+                                      .set({
                                     'song_name': data['song_name'],
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],
@@ -145,7 +147,9 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                                   FirebaseFirestore.instance
                                       .collection("Albums")
                                       .doc(_playlistname.text)
-                                      .collection(_playlistname.text).add({
+                                      .collection(_playlistname.text)
+                                      .doc(data['song_name'])
+                                      .set({
                                     'song_name': data['song_name'],
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],

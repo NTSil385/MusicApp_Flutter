@@ -49,7 +49,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
   finalUpload() async {
     // Upload tệp lên Firebase Storage
     var uploadFileImage = service.uploadFileImgAlbum(imageName, imagePath!);
-    Reference storageRef = FirebaseStorage.instance.ref('ImagesAlbum').child(
+    Reference storageRef = FirebaseStorage.instance.ref('ImgAlbum').child(
         imageName);
     final UploadTask uploadTask = storageRef.putFile(File(imagePath!));
 
@@ -266,7 +266,9 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                       .doc(currentUser!.email)
                                       .collection('Albums')
                                       .doc(_playlistname.text)
-                                      .collection(_playlistname.text).add({
+                                      .collection(_playlistname.text)
+                                      .doc(data['song_name'])
+                                      .set({
                                     'song_name': data['song_name'],
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],
@@ -278,7 +280,9 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                   FirebaseFirestore.instance
                                       .collection("Albums")
                                       .doc(_playlistname.text)
-                                      .collection(_playlistname.text).add({
+                                      .collection(_playlistname.text)
+                                      .doc(data['song_name'])
+                                      .set({
                                     'song_name': data['song_name'],
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],

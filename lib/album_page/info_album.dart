@@ -4,6 +4,7 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/album_page/album.dart';
@@ -124,6 +125,7 @@ class _infoAlbumState extends State<infoAlbum> {
                   ),
                   Expanded(
                     child: ListView.builder(
+                      scrollDirection: Axis.vertical,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         // Sử dụng .data() thay vì .data
@@ -134,94 +136,138 @@ class _infoAlbumState extends State<infoAlbum> {
 
 
 
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: InkWell(
+                        return InkWell(
                             child:
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 400,
-                                  height: 90,
-                                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                                  decoration:  BoxDecoration(
-                                    gradient: const LinearGradient(colors: [
-                                      Color(0xffF9CEEE),
-                                      Color(0xffF9F3EE),
-                                    ],
-                                        begin: AlignmentDirectional.topCenter,
-                                        end: Alignment.bottomCenter
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
+                                Slidable(
+                                  endActionPane: ActionPane(
+                                      motion: StretchMotion(),
+                                      children: [
+                                           SlidableAction(
+
+                                              onPressed: ((context) async {
+                                                if(currentUser != null && currentUser!.email != null){
+
+                                                  print(widget.album_name);
+
+                                                  await FirebaseFirestore.instance
+                                                      .collection("Users")
+                                                      .doc(currentUser!.email)
+                                                      .collection('Albums')
+                                                      .doc(widget.album_name)
+                                                      .collection('${widget.album_name}')
+                                                      .doc(songData['song_name'])
+                                                      .delete();
+
+
+                                                  await FirebaseFirestore.instance
+                                                      .collection("Albums")
+                                                      .doc(widget.album_name)
+                                                      .collection(widget.album_name.toString())
+                                                      .doc(songData['song_name'])
+                                                      .delete();
+                                                setState(() {});
+                                                }
+                                              }),
+                                              backgroundColor: Colors.redAccent,
+                                              icon: Icons.delete_outline,
+                                          ),
+                                        SlidableAction(
+
+                                          onPressed: ((context) async {
+
+                                          }),
+                                          backgroundColor: Color(0xffe3f2fd),
+                                          icon: Icons.share,
+                                        ),
+
+
+                                      ]
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            margin: const EdgeInsets.all(10),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.network(
-                                                DataImage["imageUrl"],
-                                                fit: BoxFit.cover,
-                                                width: 80,
-                                                height: 80,
+                                  child: Container(
+                                    width: 400,
+                                    height: 90,
+                                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                                    decoration:  BoxDecoration(
+                                      gradient: const LinearGradient(colors: [
+                                        Color(0xffF9CEEE),
+                                        Color(0xffF9F3EE),
+                                      ],
+                                          begin: AlignmentDirectional.topCenter,
+                                          end: Alignment.bottomCenter
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.all(10),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: Image.network(
+                                                  DataImage["imageUrl"],
+                                                  fit: BoxFit.cover,
+                                                  width: 80,
+                                                  height: 80,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const SizedBox(width: 15,),
-                                          Text(songData["song_name"],
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500
-                                            ),),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
+                                            const SizedBox(width: 15,),
+                                            Text(songData["song_name"],
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500
+                                              ),),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
 
 
-                                          Container(
-                                            decoration: BoxDecoration(
-                                            ),
-                                            child: ElevatedButton(
-                                                onPressed: (){
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) => playedPage(
-                                                        song_name: songData["song_name"],
-                                                        imageUrl: DataImage["imageUrl"],
-                                                        audioUrl: DataAudio["audioUrl"],
-                                                        artist_name: artisData["artist_name"],
+                                            Container(
+                                              decoration: BoxDecoration(
+                                              ),
+                                              child: ElevatedButton(
+                                                  onPressed: (){
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) => playedPage(
+                                                          song_name: songData["song_name"],
+                                                          imageUrl: DataImage["imageUrl"],
+                                                          audioUrl: DataAudio["audioUrl"],
+                                                          artist_name: artisData["artist_name"],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                    shape: const CircleBorder(), //<-- SEE HERE
-                                                    backgroundColor: Colors.white,
-                                                    shadowColor: Color(0xff00000040)
-                                                ),
+                                                    );
+                                                  },
+                                                  style: ElevatedButton.styleFrom(
+                                                      shape: const CircleBorder(), //<-- SEE HERE
+                                                      backgroundColor: Colors.white,
+                                                      shadowColor: Color(0xff00000040)
+                                                  ),
 
-                                                child: const Icon(Icons.play_arrow_rounded, color: Color(0xff78C1F3),)),
-                                          ),
+                                                  child: const Icon(Icons.play_arrow_rounded, color: Color(0xff78C1F3),)),
+                                            ),
 
 
-                                        ],
-                                      )
-                                    ],
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
+                          );
 
-                        );
+
                       },
                     ),
                   ),
