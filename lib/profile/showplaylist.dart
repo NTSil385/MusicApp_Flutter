@@ -38,7 +38,7 @@ class _AlbumPageState extends State<showPlaylist> {
   }
   Future<String?> openDialog()=>showDialog<String>(context: context,
     builder: (context)=>AlertDialog(
-      title: const Text('Change Playlist Name'),
+      title: const Text(' Playlist Name'),
       content: Container(
         height: 150,
         child: Column(
@@ -132,21 +132,45 @@ class _AlbumPageState extends State<showPlaylist> {
                                 .collection('Playlist')
                                 .doc('[${playlistname}]')
                                 .set({
-                                'playlist_name': playlistname,
-                            })
-                            ;
+                              'playlist_name' : playlistname,
+                            });
                             await FirebaseFirestore.instance
                                 .collection("Users")
                                 .doc(currentUser!.email)
                                 .collection('Playlist')
                                 .doc('[${playlistname}]')
-                                .collection('[${playlistname}]');
-
+                                .collection('[${playlistname}]')
+                                .doc('intro')
+                                .set(
+                                {
+                                  'song_name': 'intro',
+                                  'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Avatars%2Fhank.jpg?alt=media&token=6ead8b01-718f-4291-83da-1d408ea71093',
+                                  'audioUrl': 'intro',
+                                  'artist_name': 'intro',
+                                });
 
                             await FirebaseFirestore.instance
                                 .collection("Playlist")
                                 .doc(currentUser!.email)
-                                .collection('[${playlistname}]').add({});
+                                .collection('[${playlistname}]')
+                                .doc('intro')
+                                .set({
+                              'playlist_name' : '[Default]',
+                            });
+
+                            await FirebaseFirestore.instance
+                                .collection("Playlist")
+                                .doc(currentUser!.email)
+                                .collection('[${playlistname}]')
+                                .doc('intro')
+                                .set(
+                                {
+
+                                'song_name': 'intro',
+                                'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Avatars%2Fhank.jpg?alt=media&token=6ead8b01-718f-4291-83da-1d408ea71093',
+                                'audioUrl': 'intro',
+                                'artist_name': 'intro',
+                                });
 
                             setState(() {
 
