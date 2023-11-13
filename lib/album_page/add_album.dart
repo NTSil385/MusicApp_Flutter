@@ -252,7 +252,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
 
                                 await FirebaseFirestore.instance
                                     .collection("Albums")
-                                    .doc(_playlistname.text)
+                                    .doc(currentUser!.email)
                                     .set({
                                   'album_name': _playlistname.text,
                                   'url_imgAlbum': image_url,
@@ -279,7 +279,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
 
                                   await FirebaseFirestore.instance
                                       .collection("Albums")
-                                      .doc(_playlistname.text)
+                                      .doc(currentUser!.email)
                                       .collection(_playlistname.text)
                                       .doc(data['song_name'])
                                       .set({

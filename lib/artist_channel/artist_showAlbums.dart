@@ -238,7 +238,7 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                                 onPressed: (){
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) =>  playedAlbumsHome(
-                                      album_name: widget.album_name,
+                                      album_name: widget.email,
                                       collection: 'Albums',
                                       collection2:  widget.album_name,
                                     ),

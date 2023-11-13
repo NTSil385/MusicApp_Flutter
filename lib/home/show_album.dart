@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/album_page/edit_album.dart';
 import 'package:login_register/home/home_page.dart';
@@ -15,6 +16,7 @@ import 'played_page.dart';
 class showAlbum extends StatefulWidget {
   String? album_name,imageUrl;
 
+
   showAlbum({
     super.key,
     this.album_name,
@@ -26,6 +28,7 @@ class showAlbum extends StatefulWidget {
 }
 
 class _showAlbumState extends State<showAlbum> {
+  User? currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -36,7 +39,7 @@ class _showAlbumState extends State<showAlbum> {
   Future getdata() async {
       QuerySnapshot qn = await FirebaseFirestore.instance
           .collection('Albums')
-          .doc('${widget.album_name}')
+          .doc(currentUser!.email)
           .collection('${widget.album_name}')
           .get();
       return qn.docs;
@@ -230,7 +233,7 @@ class _showAlbumState extends State<showAlbum> {
                               onPressed: (){
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) =>  playedAlbumsHome(
-                                    album_name: widget.album_name,
+                                    album_name: currentUser!.email,
                                     collection: 'Albums',
                                     collection2: widget.album_name,
                                   ),

@@ -112,10 +112,19 @@ class _AlbumPageState extends State<Album> {
                                             .delete();
 
 
-                                        await FirebaseFirestore.instance
+                                        final collectionRef = FirebaseFirestore.instance
                                             .collection("Albums")
-                                            .doc(AlbumName['album_name'])
-                                            .delete();
+                                            .doc(currentUser!.email)
+                                            .collection(AlbumName['album_name']);
+
+                                        // Xóa tất cả các tài liệu trong subcollection
+                                        QuerySnapshot querySnapshot = await collectionRef.get();
+                                        for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+                                          await documentSnapshot.reference.delete();
+                                        }
+
+                                        // Xóa subcollection chính nó
+                                        await collectionRef.parent!.delete();
                                         setState(() {});
                                       }
                                     }),

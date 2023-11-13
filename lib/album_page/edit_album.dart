@@ -146,7 +146,7 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
 
                                   await FirebaseFirestore.instance
                                       .collection("Albums")
-                                      .doc(widget.album_name)
+                                      .doc(currentUser!.email)
                                       .collection(widget.album_name.toString())
                                       .doc(data['song_name'])
                                       .set({

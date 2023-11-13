@@ -164,7 +164,7 @@ class _infoAlbumState extends State<infoAlbum> {
 
                                                   await FirebaseFirestore.instance
                                                       .collection("Albums")
-                                                      .doc(widget.album_name)
+                                                      .doc(currentUser!.email)
                                                       .collection(widget.album_name.toString())
                                                       .doc(songData['song_name'])
                                                       .delete();
