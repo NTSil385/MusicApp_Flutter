@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/home/searchPage.dart';
 import 'package:login_register/home/show_artist.dart';
 import 'package:login_register/profile/profile_page.dart';
 import 'package:login_register/home/show_album.dart';
@@ -24,7 +25,7 @@ class _indexPageHometate extends State<indexPageHome> {
   int currenrIndex = 0;
   List tabs = [
     const HomePage(),
-    const stogragePage(),
+    const searchPage(),
     const ProfilePage(),
   ];
 

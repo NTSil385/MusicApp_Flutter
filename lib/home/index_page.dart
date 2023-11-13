@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/home/searchPage.dart';
 import 'package:login_register/profile/profile_page.dart';
 import 'package:login_register/storage/storage_page.dart';
 
@@ -16,7 +17,7 @@ class _indexPageState extends State<indexPage> {
   int currenrIndex = 0;
   List tabs = [
     const HomePage(),
-    const stogragePage(),
+    const searchPage(),
     const ProfilePage(),
   ];
 
