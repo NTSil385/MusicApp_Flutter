@@ -52,8 +52,6 @@ class _playlistnameState extends State<infoPlaylist> {
           .doc('[${widget.playlist_name}]')
           .collection('[${widget.playlist_name}]')
           .get();
-      print(qn.docs);
-      print(widget.playlist_name);
       return qn.docs;
     }
   }
@@ -115,13 +113,7 @@ class _playlistnameState extends State<infoPlaylist> {
                       ),
                       Container(
                         margin: const EdgeInsets.fromLTRB(0, 10, 20, 0),
-                        child: IconButton(onPressed: (){
-                          // Navigator.push(context, MaterialPageRoute(
-                          //     builder: (context)=>edit_AlbumPage(
-                          //         album_name: widget.album_name
-                          //     )
-                          // )
-                          // );
+                        child: IconButton(onPressed: () async {
                         },
                             icon: const Icon(Icons.edit
                               ,size: 40,
@@ -157,7 +149,6 @@ class _playlistnameState extends State<infoPlaylist> {
                                           onPressed: ((context) async {
                                             if(currentUser != null && currentUser!.email != null){
 
-                                              print(widget.playlist_name);
 
                                               await FirebaseFirestore.instance
                                                   .collection("Users")

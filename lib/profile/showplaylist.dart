@@ -19,6 +19,50 @@ class showPlaylist extends StatefulWidget {
 
 class _AlbumPageState extends State<showPlaylist> {
   final User? currentUser = FirebaseAuth.instance.currentUser;
+  TextEditingController _playlistname = TextEditingController();
+  String playlistname = '';
+  String name = '';
+
+
+  void submit() async {
+    final enteredName = _playlistname.text;
+    if (enteredName.isNotEmpty) {
+      setState(() {
+        playlistname = enteredName;
+      });
+
+
+      Navigator.of(context).pop(enteredName);
+
+    }
+  }
+  Future<String?> openDialog()=>showDialog<String>(context: context,
+    builder: (context)=>AlertDialog(
+      title: const Text('Change Playlist Name'),
+      content: Container(
+        height: 150,
+        child: Column(
+          children: [
+            TextField(
+              controller: _playlistname,
+              decoration: const InputDecoration(
+                  hintText: 'Enter your Playlist Name'
+              ),
+            ),
+            const SizedBox(height: 20,),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: (){
+
+          submit();
+
+        }, child: const Text('Submit'))
+      ],
+    ),);
+
+
   Future getdata() async {
     if (currentUser != null && currentUser!.email != null) {
       QuerySnapshot qn = await FirebaseFirestore.instance
@@ -29,8 +73,6 @@ class _AlbumPageState extends State<showPlaylist> {
       return qn.docs;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +119,41 @@ class _AlbumPageState extends State<showPlaylist> {
                       ),
                       IconButton(
                           onPressed: () async {
+                            final name = await openDialog();
+                            if (name == null || name.isEmpty) return;
+                            setState(() {
+                              this.name = name;
+                            });
+                            playlistname = name;
+                            print(playlistname);
+                            await FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc(currentUser!.email)
+                                .collection('Playlist')
+                                .doc('[${playlistname}]')
+                                .set({
+                                'playlist_name': playlistname,
+                            })
+                            ;
+                            await FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc(currentUser!.email)
+                                .collection('Playlist')
+                                .doc('[${playlistname}]')
+                                .collection('[${playlistname}]');
+
+
+                            await FirebaseFirestore.instance
+                                .collection("Playlist")
+                                .doc(currentUser!.email)
+                                .collection('[${playlistname}]').add({});
+
+                            setState(() {
+
+                            });
                           },
                           iconSize: 40,
-                          icon: Image.asset('assets/image/Sort_icon.png')
+                          icon: Icon(Icons.add, color: Colors.white,)
                       ),
                     ],
                   ),

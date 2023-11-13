@@ -39,7 +39,7 @@ class _showAlbumState extends State<showAlbum> {
   Future getdata() async {
       QuerySnapshot qn = await FirebaseFirestore.instance
           .collection('Albums')
-          .doc(currentUser!.email)
+          .doc('${widget.album_name}')
           .collection('${widget.album_name}')
           .get();
       return qn.docs;
@@ -233,7 +233,7 @@ class _showAlbumState extends State<showAlbum> {
                               onPressed: (){
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) =>  playedAlbumsHome(
-                                    album_name: currentUser!.email,
+                                    album_name: widget.album_name,
                                     collection: 'Albums',
                                     collection2: widget.album_name,
                                   ),

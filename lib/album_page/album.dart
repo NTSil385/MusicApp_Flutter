@@ -114,7 +114,7 @@ class _AlbumPageState extends State<Album> {
 
                                         final collectionRef = FirebaseFirestore.instance
                                             .collection("Albums")
-                                            .doc(currentUser!.email)
+                                            .doc(AlbumName['album_name'])
                                             .collection(AlbumName['album_name']);
 
                                         // Xóa tất cả các tài liệu trong subcollection
