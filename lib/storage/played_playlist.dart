@@ -294,7 +294,7 @@ class Controls extends StatelessWidget {
 class MyAudioHandler extends BaseAudioHandler {
   final AudioPlayer _player = AudioPlayer();
   final BehaviorSubject<List<MediaItem>> _queue = BehaviorSubject.seeded([]);
-  final _mediaItem = MediaItem(id: '1', title: '', artUri: null);
+  final _mediaItem = const MediaItem(id: '1', title: '', artUri: null);
 
   @override
   Future<void> configureAudioService() async {

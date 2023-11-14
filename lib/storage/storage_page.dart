@@ -2,10 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/home/home_page.dart';
-import 'package:login_register/home/index_page.dart';
-import 'package:login_register/pages/index_profile.dart';
 import 'package:login_register/home/played_page.dart';
-import 'package:login_register/storage/played_playlist.dart';
 
 import '../Widget/back_button.dart';
 
@@ -55,12 +52,12 @@ class _stogragePageState extends State<stogragePage> {
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: backButton(
                             onClick: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => indexPageHome()));
+                                  MaterialPageRoute(builder: (context) => const indexPageHome()));
                             }),
                       ),
                     ],

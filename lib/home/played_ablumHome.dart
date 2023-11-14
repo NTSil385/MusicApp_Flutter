@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:login_register/Widget/back_button.dart';
-import 'package:login_register/home/show_album.dart';
-import 'package:login_register/profile/profile_page.dart';
 import 'package:login_register/storage/storage_page.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audio_service/audio_service.dart';

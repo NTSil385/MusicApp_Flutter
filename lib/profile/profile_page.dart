@@ -204,7 +204,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => UploadPage()));
+                                            MaterialPageRoute(builder: (context) => const UploadPage()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -226,7 +226,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => stogragePage()));
+                                            MaterialPageRoute(builder: (context) => const stogragePage()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -255,7 +255,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => add_AlbumPage()));
+                                            MaterialPageRoute(builder: (context) => const add_AlbumPage()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -276,7 +276,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => Album()));
+                                            MaterialPageRoute(builder: (context) => const Album()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -323,7 +323,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => showPlaylist()));
+                                            MaterialPageRoute(builder: (context) => const showPlaylist()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -362,7 +362,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => showlistFav()));
+                                            MaterialPageRoute(builder: (context) => const showlistFav()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -431,7 +431,7 @@ import '../storage/storage_page.dart';
                                       onTap: (){
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => showPlaylist()));
+                                            MaterialPageRoute(builder: (context) => const showPlaylist()));
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),

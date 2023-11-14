@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:login_register/album_page/info_album.dart';
 import 'package:login_register/home/home_page.dart';
-import 'package:login_register/storage/played_playlist.dart';
 import '../Widget/back_button.dart';
 
 
@@ -56,16 +55,16 @@ class _AlbumPageState extends State<Album> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: backButton(
                             onClick: () {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => indexPageHome()));
+                                  MaterialPageRoute(builder: (context) => const indexPageHome()));
                             }),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Text('Album',style: TextStyle(
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: const Text('Album',style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white
@@ -96,7 +95,7 @@ class _AlbumPageState extends State<Album> {
                           scrollDirection: Axis.vertical,
                           child: Slidable(
                             endActionPane: ActionPane(
-                                motion: StretchMotion(),
+                                motion: const StretchMotion(),
                                 children: [
                                   SlidableAction(
 

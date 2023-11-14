@@ -22,15 +22,15 @@ class _searchPageState extends State<searchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0B1223),
+      backgroundColor: const Color(0xff0B1223),
       body: Column(
         children: [
 
           Container(
-            margin: EdgeInsets.fromLTRB(20, 50, 20, 0),
+            margin: const EdgeInsets.fromLTRB(20, 50, 20, 0),
             child: Card(
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xff0B1223), width: 2.0),
                     ),
@@ -51,7 +51,7 @@ class _searchPageState extends State<searchPage> {
               stream: FirebaseFirestore.instance.collection('songs').snapshots(),
               builder: (context, snapshot){
                 return (snapshot.connectionState == ConnectionState.waiting)
-                    ?Center(child: CircularProgressIndicator(),):
+                    ?const Center(child: CircularProgressIndicator(),):
                     ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: snapshot.data!.docs.length,
@@ -69,7 +69,7 @@ class _searchPageState extends State<searchPage> {
                                       end: Alignment.bottomCenter
                                   ),
                                 ),
-                                margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
 
                                 child: InkWell(
                                   onTap: (){
@@ -118,7 +118,7 @@ class _searchPageState extends State<searchPage> {
                                       end: Alignment.bottomCenter
                                   ),
                                 ),
-                                margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                                 child: InkWell(
                                   onTap: (){
                                     Navigator.push(

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/album_page/edit_album.dart';
-import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
 
 import '../Widget/back_button.dart';
@@ -187,7 +186,7 @@ class _showAlbumState extends State<showAlbum> {
                         Positioned(
                           left: 0,
                           top: -50,
-                          child: Container(
+                          child: SizedBox(
                             width: 400,
                             height: 400,
                             child: Column(

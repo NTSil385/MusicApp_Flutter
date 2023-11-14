@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:login_register/album_page/edit_album.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_ablumHome.dart';
@@ -79,7 +78,7 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                           onClick: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => HomePage()));
+                                MaterialPageRoute(builder: (context) => const HomePage()));
                           }),
                     ),
 
@@ -193,7 +192,7 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                           Positioned(
                             left: 0,
                             top: -50,
-                            child: Container(
+                            child: SizedBox(
                               width: 400,
                               height: 400,
                               child: Column(

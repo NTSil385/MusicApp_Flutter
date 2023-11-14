@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:login_register/home/index_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
@@ -43,7 +42,6 @@ class playedPage extends StatefulWidget {
 
 class _songPlayedState extends State<playedPage> {
   AudioPlayer _audioPlayer = AudioPlayer();
-  late Future<void> _initAudioPlayer;
 
 
   @override

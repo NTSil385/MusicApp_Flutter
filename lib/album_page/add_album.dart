@@ -22,7 +22,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
   StorageService service = StorageService();
   final firestoreInstance = FirebaseFirestore.instance;
   final User? currentUser = FirebaseAuth.instance.currentUser;
-  TextEditingController _playlistname = TextEditingController() ;
+  final TextEditingController _playlistname = TextEditingController() ;
   String name = '';
   String playlistname = '';
   String imageName = '';
@@ -63,7 +63,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
   Future<String?> openDialog()=>showDialog<String>(context: context,
     builder: (context)=>AlertDialog(
       title: const Text('Add Album'),
-      content: Container(
+      content: SizedBox(
         height: 150,
         child: Column(
           children: [
@@ -149,7 +149,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                     onClick: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => indexPageHome()));
+                          MaterialPageRoute(builder: (context) => const indexPageHome()));
                     }
                     ),
               ),

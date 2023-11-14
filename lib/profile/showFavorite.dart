@@ -60,15 +60,15 @@ class _showlistFavPageState extends State<showlistFav> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: backButton(
                             onClick: () {
                               Navigator.pop(context);
                             }),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                       child: Text('Library',style: TextStyle(
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                       child: const Text('Library',style: TextStyle(
                          fontSize: 30,
                          fontWeight: FontWeight.bold,
                          color: Colors.white
@@ -150,7 +150,7 @@ class _showlistFavPageState extends State<showlistFav> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: 150,
                                           child: Text(
                                             songData["song_name"],
@@ -162,7 +162,7 @@ class _showlistFavPageState extends State<showlistFav> {
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           width: 150,
                                           child: Text(
                                             artisData["artist_name"],
@@ -183,7 +183,7 @@ class _showlistFavPageState extends State<showlistFav> {
 
 
                                     Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                       ),
                                       child: ElevatedButton(
                                           onPressed: (){
@@ -202,7 +202,7 @@ class _showlistFavPageState extends State<showlistFav> {
                                           style: ElevatedButton.styleFrom(
                                             shape: const CircleBorder(), //<-- SEE HERE
                                             backgroundColor: Colors.white,
-                                            shadowColor: Color(0xff00000040)
+                                            shadowColor: const Color(0xff00000040)
                                           ),
 
                                           child: const Icon(Icons.play_arrow_rounded, color: Color(0xff78C1F3),)),
@@ -214,7 +214,7 @@ class _showlistFavPageState extends State<showlistFav> {
                               ],
                             ),
                           ),
-                        );;
+                        );
 
 
                       },

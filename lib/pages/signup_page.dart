@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:login_register/Widget/back_button.dart';
-import 'package:login_register/pages/artist_signup.dart';
 import 'package:login_register/storage/storage_service.dart';
 
 class signUp extends StatefulWidget {

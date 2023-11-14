@@ -1,12 +1,8 @@
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_register/album_page/album.dart';
-import 'package:login_register/album_page/info_album.dart';
 
 import '../Widget/back_button.dart';
 import '../storage/storage_service.dart';
@@ -27,7 +23,7 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
   StorageService service = StorageService();
   final firestoreInstance = FirebaseFirestore.instance;
   final User? currentUser = FirebaseAuth.instance.currentUser;
-  TextEditingController _playlistname = TextEditingController() ;
+  final TextEditingController _playlistname = TextEditingController() ;
   String name = '';
   String playlistname = '';
   String imageName = '';
@@ -76,7 +72,7 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                     onClick: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Album()));
+                          MaterialPageRoute(builder: (context) => const Album()));
                     }),
               ),
 

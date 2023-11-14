@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:login_register/artist_channel/artist_showAlbums.dart';
 import 'package:login_register/home/home_page.dart';
-import 'package:login_register/home/show_album.dart';
 import 'package:login_register/profile/showplaylist.dart';
-import 'package:provider/provider.dart';
 
 import '../Widget/back_button.dart';
 
@@ -19,7 +17,7 @@ class showArtist extends StatefulWidget {
   final String imageUrl;
   final String email;
 
-  showArtist({
+  const showArtist({
     Key? key,
     required this.artist_name,
     required this.imageUrl,
@@ -84,7 +82,7 @@ class _showArtistState extends State<showArtist> {
   Future getSongs() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('Users')
-        .doc('${widget.email}')
+        .doc(widget.email)
         .collection('songs').orderBy('song_name', descending: true)
         .get();
     return qn.docs;
@@ -93,7 +91,7 @@ class _showArtistState extends State<showArtist> {
   Future getAlbums() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('Users')
-        .doc('${widget.email}')
+        .doc(widget.email)
         .collection('Albums')
         .get();
     return qn.docs;
@@ -105,7 +103,7 @@ class _showArtistState extends State<showArtist> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: Color(0xff0B1223),
+        backgroundColor: const Color(0xff0B1223),
         body: Stack(
           children: [
             Container(
@@ -136,7 +134,7 @@ class _showArtistState extends State<showArtist> {
                       ),
                     ],
                   ),
-                  TabBar(
+                  const TabBar(
                     tabs: [
                       Tab(
                         icon: Icon(
@@ -174,7 +172,7 @@ class _showArtistState extends State<showArtist> {
                                 child: Text("Error: ${snapshot.error}"),
                               );
                             } else if (!snapshot.hasData || snapshot.data.isEmpty) {
-                              return Center(
+                              return const Center(
                                 child: Text("No songs available."),
                               );
                             } else {
@@ -225,7 +223,7 @@ class _showArtistState extends State<showArtist> {
                                                     ),
                                                   ),
                                                   const SizedBox(width: 15),
-                                                  Container(
+                                                  SizedBox(
                                                     width: 100,
                                                     child: Text(
                                                       songData["song_name"],
@@ -270,13 +268,13 @@ class _showArtistState extends State<showArtist> {
                                                         }
                                                       },
                                                       icon:  isFavorite ?? false
-                                                          ? Icon(Icons.favorite, color:Colors.red)
-                                                          : Icon(Icons.favorite_border),
+                                                          ? const Icon(Icons.favorite, color:Colors.red)
+                                                          : const Icon(Icons.favorite_border),
                                                     ),
                                                   ),
 
                                                   Container(
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                     ),
                                                     child: ElevatedButton(
                                                         onPressed: (){
@@ -338,11 +336,11 @@ class _showArtistState extends State<showArtist> {
                                 child: Text("Error: ${snapshot.error}"),
                               );
                             } else if (!snapshot.hasData || snapshot.data.isEmpty) {
-                              return Center(
+                              return const Center(
                                 child: Text("No songs available."),
                               );
                             } else {
-                              return Container(
+                              return SizedBox(
                                 height: 500,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
@@ -369,7 +367,7 @@ class _showArtistState extends State<showArtist> {
                                           Row(
                                             children: [
                                               Container(
-                                                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                                margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                                                 width: 210,
                                                 height: 260,
                                                 decoration: BoxDecoration(
@@ -379,7 +377,7 @@ class _showArtistState extends State<showArtist> {
                                                 child: Column(
                                                   children: [
                                                     Container(
-                                                      padding: EdgeInsets.all(5),
+                                                      padding: const EdgeInsets.all(5),
                                                       child: ClipRRect(
                                                         borderRadius:BorderRadius.circular(10),
                                                         child: Image.network(AlbumImage["url_imgAlbum"], fit: BoxFit.cover, height: 200,
@@ -389,7 +387,7 @@ class _showArtistState extends State<showArtist> {
                                                     ),
                                                     const SizedBox(width: 15),
                                                     Container(
-                                                      padding: EdgeInsets.all(10),
+                                                      padding: const EdgeInsets.all(10),
                                                       width: 200,
                                                       child: Center(
                                                         child: Text(
@@ -418,7 +416,7 @@ class _showArtistState extends State<showArtist> {
                           },
                         ),
                         Container(
-                          child: Center(
+                          child: const Center(
                             child: Text("Artist information goes here"),
                           ),
                         ),
@@ -431,12 +429,12 @@ class _showArtistState extends State<showArtist> {
             Positioned(
               top: 20,
               child:   Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: backButton(
                     onClick: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => const HomePage()));
                     }),
               ),
             ),
@@ -514,7 +512,7 @@ class _MutltSelectState extends State<MutltSelect> {
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
-        .doc('[${song_name}]')
+        .doc('[$song_name]')
         .set({
         'playlist_name' : song_name,
     });
@@ -522,9 +520,9 @@ class _MutltSelectState extends State<MutltSelect> {
         .collection("Users")
         .doc(currentUser!.email)
         .collection('Playlist')
-        .doc('[${song_name}]')
-        .collection('[${song_name}]')
-        .doc('[${song_name}]')
+        .doc('[$song_name]')
+        .collection('[$song_name]')
+        .doc('[$song_name]')
         .set(
         {
           'song_name': song_name,
@@ -536,7 +534,7 @@ class _MutltSelectState extends State<MutltSelect> {
     await FirebaseFirestore.instance
         .collection("Playlist")
         .doc(currentUser!.email)
-        .collection('[${song_name}]')
+        .collection('[$song_name]')
         .doc(song_name)
         .set({
       'playlist_name' : song_name,
@@ -545,7 +543,7 @@ class _MutltSelectState extends State<MutltSelect> {
     await FirebaseFirestore.instance
         .collection("Playlist")
         .doc(currentUser!.email)
-        .collection('[${song_name}]')
+        .collection('[$song_name]')
         .doc(song_name)
         .set(
         {
@@ -554,7 +552,7 @@ class _MutltSelectState extends State<MutltSelect> {
           'audioUrl': audio,
           'artist_name': artist,
         }).whenComplete(() =>Navigator.push(context,
-        MaterialPageRoute(builder: (context) => showPlaylist())));
+        MaterialPageRoute(builder: (context) => const showPlaylist())));
 
   }
 
@@ -576,16 +574,16 @@ class _MutltSelectState extends State<MutltSelect> {
 
         ),
         actions: [
-          TextButton(onPressed: _cancel, child: Text('Cancel',
+          TextButton(onPressed: _cancel, child: const Text('Cancel',
               style: TextStyle(
                 color: Colors.red,
               ),)),
-          ElevatedButton(onPressed: _submit, child: Text('Submit')),
+          ElevatedButton(onPressed: _submit, child: const Text('Submit')),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.greenAccent
               ),
-              onPressed: create, child: Text('Create',
+              onPressed: create, child: const Text('Create',
           style: TextStyle(
             color: Colors.white
           ),

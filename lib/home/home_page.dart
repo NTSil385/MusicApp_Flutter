@@ -7,7 +7,6 @@ import 'package:login_register/home/searchPage.dart';
 import 'package:login_register/home/show_artist.dart';
 import 'package:login_register/profile/profile_page.dart';
 import 'package:login_register/home/show_album.dart';
-import 'package:login_register/storage/storage_page.dart';
 
 import 'played_page.dart';
 
@@ -99,11 +98,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     int index = 1;
     final items = <Widget>[
-      ImageIcon(
+      const ImageIcon(
         AssetImage('assets/image/Home.png'),
       ),
-      Icon(Icons.search),
-      Icon(Icons.person)
+      const Icon(Icons.search),
+      const Icon(Icons.person)
     ];
 
     return MaterialApp(
@@ -162,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          Container(
+                          SizedBox(
                             height: 100,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -198,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                                           child: Row(
                                             children: [
                                               Container(
-                                                padding: EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 child: ClipOval(
                                                   child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover, height: 60,
                                                     width: 60.0,
@@ -206,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                               const SizedBox(width: 15),
-                                              Container(
+                                              SizedBox(
                                                 width: 200,
                                                 child: Text(
                                                   songData["song_name"],
@@ -256,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          Container(
+                          SizedBox(
                             height: 200,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
@@ -287,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                                             child: Column(
                                               children: [
                                                 Container(
-                                                  padding: EdgeInsets.all(10),
+                                                  padding: const EdgeInsets.all(10),
                                                   child: ClipOval(
                                                     child: Image.network(avtData["avt"], fit: BoxFit.cover, height: 150,
                                                       width: 150.0,
@@ -336,15 +335,15 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          Container(
+                          SizedBox(
                             height: 300,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: snapshot.hasData ? min(10, snapshot.data.length) : 0,
                               itemBuilder: (context, index) {
                                 // Sử dụng .data() thay vì .data
-                                Map<String, dynamic> album_name = snapshot.data[index].data();
-                                Map<String, dynamic> url_imgAlbum = snapshot.data[index].data();
+                                Map<String, dynamic> albumName = snapshot.data[index].data();
+                                Map<String, dynamic> urlImgalbum = snapshot.data[index].data();
                                 return
                                   Row(
                                     children: [
@@ -352,8 +351,8 @@ class _HomePageState extends State<HomePage> {
                                         onTap: () {
                                           Navigator.push(context, MaterialPageRoute(
                                               builder: (context)=>showAlbum(
-                                                album_name:album_name["album_name"],
-                                                imageUrl: url_imgAlbum["url_imgAlbum"],
+                                                album_name:albumName["album_name"],
+                                                imageUrl: urlImgalbum["url_imgAlbum"],
 
                                               )
                                           )
@@ -373,18 +372,18 @@ class _HomePageState extends State<HomePage> {
                                               Container(
                                                 child: ClipRRect(
                                                   borderRadius:BorderRadius.circular(10),
-                                                  child: Image.network(url_imgAlbum["url_imgAlbum"], fit: BoxFit.cover, height: 200,
+                                                  child: Image.network(urlImgalbum["url_imgAlbum"], fit: BoxFit.cover, height: 200,
                                                     width: 200.0,
                                                   ),
                                                 ),
                                               ),
                                               const SizedBox(width: 15),
                                               Container(
-                                                padding: EdgeInsets.all(10),
+                                                padding: const EdgeInsets.all(10),
                                                 width: 200,
                                                 child: Center(
                                                   child: Text(
-                                                    album_name["album_name"],
+                                                    albumName["album_name"],
                                                     style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20,

@@ -90,12 +90,12 @@ class _playlistnameState extends State<infoPlaylist> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: backButton(
                             onClick: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => showPlaylist()));
+                                  MaterialPageRoute(builder: (context) => const showPlaylist()));
                             }),
                       ),
 
@@ -142,7 +142,7 @@ class _playlistnameState extends State<infoPlaylist> {
                               children: [
                                 Slidable(
                                   endActionPane: ActionPane(
-                                      motion: StretchMotion(),
+                                      motion: const StretchMotion(),
                                       children: [
                                         SlidableAction(
 
@@ -177,7 +177,7 @@ class _playlistnameState extends State<infoPlaylist> {
                                           onPressed: ((context) async {
 
                                           }),
-                                          backgroundColor: Color(0xffe3f2fd),
+                                          backgroundColor: const Color(0xffe3f2fd),
                                           icon: Icons.share,
                                         ),
 
@@ -227,7 +227,7 @@ class _playlistnameState extends State<infoPlaylist> {
                                         Row(
                                           children: [
                                             Container(
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                               ),
                                               child: ElevatedButton(
                                                   onPressed: (){
@@ -246,7 +246,7 @@ class _playlistnameState extends State<infoPlaylist> {
                                                   style: ElevatedButton.styleFrom(
                                                       shape: const CircleBorder(), //<-- SEE HERE
                                                       backgroundColor: Colors.white,
-                                                      shadowColor: Color(0xff00000040)
+                                                      shadowColor: const Color(0xff00000040)
                                                   ),
 
                                                   child: const Icon(Icons.play_arrow_rounded, color: Color(0xff78C1F3),)),

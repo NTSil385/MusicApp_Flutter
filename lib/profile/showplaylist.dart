@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:login_register/album_page/info_album.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/profile/info_playlist.dart';
-import 'package:login_register/storage/played_playlist.dart';
 import '../Widget/back_button.dart';
 
 
@@ -19,7 +17,7 @@ class showPlaylist extends StatefulWidget {
 
 class _AlbumPageState extends State<showPlaylist> {
   final User? currentUser = FirebaseAuth.instance.currentUser;
-  TextEditingController _playlistname = TextEditingController();
+  final TextEditingController _playlistname = TextEditingController();
   String playlistname = '';
   String name = '';
 
@@ -39,7 +37,7 @@ class _AlbumPageState extends State<showPlaylist> {
   Future<String?> openDialog()=>showDialog<String>(context: context,
     builder: (context)=>AlertDialog(
       title: const Text(' Playlist Name'),
-      content: Container(
+      content: SizedBox(
         height: 150,
         child: Column(
           children: [
@@ -101,17 +99,17 @@ class _AlbumPageState extends State<showPlaylist> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: backButton(
                             onClick: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => indexPageHome()));
+                                  MaterialPageRoute(builder: (context) => const indexPageHome()));
                             }),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Text('Playlist',style: TextStyle(
+                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: const Text('Playlist',style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Colors.white
@@ -130,7 +128,7 @@ class _AlbumPageState extends State<showPlaylist> {
                                 .collection("Users")
                                 .doc(currentUser!.email)
                                 .collection('Playlist')
-                                .doc('[${playlistname}]')
+                                .doc('[$playlistname]')
                                 .set({
                               'playlist_name' : playlistname,
                             });
@@ -138,8 +136,8 @@ class _AlbumPageState extends State<showPlaylist> {
                                 .collection("Users")
                                 .doc(currentUser!.email)
                                 .collection('Playlist')
-                                .doc('[${playlistname}]')
-                                .collection('[${playlistname}]')
+                                .doc('[$playlistname]')
+                                .collection('[$playlistname]')
                                 .doc('intro')
                                 .set(
                                 {
@@ -152,7 +150,7 @@ class _AlbumPageState extends State<showPlaylist> {
                             await FirebaseFirestore.instance
                                 .collection("Playlist")
                                 .doc(currentUser!.email)
-                                .collection('[${playlistname}]')
+                                .collection('[$playlistname]')
                                 .doc('intro')
                                 .set({
                               'playlist_name' : '[Default]',
@@ -161,7 +159,7 @@ class _AlbumPageState extends State<showPlaylist> {
                             await FirebaseFirestore.instance
                                 .collection("Playlist")
                                 .doc(currentUser!.email)
-                                .collection('[${playlistname}]')
+                                .collection('[$playlistname]')
                                 .doc('intro')
                                 .set(
                                 {
@@ -177,7 +175,7 @@ class _AlbumPageState extends State<showPlaylist> {
                             });
                           },
                           iconSize: 40,
-                          icon: Icon(Icons.add, color: Colors.white,)
+                          icon: const Icon(Icons.add, color: Colors.white,)
                       ),
                     ],
                   ),
@@ -186,14 +184,14 @@ class _AlbumPageState extends State<showPlaylist> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         // Sử dụng .data() thay vì .data
-                        Map<String, dynamic> playlist_name = snapshot.data[index].data();
+                        Map<String, dynamic> playlistName = snapshot.data[index].data();
 
 
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Slidable(
                             endActionPane: ActionPane(
-                                motion: StretchMotion(),
+                                motion: const StretchMotion(),
                                 children: [
                                   SlidableAction(
 
@@ -205,14 +203,14 @@ class _AlbumPageState extends State<showPlaylist> {
                                             .collection("Users")
                                             .doc(currentUser!.email)
                                             .collection('Playlist')
-                                            .doc('[${playlist_name["playlist_name"]}]')
+                                            .doc('[${playlistName["playlist_name"]}]')
                                             .delete();
 
 
                                         final collectionRef = FirebaseFirestore.instance
                                             .collection("Playlist")
                                             .doc(currentUser!.email)
-                                            .collection('[${playlist_name["playlist_name"]}]');
+                                            .collection('[${playlistName["playlist_name"]}]');
 
                                         // Xóa tất cả các tài liệu trong subcollection
                                         QuerySnapshot querySnapshot = await collectionRef.get();
@@ -233,7 +231,7 @@ class _AlbumPageState extends State<showPlaylist> {
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context)=>infoPlaylist(
-                                      playlist_name:playlist_name["playlist_name"],
+                                      playlist_name:playlistName["playlist_name"],
 
 
                                     )
@@ -265,7 +263,7 @@ class _AlbumPageState extends State<showPlaylist> {
                                           margin: const EdgeInsets.all(10),
                                         ),
                                         const SizedBox(width: 15,),
-                                        Text(playlist_name["playlist_name"],
+                                        Text(playlistName["playlist_name"],
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
