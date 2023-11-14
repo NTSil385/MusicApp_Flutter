@@ -15,7 +15,7 @@ class edit_AlbumPage extends StatefulWidget {
   String? album_name;
   edit_AlbumPage({
     super.key,
-     this.album_name
+     this.album_name,
   });
   static const routeName = 'notification';
 
@@ -44,6 +44,22 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
         .collection('Users')
         .doc(currentUser!.email)
         .collection('songs').snapshots();
+  }
+
+  void getImg() {
+      FirebaseFirestore.instance
+        .collection("Users")
+        .doc(currentUser!.email)
+        .collection('Albums')
+        .doc(widget.album_name)
+        .get();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getImg();
   }
 
   @override
@@ -77,6 +93,7 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                   return const CircularProgressIndicator();
                 }
                 return ListView.builder(
+                  scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot document = snapshot.data!.docs[index];
@@ -126,6 +143,8 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                               print(data);
                               if(currentUser != null && currentUser!.email != null){
                                 if (value == true) {
+
+
 
                                   await FirebaseFirestore.instance
                                       .collection("Users")

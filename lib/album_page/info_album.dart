@@ -127,7 +127,8 @@ class _infoAlbumState extends State<infoAlbum> {
                             ),
                           ],
                         ),
-                        Expanded(
+                        Container(
+                          height: 800,
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             itemCount: snapshot.data.length,

@@ -16,6 +16,7 @@ import 'package:login_register/test/hive.dart';
 import 'package:login_register/home/searchPage.dart';
 import 'package:login_register/transition/transition_page.dart';
 import 'package:provider/provider.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 
 Future<void> main() async {
@@ -35,6 +36,11 @@ Future<void> main() async {
 
     await Hive.initFlutter();
     await Hive.openBox('favorites');
+    await JustAudioBackground.init(
+      androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true,
+    );
   // runApp(MaterialApp(home:showlistFav() ,));
     runApp(_MyApp());
 }

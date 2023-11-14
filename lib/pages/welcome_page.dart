@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_register/Widget/button_outline.dart';
+import 'package:login_register/home/home_page.dart';
 import '../Widget/button_widget.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -44,11 +45,17 @@ class WelcomePage extends StatelessWidget {
                     Navigator.of(context).pushNamed('/register');
                   }),
               const SizedBox(height: 150,),
-              const Text('Continue a guest', style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                color: Colors.white
-              ),)
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                },
+                child: const Text('Continue a guest', style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white
+                ),),
+              )
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
@@ -8,7 +9,7 @@ import 'package:login_register/home/index_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../Widget/back_button.dart';
-import 'home_page.dart';
+
 
 
 
@@ -42,31 +43,41 @@ class playedPage extends StatefulWidget {
 
 class _songPlayedState extends State<playedPage> {
   AudioPlayer _audioPlayer = AudioPlayer();
+  late Future<void> _initAudioPlayer;
 
 
   @override
   void initState() {
     super.initState();
     // initNotification();
-    _audioPlayer = AudioPlayer()..setUrl(widget.audioUrl!);
-    _init();
+    _audioPlayer = AudioPlayer();
+    final List<AudioSource> myPlaylist = [
+      AudioSource.uri(
+        Uri.parse(widget.audioUrl.toString()),
+        tag: MediaItem(
+          id: "1",
+          album: "Songs",
+          title: widget.song_name.toString(),
+          artist: widget.artist_name.toString(),
+          artUri: Uri.parse(widget.imageUrl.toString()),
+        ),
+      ),
+      // Thêm các đối tượng AudioSource khác tương tự
+    ];
 
-
+     _audioPlayer.setAudioSource(
+      ConcatenatingAudioSource(
+        children: myPlaylist,
+      ),
+      initialIndex: 0,
+      preload: true,
+    );
   }
 
-  // Future<void> initNotification() async {
-  //   await JustAudioBackground.init(
-  //     androidNotificationChannelId: 'com.example.myapp.channel.audio',
-  //     androidNotificationChannelName: 'Audio playback',
-  //     androidNotificationOngoing: true,
-  //   );
-  // }
 
 
-  Future<void> _init() async {
-    await _audioPlayer.setLoopMode(LoopMode.all);
-    await _audioPlayer.setAudioSource(_audioPlayer as AudioSource);
-  }
+
+
 
   Stream<PositionData> get _positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
@@ -192,6 +203,64 @@ class _songPlayedState extends State<playedPage> {
     );
   }
 
+}
+
+class MediaMetadata extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String artist;
+
+  const MediaMetadata({super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.artist
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+              boxShadow:const [ BoxShadow(
+                color:  Colors.black12,
+                offset: Offset(2,  4),
+                blurRadius: 4,
+              ),
+              ],
+              borderRadius:  BorderRadius.circular(10)
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              height: 300,
+              width: 300,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20,),
+        Text(
+          title,
+          style: const TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.bold
+          ),
+        ),
+        const SizedBox(height: 8,),
+        Text(
+          artist,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+          textAlign: TextAlign.center,
+        )
+      ],
+    );
+  }
 }
 
 class Controls extends StatelessWidget {

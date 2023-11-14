@@ -89,14 +89,14 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
 
 
   Future<List<Map<String, dynamic>>> getdata() async {
-      QuerySnapshot qn = await FirebaseFirestore.instance
-          .collection(widget.collection.toString())
-          .doc(widget.album_name)
-          .collection(widget.collection2.toString())
-          .get();
+    QuerySnapshot qn = await FirebaseFirestore.instance
+        .collection(widget.collection.toString())
+        .doc(widget.album_name)
+        .collection(widget.collection2.toString())
+        .get();
 
-      print(widget.collection2);
-      return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    print(widget.collection2);
+    return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
 
 
 
@@ -142,8 +142,6 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
       player.setLoopMode(LoopMode.all);
       player.setAudioSource(playlist0 as AudioSource);
 
-      // // Phát danh sách nhạc
-      // player.play();
     });
   }
 
@@ -157,13 +155,6 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
     _playlist!.clear();
     super.dispose();
   }
-  // Future<void> initNotification() async {
-  //   await JustAudioBackground.init(
-  //     androidNotificationChannelId: 'com.example.myapp.channel.audio', // Thay đổi channel ID
-  //     androidNotificationChannelName: 'Audio playback',
-  //     androidNotificationOngoing: true,
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
