@@ -138,7 +138,7 @@ class _infoAlbumState extends State<infoAlbum> {
                               Map<String, dynamic> DataImage = snapshot.data[index].data();
                               Map<String, dynamic> DataAudio = snapshot.data[index].data();
                               Map<String, dynamic> artisData = snapshot.data[index].data();
-
+                              Map<String, dynamic> lyricData = snapshot.data[index].data();
 
 
                               return InkWell(
@@ -258,6 +258,7 @@ class _infoAlbumState extends State<infoAlbum> {
                                                                 imageUrl: DataImage["imageUrl"],
                                                                 audioUrl: DataAudio["audioUrl"],
                                                                 artist_name: artisData["artist_name"],
+                                                                lyric: lyricData["lyrics"],
                                                               ),
                                                             ),
                                                           );

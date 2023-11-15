@@ -26,7 +26,7 @@ class PositionData{
 
 
 class playedPage extends StatefulWidget {
-  String? song_name, artist_name, imageUrl, audioUrl;
+  String? song_name, artist_name, imageUrl, audioUrl, lyric;
 
   playedPage({
     super.key,
@@ -34,6 +34,7 @@ class playedPage extends StatefulWidget {
     this.artist_name,
     this.imageUrl,
     this.audioUrl,
+    this.lyric
   });
 
   @override
@@ -42,6 +43,8 @@ class playedPage extends StatefulWidget {
 
 class _songPlayedState extends State<playedPage> {
   AudioPlayer _audioPlayer = AudioPlayer();
+
+
 
 
   @override
@@ -107,94 +110,107 @@ class _songPlayedState extends State<playedPage> {
             ])
         ),
         child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 50.0,),
-              Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  backButton(
-                      onClick: () {
-                        Navigator.pop(context);
-                      }),
-                  const SizedBox(width: 100,),
-                  const Text('Now Playing',
-                    style:  TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20.0,),
-              Text(widget.song_name!,
-                style: const TextStyle(
-                    fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-              ),
-
-              Text(widget.artist_name!,
-                style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  fontWeight: FontWeight.w500
-                ),
-              ),
-          const SizedBox(height: 50,),
-          Container(
-            decoration: BoxDecoration(
-              border:Border.all(color: Colors.grey, width: 2),
-              borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-              child: Image.network(
-                  widget.imageUrl!, fit: BoxFit.cover, width: 300,height: 300,
-              )),
-          ),
-              const SizedBox(height: 10,),
-              SizedBox(
-                width: 300,
-                child: StreamBuilder<PositionData>(
-                    stream: _positionDataStream,
-                    builder: (context, snapshot){
-                      final positionData = snapshot.data;
-                      return ProgressBar(
-                        barHeight: 8,
-                        baseBarColor: Colors.white,
-                        bufferedBarColor: Colors.grey[300],
-                        progressBarColor: const Color(0xff69AFF5),
-                        thumbColor:  const Color(0xff69AFF5),
-                        timeLabelTextStyle: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600
-                        ),
-                        progress: positionData?.position ?? Duration.zero,
-                        buffered: positionData?.bufferedPosition ?? Duration.zero,
-                        total: positionData?.duration ?? Duration.zero,
-                        onSeek: _audioPlayer.seek,);
-                    }),
-              ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                width: 300,
-                height: 100,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20))
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                const SizedBox(height: 50.0,),
+                Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
-                    Controls(audioPlayer: _audioPlayer)
-            ],
+                    backButton(
+                        onClick: () {
+                          Navigator.pop(context);
+                        }),
+                    const SizedBox(width: 100,),
+                    const Text('Now Playing',
+                      style:  TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white
+                      ),
+                    ),
+                  ],
                 ),
-              )
-            ],
+                const SizedBox(height: 20.0,),
+                Text(widget.song_name!,
+                  style: const TextStyle(
+                      fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
+                ),
+
+                Text(widget.artist_name!,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+            const SizedBox(height: 50,),
+            Container(
+              decoration: BoxDecoration(
+                border:Border.all(color: Colors.grey, width: 2),
+                borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                child: Image.network(
+                    widget.imageUrl!, fit: BoxFit.cover, width: 300,height: 300,
+                )),
+            ),
+                const SizedBox(height: 10,),
+                SizedBox(
+                  width: 300,
+                  child: StreamBuilder<PositionData>(
+                      stream: _positionDataStream,
+                      builder: (context, snapshot){
+                        final positionData = snapshot.data;
+                        return ProgressBar(
+                          barHeight: 8,
+                          baseBarColor: Colors.white,
+                          bufferedBarColor: Colors.grey[300],
+                          progressBarColor: const Color(0xff69AFF5),
+                          thumbColor:  const Color(0xff69AFF5),
+                          timeLabelTextStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600
+                          ),
+                          progress: positionData?.position ?? Duration.zero,
+                          buffered: positionData?.bufferedPosition ?? Duration.zero,
+                          total: positionData?.duration ?? Duration.zero,
+                          onSeek: _audioPlayer.seek,);
+                      }),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  width: 300,
+                  height: 100,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+                      Controls(audioPlayer: _audioPlayer)
+              ],
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: StreamBuilder<PositionData>(
+                    stream: _positionDataStream,
+                    builder: (context, snapshot) {
+                      final positionData = snapshot.data;
+                      return LyricsWidget(lyrics: widget.lyric.toString());
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -316,6 +332,33 @@ class Controls extends StatelessWidget {
 
           ],
         ),]
+      ),
+    );
+  }
+}
+class LyricsWidget extends StatelessWidget {
+  final String lyrics;
+
+  LyricsWidget({required this.lyrics});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+        color: Colors.white,
+      ),
+      child: SingleChildScrollView(
+        child: Text(
+          lyrics,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey,
+          ),
+        ),
       ),
     );
   }

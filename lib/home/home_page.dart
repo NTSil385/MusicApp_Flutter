@@ -172,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                                 Map<String, dynamic> DataImage = snapshot.data[index].data();
                                 Map<String, dynamic> DataAudio = snapshot.data[index].data();
                                 Map<String, dynamic> artisData = snapshot.data[index].data();
+                                Map<String, dynamic> lyricData = snapshot.data[index].data();
                                 return
                                   Row(
                                     children: [
@@ -183,6 +184,7 @@ class _HomePageState extends State<HomePage> {
                                               imageUrl: DataImage["imageUrl"],
                                               audioUrl: DataAudio["audioUrl"],
                                               artist_name: artisData["artist_name"],
+                                              lyric: lyricData["lyrics"],
                                             ),
                                           ));
                                         },

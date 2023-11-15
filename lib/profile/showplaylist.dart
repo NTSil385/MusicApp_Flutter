@@ -145,6 +145,7 @@ class _AlbumPageState extends State<showPlaylist> {
                                   'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Avatars%2Fhank.jpg?alt=media&token=6ead8b01-718f-4291-83da-1d408ea71093',
                                   'audioUrl': 'intro',
                                   'artist_name': 'intro',
+                                  'lyrics': ''
                                 });
 
                             await FirebaseFirestore.instance
@@ -163,11 +164,11 @@ class _AlbumPageState extends State<showPlaylist> {
                                 .doc('intro')
                                 .set(
                                 {
-
                                 'song_name': 'intro',
                                 'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Avatars%2Fhank.jpg?alt=media&token=6ead8b01-718f-4291-83da-1d408ea71093',
                                 'audioUrl': 'intro',
                                 'artist_name': 'intro',
+                                  'lyrics': ''
                                 });
 
                             setState(() {

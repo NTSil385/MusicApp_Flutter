@@ -109,7 +109,7 @@ class _showlistFavPageState extends State<showlistFav> {
                         Map<String, dynamic> DataImage = snapshot.data[index].data();
                         Map<String, dynamic> DataAudio = snapshot.data[index].data();
                         Map<String, dynamic> artisData = snapshot.data[index].data();
-
+                        Map<String, dynamic> lyricData = snapshot.data[index].data();
 
                         return InkWell(
                           child: Container(
@@ -195,6 +195,7 @@ class _showlistFavPageState extends State<showlistFav> {
                                                   imageUrl: DataImage["imageUrl"],
                                                   audioUrl: DataAudio["audioUrl"],
                                                   artist_name: artisData["artist_name"],
+                                                  lyric: lyricData["lyrics"],
                                                 ),
                                               ),
                                             );

@@ -10,7 +10,7 @@ import '../Widget/back_button.dart';
 
 import 'played_page.dart';
 
-String? song_name, image, audio, artist, value;
+String? song_name, image, audio, artist, value,lyric;
 
 class showArtist extends StatefulWidget {
   final String artist_name;
@@ -192,6 +192,7 @@ class _showArtistState extends State<showArtist> {
                                       snapshot.data[index].data() as Map<String, dynamic>;
                                       Map<String, dynamic> artistData =
                                       snapshot.data[index].data() as Map<String, dynamic>;
+                                      Map<String, dynamic> lyricData = snapshot.data[index].data();
                                       String songId = songData["song_name"];
                                       bool status = songData['status'];
                                       final isFavorite = box.get(songData["song_name"]) != null;
@@ -263,6 +264,7 @@ class _showArtistState extends State<showArtist> {
                                                             'imageUrl': DataImage["imageUrl"],
                                                             'audioUrl': DataAudio["audioUrl"],
                                                             'artist_name': artistData["artist_name"],
+                                                            'lyrics': lyricData['lyrics'],
                                                             'value': false,
                                                           });
                                                         }
@@ -286,6 +288,7 @@ class _showArtistState extends State<showArtist> {
                                                                 imageUrl: DataImage["imageUrl"],
                                                                 audioUrl: DataAudio["audioUrl"],
                                                                 artist_name: artistData["artist_name"],
+                                                                lyric: lyricData["lyrics"],
                                                               ),
                                                             ),
                                                           );
@@ -303,6 +306,7 @@ class _showArtistState extends State<showArtist> {
                                                       image =DataImage["imageUrl"];
                                                       audio = DataAudio["audioUrl"];
                                                       artist = artistData["artist_name"];
+                                                      lyric =  lyricData["lyrics"];
                                                       _showPlaylist();
                                                     },
                                                         icon: const Icon(Icons.add_box_outlined
@@ -487,6 +491,7 @@ class _MutltSelectState extends State<MutltSelect> {
           'imageUrl': image,
           'audioUrl': audio,
           'artist_name': artist,
+          'lyrics': lyric
         });
 
     await FirebaseFirestore.instance
@@ -500,6 +505,7 @@ class _MutltSelectState extends State<MutltSelect> {
           'imageUrl': image,
           'audioUrl': audio,
           'artist_name': artist,
+          'lyrics': lyric
         });
 
 
@@ -529,6 +535,7 @@ class _MutltSelectState extends State<MutltSelect> {
           'imageUrl': image,
           'audioUrl': audio,
           'artist_name': artist,
+          'lyrics': lyric,
         });
 
     await FirebaseFirestore.instance
@@ -551,6 +558,7 @@ class _MutltSelectState extends State<MutltSelect> {
           'imageUrl': image,
           'audioUrl': audio,
           'artist_name': artist,
+          'lyrics':lyric
         }).whenComplete(() =>Navigator.push(context,
         MaterialPageRoute(builder: (context) => const showPlaylist())));
 

@@ -273,6 +273,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],
                                     'imageUrl': image_url,
+                                    'lyrics':data['lyrics'],
                                     'value': false,
                                   });
 
@@ -287,6 +288,7 @@ class _add_AlbumPageState extends State<add_AlbumPage> {
                                     'artist_name': data['artist_name'],
                                     'audioUrl': data['audioUrl'],
                                     'imageUrl': image_url,
+                                    'lyrics':data['lyrics'],
                                     'value': false,
                                   });
                                 }

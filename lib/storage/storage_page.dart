@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/played_page.dart';
+import 'package:login_register/home/show_artist.dart';
 
 import '../Widget/back_button.dart';
 
@@ -71,7 +73,7 @@ class _stogragePageState extends State<stogragePage> {
                     Map<String, dynamic> DataImage = snapshot.data[index].data();
                     Map<String, dynamic> DataAudio = snapshot.data[index].data();
                     Map<String, dynamic> artisData = snapshot.data[index].data();
-
+                    Map<String, dynamic> lyricData = snapshot.data[index].data();
 
 
 
@@ -85,6 +87,7 @@ class _stogragePageState extends State<stogragePage> {
                                 imageUrl: DataImage["imageUrl"],
                                 audioUrl: DataAudio["audioUrl"],
                                 artist_name: artisData["artist_name"],
+                                lyric: lyricData["lyrics"],
                               )
                           )
                           );
@@ -93,33 +96,69 @@ class _stogragePageState extends State<stogragePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 400,
-                              height: 70,
-                              margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[600],
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.all(10),
-                                    height: 50,
-                                    width: 50.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
+                            Slidable(
+                              endActionPane: ActionPane(
+                                  motion: const StretchMotion(),
+                                  children: [
+                                    SlidableAction(
+
+                                      onPressed: ((context) async {
+                                        if(currentUser != null && currentUser!.email != null){
+
+
+                                          await FirebaseFirestore.instance
+                                              .collection("Users")
+                                              .doc(currentUser!.email)
+                                              .collection('songs')
+                                              .doc(songData["song_name"])
+                                              .delete();
+
+
+                                          await FirebaseFirestore.instance
+                                              .collection('songs')
+                                              .doc(songData["song_name"])
+                                              .delete();
+
+
+                                          setState(() {});
+                                        }
+                                      }),
+                                      backgroundColor: Colors.redAccent,
+                                      icon: Icons.delete_outline,
                                     ),
-                                    child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
-                                  ),
-                                  const SizedBox(width: 15,),
-                                  Text(songData["song_name"],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500
-                                    ),),
-                                ],
+
+
+
+                                  ]
+                              ),
+                              child: Container(
+                                width: 400,
+                                height: 70,
+                                margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[600],
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.all(10),
+                                      height: 50,
+                                      width: 50.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
+                                    ),
+                                    const SizedBox(width: 15,),
+                                    Text(songData["song_name"],
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500
+                                      ),),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

@@ -81,6 +81,7 @@ class _searchPageState extends State<searchPage> {
                                           imageUrl: data["imageUrl"],
                                           audioUrl: data["audioUrl"],
                                           artist_name: data["artist_name"],
+                                          lyric: data["lyrics"],
                                         ),
                                       ),
                                     );
@@ -129,6 +130,7 @@ class _searchPageState extends State<searchPage> {
                                           imageUrl: data["imageUrl"],
                                           audioUrl: data["audioUrl"],
                                           artist_name: data["artist_name"],
+                                          lyric: data["lyrics"],
                                         ),
                                       ),
                                     );
