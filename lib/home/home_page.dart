@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(width: 20,),
-                              Text('Recenty played',
+                              Text('New Single',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 30,
@@ -322,90 +322,93 @@ class _HomePageState extends State<HomePage> {
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      return Column(
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(width: 20,),
-                              Text('Trending Now',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w500,
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          children: [
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(width: 20,),
+                                Text('Trending Now',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 300,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.hasData ? min(10, snapshot.data.length) : 0,
-                              itemBuilder: (context, index) {
-                                // Sử dụng .data() thay vì .data
-                                Map<String, dynamic> albumName = snapshot.data[index].data();
-                                Map<String, dynamic> urlImgalbum = snapshot.data[index].data();
-                                return
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context)=>showAlbum(
-                                                album_name:albumName["album_name"],
-                                                imageUrl: urlImgalbum["url_imgAlbum"],
+                              ],
+                            ),
+                            Container(
+                              height: 300,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.hasData ? min(10, snapshot.data.length) : 0,
+                                itemBuilder: (context, index) {
+                                  // Sử dụng .data() thay vì .data
+                                  Map<String, dynamic> albumName = snapshot.data[index].data();
+                                  Map<String, dynamic> urlImgalbum = snapshot.data[index].data();
+                                  return
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context)=>showAlbum(
+                                                  album_name:albumName["album_name"],
+                                                  imageUrl: urlImgalbum["url_imgAlbum"],
 
-                                              )
-                                          )
-                                          );
-                                        },
-                                        child: Container(
-                                          width: 200,
-                                          height: 250,
-                                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-                                          decoration: BoxDecoration(
-                                            border:Border.all(color: Colors.grey, width: 2),
-                                            color: Colors.grey[300],
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                child: ClipRRect(
-                                                  borderRadius:BorderRadius.circular(10),
-                                                  child: Image.network(urlImgalbum["url_imgAlbum"], fit: BoxFit.cover, height: 200,
-                                                    width: 200.0,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 15),
-                                              Container(
-                                                padding: const EdgeInsets.all(10),
-                                                width: 200,
-                                                child: Center(
-                                                  child: Text(
-                                                    albumName["album_name"],
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20,
-                                                      fontWeight: FontWeight.w500,
+                                                )
+                                            )
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 200,
+                                            height: 250,
+                                            margin: const EdgeInsets.fromLTRB(20, 0, 0, 10),
+                                            decoration: BoxDecoration(
+                                              border:Border.all(color: Colors.grey, width: 2),
+                                              color: Colors.grey[300],
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  child: ClipRRect(
+                                                    borderRadius:BorderRadius.circular(10),
+                                                    child: Image.network(urlImgalbum["url_imgAlbum"], fit: BoxFit.cover, height: 200,
+                                                      width: 200.0,
                                                     ),
-                                                    overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                                const SizedBox(width: 15),
+                                                Container(
+                                                  padding: const EdgeInsets.all(10),
+                                                  width: 200,
+                                                  child: Center(
+                                                    child: Text(
+                                                      albumName["album_name"],
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                              },
+                                      ],
+                                    );
+                                },
+                              ),
                             ),
-                          ),
 
-                        ],
+                          ],
+                        ),
                       );
                     }
                   },
