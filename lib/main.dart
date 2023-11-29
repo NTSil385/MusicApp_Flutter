@@ -6,6 +6,7 @@ import 'package:login_register/album_page/album.dart';
 import 'package:login_register/pages/artist_signup.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/index_page.dart';
+import 'package:login_register/pages/fogot_pw_page.dart';
 import 'package:login_register/pages/index_profile.dart';
 import 'package:login_register/pages/login_page.dart';
 import 'package:login_register/pages/signup_page.dart';
@@ -38,8 +39,9 @@ Future<void> main() async {
       androidNotificationChannelName: 'Audio playback',
       androidNotificationOngoing: true,
     );
-  // runApp(MaterialApp(home:showlistFav() ,));
-    runApp(_MyApp());
+
+
+  runApp(_MyApp());
 }
 
 

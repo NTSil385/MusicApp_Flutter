@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/pages/fogot_pw_page.dart';
 
 import '../Widget/back_button.dart';
 
@@ -72,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).pushNamed('/index');
         }
       }catch(e){
-        print('djkfdk');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Stack(
             children: [
@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
             children: [
               Container(
-                height: 840,
+                height: 870,
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(colors: [
                       Color(0xff1d2846),
@@ -253,19 +253,26 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 20,
                               ),
                               //link register
-                              const Row(
+                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Forgot Password? ',
                                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300, color: Colors.white),
                                   ),
-                                  Text(
-                                    'Click here!',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                                        return FogotPasswordPage();
+                                      }));
+                                    },
+                                    child: const Text(
+                                      'Click here!',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ],
                               ),
