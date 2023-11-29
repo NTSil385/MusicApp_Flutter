@@ -71,10 +71,8 @@ class PositionData {
 }
 
 class playedAlbumsHome extends StatefulWidget {
-  String? album_name,collection, collection2;
-  playedAlbumsHome({super.key, this.album_name, this.collection, this.collection2});
-
-
+  String? album_name, collection, collection2;
+  playedAlbumsHome({Key? key, this.album_name, this.collection, this.collection2}) : super(key: key);
 
   @override
   State<playedAlbumsHome> createState() => _playedAlbumsHomeState();
@@ -84,7 +82,7 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
   final User? currentUser = FirebaseAuth.instance.currentUser;
   final AudioPlayer player = AudioPlayer();
   List<AudioSource>? _playlist;
-
+  bool _isShuffling = false; // Thêm biến để theo dõi trạng thái shuffling
 
   Future<List<Map<String, dynamic>>> getdata() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
@@ -95,20 +93,15 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
 
     print(widget.collection2);
     return qn.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
-
-
-
   }
-
-
 
   Stream<PositionData> get _positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-          player.positionStream,
-          player.bufferedPositionStream,
-          player.durationStream,
-              (position,
-              bufferedPosition, duration) => PositionData(position, bufferedPosition, duration ?? Duration.zero)
+        player.positionStream,
+        player.bufferedPositionStream,
+        player.durationStream,
+            (position, bufferedPosition, duration) =>
+            PositionData(position, bufferedPosition, duration ?? Duration.zero),
       );
 
   @override
@@ -120,37 +113,32 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
         return AudioSource.uri(
           Uri.parse(songData['audioUrl']),
           tag: MediaItem(
-              id: playlistData.length.toString(),
-              title: songData['song_name'],
-              artist: songData['artist_name'],
-              artUri: Uri.parse(songData['imageUrl'])
+            id: playlistData.length.toString(),
+            title: songData['song_name'],
+            artist: songData['artist_name'],
+            artUri: Uri.parse(songData['imageUrl']),
           ),
         );
       }).toList();
-      print(_playlist);
-      // Cài đặt danh sách phát cho player
-      final  playlist0 = player.setAudioSource(
+
+      if (_isShuffling) {
+        _playlist!.shuffle();
+      }
+
+      final playlist = player.setAudioSource(
         ConcatenatingAudioSource(
           children: _playlist ?? [],
         ),
       );
 
-      print(playlistData);
-      print(playlist0);
       player.setLoopMode(LoopMode.all);
-      player.setAudioSource(playlist0 as AudioSource);
-
+      player.setAudioSource(playlist as AudioSource);
     });
   }
-
-
-
-
 
   @override
   void dispose() {
     player.dispose();
-    _playlist!.clear();
     super.dispose();
   }
 
@@ -162,67 +150,118 @@ class _playedAlbumsHomeState extends State<playedAlbumsHome> {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xff1d2846),
-              Color(0xff2c3d5b),
-            ])
+          gradient: LinearGradient(colors: [
+            Color(0xff1d2846),
+            Color(0xff2c3d5b),
+          ]),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: backButton(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 40, 0, 20),
+                      child: backButton(
                         onClick: () {
                           Navigator.pop(context);
-                        }),
-                  ),
-                  const SizedBox(width: 100,),
-                ],
-              ),
-              const SizedBox(height: 50,),
-              StreamBuilder<SequenceState?>(
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 40, 10, 20),
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isShuffling = !_isShuffling;
+                            getdata().then((playlistData) {
+                              _playlist = playlistData.map((songData) {
+                                return AudioSource.uri(
+                                  Uri.parse(songData['audioUrl']),
+                                  tag: MediaItem(
+                                    id: playlistData.length.toString(),
+                                    title: songData['song_name'],
+                                    artist: songData['artist_name'],
+                                    artUri: Uri.parse(songData['imageUrl']),
+                                  ),
+                                );
+                              }).toList();
+
+                              if (_isShuffling) {
+                                _playlist!.shuffle();
+                              }
+
+                              final playlist = player.setAudioSource(
+                                ConcatenatingAudioSource(
+                                  children: _playlist ?? [],
+                                ),
+                              );
+
+                              player.setLoopMode(LoopMode.all);
+                              player.setAudioSource(playlist as AudioSource);
+                            });
+                          });
+                        },
+                        iconSize: 40,
+                        color: Colors.white,
+                        icon: _isShuffling
+                            ? const Icon(Icons.shuffle_rounded)
+                            : const Icon(Icons.shuffle_rounded, color: Colors.grey),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 50),
+                StreamBuilder<SequenceState?>(
                   stream: player.sequenceStateStream,
-                  builder: (context, snapshot){
+                  builder: (context, snapshot) {
                     final state = snapshot.data;
                     if (state?.sequence.isEmpty ?? true) {
                       return const SizedBox();
                     }
                     final metadata = state!.currentSource!.tag as MediaItem;
                     return MediaMetadata(
-                        imageUrl: metadata.artUri.toString(),
-                        title: metadata.title,
-                        artist: metadata.artist ?? '');
-                  }),
-              const SizedBox(height: 20,),
-              StreamBuilder<PositionData>(
+                      imageUrl: metadata.artUri.toString(),
+                      title: metadata.title,
+                      artist: metadata.artist ?? '',
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+                StreamBuilder<PositionData>(
                   stream: _positionDataStream,
-                  builder: (context, snapshot){
+                  builder: (context, snapshot) {
                     final positionData = snapshot.data;
                     return Container(
                       padding: const EdgeInsets.all(20),
                       child: ProgressBar(
-                          barHeight: 8,
-                          baseBarColor: Colors.white,
-                          bufferedBarColor: Colors.grey[300],
-                          progressBarColor: const Color(0xff69AFF5),
-                          thumbColor:  const Color(0xff69AFF5),
-                          timeLabelTextStyle: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600
-                          ),
-                          progress: positionData?.position ?? Duration.zero,
-                          buffered: positionData?.bufferedPosition ?? Duration.zero,
-                          onSeek: player.seek,
-                          total: positionData?.duration ?? Duration.zero),
+                        barHeight: 8,
+                        baseBarColor: Colors.white,
+                        bufferedBarColor: Colors.grey[300],
+                        progressBarColor: const Color(0xff69AFF5),
+                        thumbColor: const Color(0xff69AFF5),
+                        timeLabelTextStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        progress: positionData?.position ?? Duration.zero,
+                        buffered: positionData?.bufferedPosition ?? Duration.zero,
+                        onSeek: player.seek,
+                        total: positionData?.duration ?? Duration.zero,
+                      ),
                     );
-                  }),
-              const SizedBox(height: 20,),
-              Controls(audioPlayer: player),
-            ],
+                  },
+                ),
+                const SizedBox(height: 20),
+                Controls(audioPlayer: player),
+                const SizedBox(height: 20),
+
+              ],
+            ),
           ),
         ),
       ),
@@ -235,11 +274,12 @@ class MediaMetadata extends StatelessWidget {
   final String title;
   final String artist;
 
-  const MediaMetadata({super.key,
+  const MediaMetadata({
+    Key? key,
     required this.imageUrl,
     required this.title,
-    required this.artist
-  });
+    required this.artist,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -247,13 +287,14 @@ class MediaMetadata extends StatelessWidget {
       children: [
         DecoratedBox(
           decoration: BoxDecoration(
-              boxShadow:const [ BoxShadow(
-                color:  Colors.black12,
-                offset: Offset(2,  4),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(2, 4),
                 blurRadius: 4,
               ),
-              ],
-              borderRadius:  BorderRadius.circular(10)
+            ],
+            borderRadius: BorderRadius.circular(10),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
@@ -265,16 +306,16 @@ class MediaMetadata extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(height: 20),
         Text(
           title,
           style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(height: 8),
         Text(
           artist,
           style: const TextStyle(
@@ -282,51 +323,57 @@ class MediaMetadata extends StatelessWidget {
             fontSize: 20,
           ),
           textAlign: TextAlign.center,
-        )
+        ),
       ],
     );
   }
 }
 
-
 class Controls extends StatelessWidget {
   final AudioPlayer audioPlayer;
-  const Controls({super.key, required this.audioPlayer});
+  const Controls({Key? key, required this.audioPlayer}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(onPressed: audioPlayer.seekToPrevious,
-            iconSize: 60,
-            color: Colors.white,
-            icon: const Icon(Icons.skip_previous_rounded)),
+        IconButton(
+          onPressed: audioPlayer.seekToPrevious,
+          iconSize: 60,
+          color: Colors.white,
+          icon: const Icon(Icons.skip_previous_rounded),
+        ),
         StreamBuilder<PlayerState>(
-            stream: audioPlayer.playerStateStream,
-            builder: (context, snapshot){
-              final playerState = snapshot.data;
-              final processingState = playerState?.processingState;
-              final playing = playerState?.playing;
-              if(!(playing??false)){
-                return IconButton(onPressed: audioPlayer.play,
-                    iconSize: 80,
-                    color: Colors.white,
-                    icon: const Icon(Icons.play_arrow_rounded));
-              }else if(processingState != ProcessingState.completed){
-                return IconButton(onPressed: audioPlayer.pause,
-                    iconSize: 80,
-                    color: Colors.white,
-                    icon: const Icon(Icons.pause_rounded  ));
-              }
-              return const Icon(Icons.play_arrow_rounded, size: 80,color: Colors.white,);
-            }),
-        IconButton(onPressed: audioPlayer.seekToNext,
-            iconSize: 60,
-            color: Colors.white,
-            icon: const Icon(Icons.skip_next_rounded)),
+          stream: audioPlayer.playerStateStream,
+          builder: (context, snapshot) {
+            final playerState = snapshot.data;
+            final processingState = playerState?.processingState;
+            final playing = playerState?.playing;
+            if (!(playing ?? false)) {
+              return IconButton(
+                onPressed: audioPlayer.play,
+                iconSize: 80,
+                color: Colors.white,
+                icon: const Icon(Icons.play_arrow_rounded),
+              );
+            } else if (processingState != ProcessingState.completed) {
+              return IconButton(
+                onPressed: audioPlayer.pause,
+                iconSize: 80,
+                color: Colors.white,
+                icon: const Icon(Icons.pause_rounded),
+              );
+            }
+            return const Icon(Icons.play_arrow_rounded, size: 80, color: Colors.white);
+          },
+        ),
+        IconButton(
+          onPressed: audioPlayer.seekToNext,
+          iconSize: 60,
+          color: Colors.white,
+          icon: const Icon(Icons.skip_next_rounded),
+        ),
       ],
     );
   }
-
-
 }

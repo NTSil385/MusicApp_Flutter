@@ -50,6 +50,7 @@ class _songPlayedState extends State<playedPage> {
   @override
   void initState() {
     super.initState();
+    _init();
     // initNotification();
     _audioPlayer = AudioPlayer();
     final List<AudioSource> myPlaylist = [
@@ -65,7 +66,7 @@ class _songPlayedState extends State<playedPage> {
       ),
       // Thêm các đối tượng AudioSource khác tương tự
     ];
-
+    _audioPlayer.setLoopMode(LoopMode.all);
      _audioPlayer.setAudioSource(
       ConcatenatingAudioSource(
         children: myPlaylist,
@@ -76,6 +77,11 @@ class _songPlayedState extends State<playedPage> {
   }
 
 
+
+  Future<void> _init() async {
+    await _audioPlayer.setLoopMode(LoopMode.all);
+    await _audioPlayer.setAudioSource(_audioPlayer as AudioSource);
+  }
 
 
 
