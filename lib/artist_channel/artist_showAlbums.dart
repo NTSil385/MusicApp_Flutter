@@ -255,6 +255,7 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                                     backgroundColor: Colors.black,
                                   ),
 
+
                                   child: const Icon(Icons.play_arrow_rounded)),
                             ),
                           ),
