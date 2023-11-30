@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
   Future getdata() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('songs')
+    .orderBy('song_name', descending: true)
         .get();
     return qn.docs;
   }
@@ -87,6 +88,7 @@ class _HomePageState extends State<HomePage> {
 
     QuerySnapshot qn = await FirebaseFirestore.instance
         .collection('Albums')
+        .orderBy('album_name', descending: true)
         .get();
     return qn.docs;
 
