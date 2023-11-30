@@ -75,21 +75,7 @@ class _showAlbumState extends State<showAlbum> {
                           Navigator.pop(context);
                         }),
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 10, 20, 0),
-                    child: IconButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=>edit_AlbumPage(
-                              album_name: widget.album_name
-                          )
-                      )
-                      );
-                    },
-                        icon: const Icon(Icons.favorite_outline
-                          ,size: 40,
-                          color: Colors.white,
-                        )),
-                  ),
+
 
                 ],
               ),
@@ -185,12 +171,17 @@ class _showAlbumState extends State<showAlbum> {
                                               child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
                                             ),
                                             const SizedBox(width: 15,),
-                                            Text(songData["song_name"],
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500
-                                              ),),
+                                            Container(
+                                              width: 250,
+                                              child: Text(songData["song_name"],
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                    overflow: TextOverflow.ellipsis
+                                                ),),
+                                            ),
                                           ],
                                         ),
                                       ),
