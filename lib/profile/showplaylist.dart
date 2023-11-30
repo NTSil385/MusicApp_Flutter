@@ -142,8 +142,8 @@ class _AlbumPageState extends State<showPlaylist> {
                                 .set(
                                 {
                                   'song_name': 'intro',
-                                  'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Images%2FReady-For-Love.jpg?alt=media&token=b58d8f7b-6f3a-4ae3-9206-eae2c317c06c',
-                                  'audioUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Musics%2F1%20second%20of%20silence%20(The%20Beginning).mp3?alt=media&token=ea45af97-a761-4804-bf54-5da4135e9568',
+                                  'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/music-3ab6b.appspot.com/o/Images%2FEqMTYP4XUAE5LxD.jpg?alt=media&token=fe1fe8d7-32db-4ab0-89a8-e2646048f38b',
+                                  'audioUrl': 'https://firebasestorage.googleapis.com/v0/b/music-3ab6b.appspot.com/o/Musics%2F1%20second%20of%20silence%20(The%20Beginning).mp3?alt=media&token=330131da-2b12-460c-8963-6405133d2a79',
                                   'artist_name': 'intro',
                                   'lyrics': ''
                                 });
@@ -165,8 +165,8 @@ class _AlbumPageState extends State<showPlaylist> {
                                 .set(
                                 {
                                 'song_name': 'intro',
-                                'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Images%2FReady-For-Love.jpg?alt=media&token=b58d8f7b-6f3a-4ae3-9206-eae2c317c06c',
-                                'audioUrl': 'https://firebasestorage.googleapis.com/v0/b/crudapp-40e03.appspot.com/o/Musics%2F1%20second%20of%20silence%20(The%20Beginning).mp3?alt=media&token=ea45af97-a761-4804-bf54-5da4135e9568',
+                                'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/music-3ab6b.appspot.com/o/Images%2FEqMTYP4XUAE5LxD.jpg?alt=media&token=fe1fe8d7-32db-4ab0-89a8-e2646048f38b',
+                                'audioUrl': 'https://firebasestorage.googleapis.com/v0/b/music-3ab6b.appspot.com/o/Musics%2F1%20second%20of%20silence%20(The%20Beginning).mp3?alt=media&token=330131da-2b12-460c-8963-6405133d2a79',
                                 'artist_name': 'intro',
                                   'lyrics': ''
                                 });
