@@ -44,38 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAPVTBxbLx_4zUlVk4ifk__VtlOFPSG-Uc',
-    appId: '1:1015362527585:web:c3282002937876e27ca520',
-    messagingSenderId: '1015362527585',
-    projectId: 'crudapp-40e03',
-    authDomain: 'crudapp-40e03.firebaseapp.com',
-    storageBucket: 'crudapp-40e03.appspot.com',
-    measurementId: 'G-B0ZRYB37YP',
+    apiKey: 'AIzaSyBBS5BFwlnU4pK_8_SlE-07SXmYSONoEE8',
+    appId: '1:60269194876:web:e4110463acaef38a8563f9',
+    messagingSenderId: '60269194876',
+    projectId: 'music-3ab6b',
+    authDomain: 'music-3ab6b.firebaseapp.com',
+    storageBucket: 'music-3ab6b.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDUYGoZ0SiXxi_xzAswnlEwugklFAh5vgQ',
-    appId: '1:1015362527585:android:690d0ac39ca510bb7ca520',
-    messagingSenderId: '1015362527585',
-    projectId: 'crudapp-40e03',
-    storageBucket: 'crudapp-40e03.appspot.com',
+    apiKey: 'AIzaSyCiFPM9JPN4ZF0NKhyXVF1Lg8_hGMCEZv0',
+    appId: '1:60269194876:android:d559afdfb1197c2c8563f9',
+    messagingSenderId: '60269194876',
+    projectId: 'music-3ab6b',
+    storageBucket: 'music-3ab6b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCVFQVJOVa_Lk7G3IhiFnpJMAFdFX1U27c',
-    appId: '1:1015362527585:ios:513d9aaad2927d447ca520',
-    messagingSenderId: '1015362527585',
-    projectId: 'crudapp-40e03',
-    storageBucket: 'crudapp-40e03.appspot.com',
+    apiKey: 'AIzaSyCBKXnn2AD5iSj8vCa13Nv0ryW_W_eIlN0',
+    appId: '1:60269194876:ios:6a3da52a1be3d79a8563f9',
+    messagingSenderId: '60269194876',
+    projectId: 'music-3ab6b',
+    storageBucket: 'music-3ab6b.appspot.com',
     iosBundleId: 'com.example.loginRegister',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCVFQVJOVa_Lk7G3IhiFnpJMAFdFX1U27c',
-    appId: '1:1015362527585:ios:864503ec8c5467597ca520',
-    messagingSenderId: '1015362527585',
-    projectId: 'crudapp-40e03',
-    storageBucket: 'crudapp-40e03.appspot.com',
+    apiKey: 'AIzaSyCBKXnn2AD5iSj8vCa13Nv0ryW_W_eIlN0',
+    appId: '1:60269194876:ios:1617f99e28e16a658563f9',
+    messagingSenderId: '60269194876',
+    projectId: 'music-3ab6b',
+    storageBucket: 'music-3ab6b.appspot.com',
     iosBundleId: 'com.example.loginRegister.RunnerTests',
   );
 }

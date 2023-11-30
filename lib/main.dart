@@ -24,14 +24,13 @@ Future<void> main() async {
 
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "AIzaSyDUYGoZ0SiXxi_xzAswnlEwugklFAh5vgQ",
-          appId: "1:1015362527585:android:690d0ac39ca510bb7ca520",
-          messagingSenderId: "1015362527585",
-          projectId: "crudapp-40e03",
-        storageBucket: "crudapp-40e03.appspot.com",
+        apiKey: "AIzaSyBBS5BFwlnU4pK_8_SlE-07SXmYSONoEE8",
+        appId: "1:60269194876:android:74ad600d37b6d7a58563f9",
+        messagingSenderId: "60269194876",
+        projectId: "music-3ab6b",
+        storageBucket: "music-3ab6b.appspot.com",
       ),
     );
-
     await Hive.initFlutter();
     await Hive.openBox('favorites');
     await JustAudioBackground.init(

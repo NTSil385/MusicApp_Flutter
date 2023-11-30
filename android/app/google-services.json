@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1015362527585",
-    "project_id": "crudapp-40e03",
-    "storage_bucket": "crudapp-40e03.appspot.com"
+    "project_number": "60269194876",
+    "project_id": "music-3ab6b",
+    "storage_bucket": "music-3ab6b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015362527585:android:a6a3bab6cdb86b237ca520",
+        "mobilesdk_app_id": "1:60269194876:android:d559afdfb1197c2c8563f9",
         "android_client_info": {
-          "package_name": "com.example.crud"
+          "package_name": "com.example.login_register"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDUYGoZ0SiXxi_xzAswnlEwugklFAh5vgQ"
+          "current_key": "AIzaSyCiFPM9JPN4ZF0NKhyXVF1Lg8_hGMCEZv0"
         }
       ],
       "services": {
@@ -26,15 +26,15 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1015362527585:android:690d0ac39ca510bb7ca520",
+        "mobilesdk_app_id": "1:60269194876:android:74ad600d37b6d7a58563f9",
         "android_client_info": {
-          "package_name": "com.example.login_register"
+          "package_name": "com.example.music"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDUYGoZ0SiXxi_xzAswnlEwugklFAh5vgQ"
+          "current_key": "AIzaSyCiFPM9JPN4ZF0NKhyXVF1Lg8_hGMCEZv0"
         }
       ],
       "services": {

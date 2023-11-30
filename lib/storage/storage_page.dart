@@ -151,12 +151,17 @@ class _stogragePageState extends State<stogragePage> {
                                       child: Image.network(DataImage["imageUrl"], fit: BoxFit.cover),
                                     ),
                                     const SizedBox(width: 15,),
-                                    Text(songData["song_name"],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500
-                                      ),),
+                                    Container(
+                                      width: 250,
+                                      child: Text(songData["song_name"],
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          overflow: TextOverflow.ellipsis
+                                        ),),
+                                    ),
                                   ],
                                 ),
                               ),
