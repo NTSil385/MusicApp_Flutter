@@ -176,12 +176,17 @@ class _AlbumPageState extends State<Album> {
                                           ),
                                         ),
                                         const SizedBox(width: 15,),
-                                        Text(AlbumName["album_name"],
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500
-                                          ),),
+                                        Container(
+                                          width: 250,
+                                          child: Text(AlbumName["album_name"],
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                              overflow: TextOverflow.ellipsis
+                                            ),),
+                                        ),
 
                                       ],
                                     ),

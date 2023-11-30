@@ -234,7 +234,7 @@ class _infoAlbumState extends State<infoAlbum> {
                                                   ),
                                                   const SizedBox(width: 15,),
                                                   Container(
-                                                    width: 250,
+                                                    width: 150,
                                                     child: Text(songData["song_name"],
                                                       maxLines: 1,
                                                       style: const TextStyle(

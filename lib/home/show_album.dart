@@ -66,7 +66,7 @@ class _showAlbumState extends State<showAlbum> {
               const SizedBox(height: 30,),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   Container(
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -75,8 +75,6 @@ class _showAlbumState extends State<showAlbum> {
                           Navigator.pop(context);
                         }),
                   ),
-
-
                   Container(
                     margin: const EdgeInsets.fromLTRB(0, 10, 20, 0),
                     child: IconButton(onPressed: (){
@@ -92,7 +90,26 @@ class _showAlbumState extends State<showAlbum> {
                           color: Colors.white,
                         )),
                   ),
+
                 ],
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      child: Text(widget.album_name!,
+                        style: const TextStyle(
+                            fontSize: 30,
+                            color: Colors.white ,
+                            fontWeight: FontWeight.w500
+                        ),
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               FutureBuilder(
                 future: getdata(),
@@ -201,24 +218,7 @@ class _showAlbumState extends State<showAlbum> {
                                         widget.imageUrl!, fit: BoxFit.cover, width: 200,height: 200,
                                       )),
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                        child: Text(widget.album_name!,
-                                        style: const TextStyle(
-                                          fontSize: 30,
-                                          color: Colors.black ,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+
                               ],
                             ),
                           ),

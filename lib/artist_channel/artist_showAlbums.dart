@@ -100,6 +100,24 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                     ),
                   ],
                 ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                        child: Text(widget.album_name!,
+                          style: const TextStyle(
+                              fontSize: 30,
+                              color: Colors.white ,
+                              fontWeight: FontWeight.w500
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 FutureBuilder(
                   future: getdata(),
                   builder: (context, snapshot) {
@@ -207,24 +225,7 @@ class _artistshowAlbumState extends State<artistshowAlbum> {
                                           widget.imageUrl!, fit: BoxFit.cover, width: 200,height: 200,
                                         )),
                                   ),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                          child: Text(widget.album_name!,
-                                            style: const TextStyle(
-                                                fontSize: 30,
-                                                color: Colors.black ,
-                                                fontWeight: FontWeight.w500
-                                            ),
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
+
                                 ],
                               ),
                             ),

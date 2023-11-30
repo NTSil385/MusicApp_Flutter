@@ -112,12 +112,17 @@ class _edit_AlbumPageState extends State<edit_AlbumPage> {
                                   ),
                                   child: Image.network(data["imageUrl"], fit: BoxFit.cover),
                                 ),
-                                Text(data['song_name']
-                                  ,style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500
-                                  ),),
+                                Container(
+                                  width:250 ,
+                                  child: Text(data['song_name'],
+                                    maxLines: 1
+                                    ,style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      overflow: TextOverflow.ellipsis
+                                    ),),
+                                ),
                               ],
                             ),
                             value: isChecked,
