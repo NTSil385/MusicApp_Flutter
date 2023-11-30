@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login_register/home/home_page.dart';
 import 'package:login_register/pages/fogot_pw_page.dart';
+import 'package:login_register/service/auth_sevice_google.dart';
 
 import '../Widget/back_button.dart';
 
@@ -274,6 +276,50 @@ class _LoginPageState extends State<LoginPage> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
+                                ],
+                              ),
+                              const SizedBox(height: 200),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () => AuthService().signInWithGoogle(),
+                                    child: Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: Colors.white),
+                                            color: Colors.grey[200],
+                                            borderRadius: BorderRadius.circular(16)
+                                        ),
+                                        child: Image.asset('assets/image/google.png')),
+                                  ),
+                                  const SizedBox(width: 10,),
+                                  const Text('Or',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500
+                                    ),),
+                                  const SizedBox(width: 10,),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => const HomePage()));
+                                    },
+                                    child:  Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.white, width: 2),
+                                          color: Color(0xff1d2846),
+                                          borderRadius: BorderRadius.circular(16)
+                                      ),
+                                      child: Text('Continue a guest', style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white
+                                      ),),
+                                    ),
+                                  )
                                 ],
                               ),
                             ]),

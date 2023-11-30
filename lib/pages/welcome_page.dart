@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_register/Widget/button_outline.dart';
 import 'package:login_register/home/home_page.dart';
+import 'package:login_register/service/auth_sevice_google.dart';
 import '../Widget/button_widget.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -43,19 +44,12 @@ class WelcomePage extends StatelessWidget {
                   text: 'Sign Up',
                   onClick: () {
                     Navigator.of(context).pushNamed('/register');
+
                   }),
-              const SizedBox(height: 150,),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomePage()));
-                },
-                child: const Text('Continue a guest', style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white
-                ),),
-              )
+              const SizedBox(height: 50,),
+
+              const SizedBox(height: 50,),
+
             ],
           ),
         ),
