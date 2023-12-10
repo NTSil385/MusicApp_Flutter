@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:login_register/album_page/add_album.dart';
 import 'package:login_register/album_page/album.dart';
-import 'package:login_register/api/firebase_api.dart';
+
 import 'package:login_register/pages/artist_signup.dart';
 import 'package:login_register/home/home_page.dart';
 import 'package:login_register/home/index_page.dart';
@@ -32,7 +32,7 @@ Future<void> main() async {
         storageBucket: "music-3ab6b.appspot.com",
       ),
     );
-    await FirebaseApi().initNotifications();
+
     await Hive.initFlutter();
     await Hive.openBox('favorites');
     await JustAudioBackground.init(

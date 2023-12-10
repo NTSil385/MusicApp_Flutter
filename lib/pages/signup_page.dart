@@ -146,7 +146,10 @@ class _signUpState extends State<signUp> {
       final path = result.files.single.path;
       avtPath = path;
       final fileName = result.files.single.name;
-      avtName = fileName;
+      setState(() {
+        avtName = fileName;
+      });
+
     }
   }
 
@@ -341,10 +344,10 @@ class _signUpState extends State<signUp> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                  child: Text('Image: ',
-                                    style: TextStyle(
+                                 Padding(
+                                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  child: Text('Image: $avtName',
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
                                     ),),
