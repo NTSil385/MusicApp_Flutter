@@ -301,7 +301,9 @@ import '../storage/storage_page.dart';
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/Albums');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const showlistFav()));
                                       },
                                       child: Container(
                                         width: 150,
@@ -382,7 +384,7 @@ import '../storage/storage_page.dart';
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/storage');
+                                        // Navigator.of(context).pushNamed('/storage');
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -409,7 +411,7 @@ import '../storage/storage_page.dart';
                                   children: [
                                     InkWell(
                                       onTap: (){
-                                        Navigator.of(context).pushNamed('/');
+                                        // Navigator.of(context).pushNamed('/');
                                       },
                                       child: Container(
                                         width: 150,

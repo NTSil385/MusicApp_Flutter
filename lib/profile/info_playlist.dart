@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +19,9 @@ import '../Widget/back_button.dart';
 import '../home/played_page.dart';
 import '../storage/played_playlist.dart';
 
-
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 
 
@@ -175,6 +179,15 @@ class _playlistnameState extends State<infoPlaylist> {
                                         SlidableAction(
 
                                           onPressed: ((context) async {
+                                            final url = Uri.parse(songData['audioUrl']);
+                                            final response = await http.get(url);
+                                            final bytes = response.bodyBytes;
+
+                                            final temp = await getTemporaryDirectory();
+                                            final path = '${temp.path}/${songData['song_name']}.mp3';
+                                            File(path).writeAsBytesSync(bytes);
+
+                                            Share.shareFiles([path], text:'${songData['song_name']}' );
 
                                           }),
                                           backgroundColor: const Color(0xffe3f2fd),

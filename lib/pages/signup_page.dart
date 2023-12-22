@@ -344,10 +344,13 @@ class _signUpState extends State<signUp> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                 Padding(
+                                 Container(
+                                  width: 150,
                                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text('Image: $avtName',
+                                    maxLines: 1,
                                     style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis,
                                       fontSize: 20,
                                       color: Colors.white,
                                     ),),
