@@ -68,6 +68,8 @@ dependencies:
   highlight_text: ^1.7.0
   firebase_messaging: ^14.7.6
   google_sign_in: ^6.1.6
+  firebase_app_check: ^0.2.1+8
+
 
 
 dev_dependencies:
